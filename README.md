@@ -40,7 +40,7 @@ If a player draws a card that lets his hand size become >5 that card is discarde
 
 ### Dud Card
 
-The 0 Mana cards can be played for free but don't do any damage either. They are just annoyingly taking up space in your hand. Dud Card
+The 0 Mana cards can be played for free but don't do any damage either. They are just annoyingly taking up space in your hand.
 
 ## Advanced Variations
 
