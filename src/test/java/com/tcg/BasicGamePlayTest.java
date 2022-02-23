@@ -13,4 +13,13 @@ public class BasicGamePlayTest {
         Player player = game.getActivePlayer();
         assertEquals(1, player.getCurrentManaSlot());
     }
+
+    @Test
+    public void activePlayerShouldRefillEmptyManaSlot() {
+        Game game = new Game();
+        game.init();
+        game.startTurn();
+        Player player = game.getActivePlayer();
+        assertEquals(1, player.getCurrentMana());
+    }
 }
