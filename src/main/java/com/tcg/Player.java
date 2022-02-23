@@ -20,8 +20,9 @@ public class Player {
     }
 
     public Player(Player player) {
-        health = player.starterHealth;
-        manaSlot = player.starterManaSlot;
+        health = player.health;
+        manaSlot = player.manaSlot;
+        mana = player.mana;
         hand = new ArrayList<>(player.hand);
         deck = new Deck(player.deck);
     }

@@ -31,4 +31,8 @@ public class Game {
         return new Player(nonActivePlayer);
     }
 
+    public void startTurn() {
+        activePlayer.addEmptySlot();
+    }
+
 }
