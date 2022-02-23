@@ -6,6 +6,7 @@ import java.util.List;
 public class Player {
     private int health;
     private int manaSlot;
+    private int mana;
     private final int starterHealth = 30;
     private final int starterManaSlot = 0;
     private List<Card> hand;
@@ -67,5 +68,23 @@ public class Player {
     public void draw() {
         Card card = deck.drawCard();
         hand.add(card);
+    }
+
+    public int getSlots() {
+        return manaSlot;
+    }
+
+    public void addEmptySlot() {
+        if (manaSlot < 10) {
+            manaSlot++;
+        }
+    }
+
+    public int getCurrentMana() {
+        return mana;
+    }
+
+    public void refill() {
+        mana = manaSlot;
     }
 }
