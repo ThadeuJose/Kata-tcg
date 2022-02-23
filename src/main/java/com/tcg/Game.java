@@ -34,6 +34,7 @@ public class Game {
     public void startTurn() {
         activePlayer.addEmptySlot();
         activePlayer.refill();
+        activePlayer.draw();
     }
 
 }

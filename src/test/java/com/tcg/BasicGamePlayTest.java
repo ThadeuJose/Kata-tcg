@@ -22,4 +22,22 @@ public class BasicGamePlayTest {
         Player player = game.getActivePlayer();
         assertEquals(1, player.getCurrentMana());
     }
+
+    @Test
+    public void activePlayerShouldDrawACard() {
+        Game game = new Game();
+        game.init();
+        game.startTurn();
+        Player player = game.getActivePlayer();
+        assertEquals(4, player.getHandSize());
+    }
+
+    @Test
+    public void activePlayerShouldDrawACardFromDeck() {
+        Game game = new Game();
+        game.init();
+        game.startTurn();
+        Player player = game.getActivePlayer();
+        assertEquals(16, player.getDeckSize());
+    }
 }
