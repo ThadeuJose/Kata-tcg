@@ -36,4 +36,22 @@ public class StartGameTest {
         int startingManaSlot = 0;
         assertEquals(startingManaSlot, player.getCurrentManaSlot());
     }
+
+    @Test
+    public void activePlayerShouldStartWith3CardsInHand() {
+        Game game = new Game();
+        game.init();
+        Player player = game.getActivePlayer();
+        int handSize = 3;
+        assertEquals(handSize, player.getHandSize());
+    }
+
+    @Test
+    public void nonActivePlayerShouldStartWith4CardsInHand() {
+        Game game = new Game();
+        game.init();
+        Player player = game.getNonActivePlayer();
+        int handSize = 4;
+        assertEquals(handSize, player.getHandSize());
+    }
 }

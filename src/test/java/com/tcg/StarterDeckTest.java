@@ -65,4 +65,12 @@ public class StarterDeckTest {
         }
 
     }
+
+    @Test
+    public void shouldMakeStarterDeckInsidePlayer() {
+        Player p = new Player();
+        p.init();
+        assertEquals(20, p.getDeckSize());
+    }
+
 }

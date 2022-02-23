@@ -1,14 +1,53 @@
 package com.tcg;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Player {
     private int health;
     private int manaSlot;
     private final int starterHealth = 30;
     private final int starterManaSlot = 0;
+    private List<Card> hand;
+    private Deck deck;
 
     public Player() {
         health = starterHealth;
         manaSlot = starterManaSlot;
+        hand = new ArrayList<>();
+        deck = new Deck();
+    }
+
+    public Player(Player player) {
+        health = player.starterHealth;
+        manaSlot = player.starterManaSlot;
+        hand = new ArrayList<>(player.hand);
+        deck = new Deck(player.deck);
+    }
+
+    public void init() {
+        Deck deck = new Deck();
+        deck.addCard(new Card(0));
+        deck.addCard(new Card(0));
+        deck.addCard(new Card(1));
+        deck.addCard(new Card(1));
+        deck.addCard(new Card(2));
+        deck.addCard(new Card(2));
+        deck.addCard(new Card(2));
+        deck.addCard(new Card(3));
+        deck.addCard(new Card(3));
+        deck.addCard(new Card(3));
+        deck.addCard(new Card(3));
+        deck.addCard(new Card(4));
+        deck.addCard(new Card(4));
+        deck.addCard(new Card(4));
+        deck.addCard(new Card(5));
+        deck.addCard(new Card(5));
+        deck.addCard(new Card(6));
+        deck.addCard(new Card(6));
+        deck.addCard(new Card(7));
+        deck.addCard(new Card(8));
+        this.deck = deck;
     }
 
     public int getCurrentHealth() {
@@ -17,5 +56,18 @@ public class Player {
 
     public Object getCurrentManaSlot() {
         return manaSlot;
+    }
+
+    public int getHandSize() {
+        return hand.size();
+    }
+
+    public int getDeckSize() {
+        return deck.size();
+    }
+
+    public void draw() {
+        Card card = deck.drawCard();
+        hand.add(card);
     }
 }
