@@ -69,7 +69,7 @@ public class StarterDeckTest {
     @Test
     public void shouldMakeStarterDeckInsidePlayer() {
         Player p = new Player();
-        p.init();
+        p.initDeck();
         assertEquals(20, p.getDeckSize());
     }
 

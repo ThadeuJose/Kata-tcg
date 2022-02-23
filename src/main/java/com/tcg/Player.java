@@ -25,8 +25,7 @@ public class Player {
         deck = new Deck(player.deck);
     }
 
-    public void init() {
-        Deck deck = new Deck();
+    public void initDeck() {
         deck.addCard(new Card(0));
         deck.addCard(new Card(0));
         deck.addCard(new Card(1));
@@ -47,14 +46,13 @@ public class Player {
         deck.addCard(new Card(6));
         deck.addCard(new Card(7));
         deck.addCard(new Card(8));
-        this.deck = deck;
     }
 
     public int getCurrentHealth() {
         return health;
     }
 
-    public Object getCurrentManaSlot() {
+    public int getCurrentManaSlot() {
         return manaSlot;
     }
 

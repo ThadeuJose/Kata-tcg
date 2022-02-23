@@ -12,8 +12,8 @@ public class Game {
     }
 
     public void init() {
-        activePlayer.init();
-        nonActivePlayer.init();
+        activePlayer.initDeck();
+        nonActivePlayer.initDeck();
         for (int i = 0; i < MAX_HAND_ACTIVE_PLAYER; i++) {
             activePlayer.draw();
         }
