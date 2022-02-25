@@ -1,7 +1,5 @@
 package com.tcg;
 
-import static org.junit.Assert.fail;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -29,7 +27,6 @@ public class PlayCardExceptionsTest {
 
     @Test
     public void activePlayerShouldntPlayCardWWithCantAfford() {
-        // CantAffordCardException
         thrown.expect(CantAffordCardException.class);
         thrown.expectMessage("Cant afford card at index 0 with play cost 8 with 1 mana");
         CantAffordHandPlayerTest playerTest = new CantAffordHandPlayerTest();
