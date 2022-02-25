@@ -41,10 +41,24 @@ public class Game {
         activePlayer.draw();
     }
 
-    public void play(int cardIndex) {
+    public void play(int cardIndex) throws InvalidPlayException {
+        if (activePlayer.getHandSize() == 0) {
+            throw new InvalidPlayException("Shouldn't try to play with empty hand");
+        }
         Card card = activePlayer.getCardFromHand(cardIndex);
+        if (card.getManaCost() > activePlayer.getCurrentMana()) {
+
+            throw new CantAffordCardException(
+                    createCantAffordCardExceptionMessage(cardIndex, card.getManaCost(),
+                            activePlayer.getCurrentMana()));
+        }
         activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
         nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
+    }
+
+    private String createCantAffordCardExceptionMessage(int cardIndex, int manaCost, int currentMana) {
+        String errorMessage = "Cant afford card at index %d with play cost %d with %d mana";
+        return String.format(errorMessage, cardIndex, manaCost, currentMana);
     }
 
 }
