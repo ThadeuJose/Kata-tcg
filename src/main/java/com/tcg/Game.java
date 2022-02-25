@@ -7,8 +7,12 @@ public class Game {
     private Player nonActivePlayer;
 
     public Game() {
-        activePlayer = new Player();
-        nonActivePlayer = new Player();
+        this(new Player(), new Player());
+    }
+
+    public Game(Player activePlayer, Player nonActivePlayer) {
+        this.activePlayer = activePlayer;
+        this.nonActivePlayer = nonActivePlayer;
     }
 
     public void init() {
@@ -35,6 +39,12 @@ public class Game {
         activePlayer.addEmptySlot();
         activePlayer.refill();
         activePlayer.draw();
+    }
+
+    public void play(int cardIndex) {
+        Card card = activePlayer.getCardFromHand(cardIndex);
+        activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
+        nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
     }
 
 }

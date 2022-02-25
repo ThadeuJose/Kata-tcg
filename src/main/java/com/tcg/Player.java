@@ -10,7 +10,7 @@ public class Player {
     private final int starterHealth = 30;
     private final int starterManaSlot = 0;
     private List<Card> hand;
-    private Deck deck;
+    protected Deck deck;
 
     public Player() {
         health = starterHealth;
@@ -87,5 +87,23 @@ public class Player {
 
     public void refill() {
         mana = manaSlot;
+    }
+
+    public Card getCardFromHand(int cardIndex) {
+        Card card = hand.get(cardIndex);
+        hand.remove(cardIndex);
+        return card;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public void setManaSlot(int manaSlot) {
+        this.manaSlot = manaSlot;
+    }
+
+    public void setMana(int mana) {
+        this.mana = mana;
     }
 }
