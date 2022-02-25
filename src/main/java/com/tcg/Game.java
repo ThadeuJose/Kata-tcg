@@ -1,10 +1,13 @@
 package com.tcg;
 
+import java.util.Optional;
+
 public class Game {
     private static final int MAX_HAND_ACTIVE_PLAYER = 3;
     private static final int MAX_HAND_NON_ACTIVE_PLAYER = 4;
     private Player activePlayer;
     private Player nonActivePlayer;
+    private Player winner;
 
     public Game() {
         this(new Player(), new Player());
@@ -13,6 +16,7 @@ public class Game {
     public Game(Player activePlayer, Player nonActivePlayer) {
         this.activePlayer = activePlayer;
         this.nonActivePlayer = nonActivePlayer;
+        this.winner = null;
     }
 
     public void init() {
@@ -54,11 +58,18 @@ public class Game {
         }
         activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
         nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
+        if (nonActivePlayer.getCurrentHealth() <= 0) {
+            winner = activePlayer;
+        }
     }
 
     private String createCantAffordCardExceptionMessage(int cardIndex, int manaCost, int currentMana) {
         String errorMessage = "Cant afford card at index %d with play cost %d with %d mana";
         return String.format(errorMessage, cardIndex, manaCost, currentMana);
+    }
+
+    public Optional<Player> getWinner() {
+        return Optional.ofNullable(winner);
     }
 
 }
