@@ -72,4 +72,10 @@ public class Game {
         return Optional.ofNullable(winner);
     }
 
+    public void pass() {
+        Player temp = activePlayer;
+        activePlayer = nonActivePlayer;
+        nonActivePlayer = temp;
+    }
+
 }

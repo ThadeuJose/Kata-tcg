@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+    private String name;
     private int health;
     private int manaSlot;
     private int mana;
@@ -13,6 +14,11 @@ public class Player {
     protected Deck deck;
 
     public Player() {
+        this("Player");
+    }
+
+    public Player(String name) {
+        this.name = name;
         health = starterHealth;
         manaSlot = starterManaSlot;
         hand = new ArrayList<>();
@@ -20,6 +26,7 @@ public class Player {
     }
 
     public Player(Player player) {
+        name = player.name;
         health = player.health;
         manaSlot = player.manaSlot;
         mana = player.mana;
@@ -105,5 +112,9 @@ public class Player {
 
     public void setMana(int mana) {
         this.mana = mana;
+    }
+
+    public String getName() {
+        return name;
     }
 }
