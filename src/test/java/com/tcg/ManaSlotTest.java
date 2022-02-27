@@ -7,27 +7,27 @@ import org.junit.Test;
 public class ManaSlotTest {
     @Test
     public void shouldStartWith0Slot() {
-        Player player = new Player();
+        Player player = Player.createPlayerWithEmptyDeck();
         assertEquals(0, player.getSlots());
     }
 
     @Test
     public void shouldAdd1Slot() {
-        Player player = new Player();
+        Player player = Player.createPlayerWithEmptyDeck();
         player.addEmptySlot();
         assertEquals(1, player.getSlots());
     }
 
     @Test
     public void shouldHaveEmptyMana() {
-        Player player = new Player();
+        Player player = Player.createPlayerWithEmptyDeck();
         player.addEmptySlot();
         assertEquals(0, player.getCurrentMana());
     }
 
     @Test
     public void shouldRefillMana() {
-        Player player = new Player();
+        Player player = Player.createPlayerWithEmptyDeck();
         player.addEmptySlot();
         player.addEmptySlot();
         player.addEmptySlot();
@@ -37,7 +37,7 @@ public class ManaSlotTest {
 
     @Test
     public void shouldNotHaveMoreThen10() {
-        Player player = new Player();
+        Player player = Player.createPlayerWithEmptyDeck();
         player.addEmptySlot();
         player.addEmptySlot();
         player.addEmptySlot();

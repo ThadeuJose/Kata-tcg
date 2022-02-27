@@ -20,27 +20,7 @@ public class StarterDeckTest {
 
     @Test
     public void shouldMakeStarterDeck() {
-        Deck deck = new Deck();
-        deck.addCard(new Card(0));
-        deck.addCard(new Card(0));
-        deck.addCard(new Card(1));
-        deck.addCard(new Card(1));
-        deck.addCard(new Card(2));
-        deck.addCard(new Card(2));
-        deck.addCard(new Card(2));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(4));
-        deck.addCard(new Card(4));
-        deck.addCard(new Card(4));
-        deck.addCard(new Card(5));
-        deck.addCard(new Card(5));
-        deck.addCard(new Card(6));
-        deck.addCard(new Card(6));
-        deck.addCard(new Card(7));
-        deck.addCard(new Card(8));
+        Deck deck = Deck.createStandardDeck();
 
         List<Card> l = deck.getAllCards();
 
@@ -68,8 +48,7 @@ public class StarterDeckTest {
 
     @Test
     public void shouldMakeStarterDeckInsidePlayer() {
-        Player p = new Player();
-        p.initDeck();
+        Player p = Player.createPlayerWithStandardDeck();
         assertEquals(20, p.getDeckSize());
     }
 

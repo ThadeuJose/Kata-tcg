@@ -1,24 +1,21 @@
 package com.tcg;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 public class DrawCardTest {
     @Test
     public void shouldDrawCard() {
-        Card c = new Card(0);
-        Deck d = new Deck();
-        d.addCard(c);
-        assertEquals(c, d.drawCard());
+        Deck deck = new Deck.Builder().addCard(1, 0).build();
+        assertNotNull(deck.drawCard());
     }
 
     @Test
     public void shouldBeEmptyAfterDrawACard() {
-        Card c = new Card(0);
-        Deck d = new Deck();
-        d.addCard(c);
-        d.drawCard();
-        assertEquals(0, d.size());
+        Deck deck = new Deck.Builder().addCard(1, 0).build();
+        deck.drawCard();
+        assertEquals(0, deck.size());
     }
 }
