@@ -10,18 +10,22 @@ public class Game {
     private Player winner;
 
     public Game() {
-        this(new Player(), new Player());
+        // No Test constructor
+        Player p1 = new Player.Builder().setPlayerName("Player 1").setDeck(Deck.createStandardDeck()).build();
+        Player p2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
+        this.activePlayer = p1;
+        this.nonActivePlayer = p2;
+        this.winner = null;
     }
 
     public Game(Player activePlayer, Player nonActivePlayer) {
+        // Test constructor
         this.activePlayer = activePlayer;
         this.nonActivePlayer = nonActivePlayer;
         this.winner = null;
     }
 
     public void init() {
-        activePlayer.initDeck();
-        nonActivePlayer.initDeck();
         for (int i = 0; i < MAX_HAND_ACTIVE_PLAYER; i++) {
             activePlayer.draw();
         }

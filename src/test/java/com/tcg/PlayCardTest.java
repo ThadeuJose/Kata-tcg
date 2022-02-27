@@ -11,12 +11,19 @@ public class PlayCardTest {
 
     @Before
     public void setup() {
-        PlayerTest playerTest = new PlayerTest();
-        game = new Game(playerTest, new Player());
+        Deck deck = new Deck.Builder()
+                .addCard(1, 0)
+                .addCard(1, 1)
+                .addCard(2, 2)
+                .build();
+
+        Player player = new Player.Builder().setDeck(deck).build();
+        Player p2 = Player.createPlayerWithStandardDeck();
+        game = new Game(player, p2);
         game.init();
         game.startTurn();
         // Set mana of player to 3
-        playerTest.setMana(3);
+        player.setMana(3);
         // [0,1,2,2]
         game.play(0);
         game.play(0);
@@ -41,13 +48,4 @@ public class PlayCardTest {
         assertEquals(0, player.getCurrentMana());
     }
 
-    class PlayerTest extends Player {
-        @Override
-        public void initDeck() {
-            deck.addCard(new Card(0));
-            deck.addCard(new Card(1));
-            deck.addCard(new Card(2));
-            deck.addCard(new Card(2));
-        }
-    }
 }

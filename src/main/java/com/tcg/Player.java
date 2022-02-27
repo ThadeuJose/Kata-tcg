@@ -13,16 +13,12 @@ public class Player {
     private List<Card> hand;
     protected Deck deck;
 
-    public Player() {
-        this("Player");
-    }
-
-    public Player(String name) {
-        this.name = name;
+    private Player(Builder builder) {
+        this.name = builder.playerName;
         health = starterHealth;
         manaSlot = starterManaSlot;
         hand = new ArrayList<>();
-        deck = new Deck();
+        this.deck = builder.deck;
     }
 
     public Player(Player player) {
@@ -32,29 +28,6 @@ public class Player {
         mana = player.mana;
         hand = new ArrayList<>(player.hand);
         deck = new Deck(player.deck);
-    }
-
-    public void initDeck() {
-        deck.addCard(new Card(0));
-        deck.addCard(new Card(0));
-        deck.addCard(new Card(1));
-        deck.addCard(new Card(1));
-        deck.addCard(new Card(2));
-        deck.addCard(new Card(2));
-        deck.addCard(new Card(2));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(3));
-        deck.addCard(new Card(4));
-        deck.addCard(new Card(4));
-        deck.addCard(new Card(4));
-        deck.addCard(new Card(5));
-        deck.addCard(new Card(5));
-        deck.addCard(new Card(6));
-        deck.addCard(new Card(6));
-        deck.addCard(new Card(7));
-        deck.addCard(new Card(8));
     }
 
     public int getCurrentHealth() {
@@ -116,5 +89,38 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public static Player createPlayerWithEmptyDeck() {
+        return new Player.Builder().build();
+    }
+
+    public static Player createPlayerWithStandardDeck() {
+        return new Player.Builder().setDeck(Deck.createStandardDeck()).build();
+    }
+
+    public static class Builder {
+
+        private String playerName;
+        private Deck deck;
+
+        public Builder() {
+            playerName = "Player";
+            deck = Deck.createEmptyDeck();
+        }
+
+        public Builder setPlayerName(String playerName) {
+            this.playerName = playerName;
+            return this;
+        }
+
+        public Builder setDeck(Deck deck) {
+            this.deck = deck;
+            return this;
+        }
+
+        public Player build() {
+            return new Player(this);
+        }
     }
 }

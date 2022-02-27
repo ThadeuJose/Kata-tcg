@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-public class winConTest {
+public class WinconTest {
     // If the opponent player's Health drops to or below zero the active player wins
     // the game.
 
@@ -25,12 +25,20 @@ public class winConTest {
 
     @Test
     public void shouldWinTheGameIfHealthDropToZero() {
-        PlayerTest playerTest = new PlayerTest();
-        Player lostPlayer = new Player();
+        Deck deck = new Deck.Builder()
+                .addCard(2, 2)
+                .addCard(1, 1)
+                .addCard(1, 0)
+                .build();
+
+        Player playerTest = new Player.Builder()
+                .setDeck(deck)
+                .build();
+
+        Player lostPlayer = Player.createPlayerWithEmptyDeck();
         game = new Game(playerTest, lostPlayer);
-        game.init();
-        game.startTurn();
         // Set mana of player to 2
+        playerTest.draw();
         playerTest.setMana(2);
         lostPlayer.setHealth(2);
         // [2,1,2,0]
@@ -43,12 +51,20 @@ public class winConTest {
 
     @Test
     public void shouldWinTheGameIfHealthDropToBelowZero() {
-        PlayerTest playerTest = new PlayerTest();
-        Player lostPlayer = new Player();
+        Deck deck = new Deck.Builder()
+                .addCard(2, 2)
+                .addCard(1, 1)
+                .addCard(1, 0)
+                .build();
+
+        Player playerTest = new Player.Builder()
+                .setDeck(deck)
+                .build();
+
+        Player lostPlayer = Player.createPlayerWithEmptyDeck();
         game = new Game(playerTest, lostPlayer);
-        game.init();
-        game.startTurn();
         // Set mana of player to 2
+        playerTest.draw();
         playerTest.setMana(2);
         lostPlayer.setHealth(1);
         // [2,1,2,0]
@@ -59,13 +75,4 @@ public class winConTest {
         assertEquals(playerTest, winnerPlayer.get());
     }
 
-    class PlayerTest extends Player {
-        @Override
-        public void initDeck() {
-            deck.addCard(new Card(2));
-            deck.addCard(new Card(1));
-            deck.addCard(new Card(2));
-            deck.addCard(new Card(0));
-        }
-    }
 }
