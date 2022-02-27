@@ -15,10 +15,6 @@ public class Deck {
         this.list = deck.list;
     }
 
-    public void addCard(Card card) {
-        list.add(card);
-    }
-
     public List<Card> getAllCards() {
         return new ArrayList<>(list);
     }
