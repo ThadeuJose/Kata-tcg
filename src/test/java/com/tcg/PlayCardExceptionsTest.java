@@ -19,7 +19,7 @@ public class PlayCardExceptionsTest {
     }
 
     @Test
-    public void activePlayerShouldntPlayCardWWithCantAfford() {
+    public void activePlayerShouldntPlayCardWithCantAfford() {
         thrown.expect(CantAffordCardException.class);
         thrown.expectMessage("Cant afford card at index 0 with play cost 8 with 1 mana");
 
@@ -36,5 +36,43 @@ public class PlayCardExceptionsTest {
         game.init();
         game.startTurn();
         game.play(0);
+    }
+
+    @Test
+    public void activePlayerShouldntPlayCardOutOfIndex() {
+        thrown.expect(IndexOutOfBoundsException.class);
+
+        Deck deck = new Deck.Builder()
+                .addCard(4, 8)
+                .build();
+
+        Player playerTest = new Player.Builder()
+                .setDeck(deck)
+                .build();
+
+        Player p2 = Player.createPlayerWithStandardDeck();
+        Game game = new Game(playerTest, p2);
+        game.init();
+        game.startTurn();
+        game.play(5);
+    }
+
+    @Test
+    public void activePlayerShouldntPlayCardOutOfIndex2() {
+        thrown.expect(IndexOutOfBoundsException.class);
+
+        Deck deck = new Deck.Builder()
+                .addCard(4, 8)
+                .build();
+
+        Player playerTest = new Player.Builder()
+                .setDeck(deck)
+                .build();
+
+        Player p2 = Player.createPlayerWithStandardDeck();
+        Game game = new Game(playerTest, p2);
+        game.init();
+        game.startTurn();
+        game.play(-1);
     }
 }
