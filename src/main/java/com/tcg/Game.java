@@ -46,7 +46,15 @@ public class Game {
     public void startTurn() {
         activePlayer.addEmptySlot();
         activePlayer.refill();
-        activePlayer.draw();
+        if (activePlayer.getDeckSize() == 0) {
+            activePlayer.setHealth(activePlayer.getCurrentHealth() - 1);
+            if (activePlayer.getCurrentHealth() <= 0) {
+                winner = nonActivePlayer;
+            }
+        } else {
+            activePlayer.draw();
+        }
+
     }
 
     public void play(int cardIndex) throws InvalidPlayException {
