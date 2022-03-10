@@ -1,5 +1,8 @@
 package com.tcg;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class Game {
@@ -85,9 +88,33 @@ public class Game {
     }
 
     public void pass() {
+        writeMessage(activePlayer.getName() + " pass\n");
+
         Player temp = activePlayer;
         activePlayer = nonActivePlayer;
         nonActivePlayer = temp;
+    }
+
+    public void shuffleDecks() {
+        activePlayer.shuffleDeck();
+        nonActivePlayer.shuffleDeck();
+    }
+
+    public void chooseStarterPlayer() {
+        List<Player> players = new ArrayList<>();
+        players.add(nonActivePlayer);
+        players.add(activePlayer);
+        Collections.shuffle(players);
+        activePlayer = players.get(0);
+        nonActivePlayer = players.get(1);
+    }
+
+    public void choose() {
+        activePlayer.choose(this);
+    }
+
+    public void writeMessage(String message) {
+        System.out.println(message);
     }
 
 }

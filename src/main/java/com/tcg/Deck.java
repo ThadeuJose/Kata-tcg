@@ -1,6 +1,7 @@
 package com.tcg;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Deck {
@@ -65,6 +66,10 @@ public class Deck {
         public Deck build() {
             return new Deck(this);
         }
+    }
+
+    public void shuffle() {
+        Collections.shuffle(list);
     }
 
 }

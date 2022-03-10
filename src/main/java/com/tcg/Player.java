@@ -10,8 +10,8 @@ public class Player {
     private int mana;
     private final int starterHealth = 30;
     private final int starterManaSlot = 0;
-    private List<Card> hand;
-    protected Deck deck;
+    protected List<Card> hand;
+    private Deck deck;
 
     private Player(Builder builder) {
         this.name = builder.playerName;
@@ -122,5 +122,12 @@ public class Player {
         public Player build() {
             return new Player(this);
         }
+    }
+
+    public void choose(Game game) {
+    }
+
+    public void shuffleDeck() {
+        deck.shuffle();
     }
 }
