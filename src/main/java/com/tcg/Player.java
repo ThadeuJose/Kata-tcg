@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+    private static final int MAX_HAND_SIZE = 5;
     private String name;
     private int health;
     private int manaSlot;
@@ -48,7 +49,9 @@ public class Player {
 
     public void draw() {
         Card card = deck.drawCard();
-        hand.add(card);
+        if (hand.size() < MAX_HAND_SIZE) {
+            hand.add(card);
+        }
     }
 
     public int getSlots() {
