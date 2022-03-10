@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Player {
     private static final int MAX_HAND_SIZE = 5;
+    private static final int MAX_HEALTH = 30;
     private String name;
     private int health;
     private int manaSlot;
@@ -79,7 +80,7 @@ public class Player {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        this.health = Math.min(health, MAX_HEALTH);
     }
 
     public void setManaSlot(int manaSlot) {
