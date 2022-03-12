@@ -106,6 +106,14 @@ public class Player {
         board.add(minion);
     }
 
+    public Minion getMinion(int minionIdx) {
+        return board.get(minionIdx);
+    }
+
+    public void awakeMinions() {
+        board.awakeMinions();
+    }
+
     public static Player createPlayerWithEmptyDeck() {
         return new Player.Builder().build();
     }

@@ -20,8 +20,18 @@ public class Board {
         }
     }
 
+    public Minion get(int idx) {
+        return new Minion(minions.get(idx));
+    }
+
     public int size() {
         return minions.size();
+    }
+
+    public void awakeMinions() {
+        minions.stream().forEach(e -> {
+            e.awake();
+        });
     }
 
 }

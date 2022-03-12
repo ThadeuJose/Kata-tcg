@@ -111,9 +111,19 @@ public class Game {
     }
 
     public void pass() {
+        activePlayer.awakeMinions();
         Player temp = activePlayer;
         activePlayer = nonActivePlayer;
         nonActivePlayer = temp;
+    }
+
+    public void attackPlayerWithMinion(int minionIdx) {
+        Minion minion = activePlayer.getMinion(minionIdx);
+        if (minion.isAwake()) {
+            nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - minion.getPower());
+        } else {
+            throw new CantAttackWithMinion("Cant attack with a minion in the same turn is play");
+        }
     }
 
 }

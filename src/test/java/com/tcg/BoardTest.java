@@ -1,6 +1,7 @@
 package com.tcg;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -38,5 +39,28 @@ public class BoardTest {
         board.add(card.createMinion());
         board.add(card.createMinion());
         board.add(card.createMinion());
+    }
+
+    @Test
+    public void shouldntNotAllowToGetMinionWhenDontHave() {
+        thrown.expect(IndexOutOfBoundsException.class);
+        thrown.expectMessage("Index 0 out of bounds for length 0");
+        Board board = new Board();
+        board.get(0);
+    }
+
+    @Test
+    public void shouldAwakeAllMinions() {
+        Card card = new Card(0);
+        Board board = new Board();
+        board.add(card.createMinion());
+        board.add(card.createMinion());
+        board.add(card.createMinion());
+
+        board.awakeMinions();
+
+        assertTrue(board.get(0).isAwake());
+        assertTrue(board.get(1).isAwake());
+        assertTrue(board.get(2).isAwake());
     }
 }
