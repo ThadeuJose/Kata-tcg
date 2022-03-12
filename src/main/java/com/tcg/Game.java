@@ -90,6 +90,8 @@ public class Game {
 
         if (type.equals(Type.AS_HEALING)) {
             activePlayer.setHealth(activePlayer.getCurrentHealth() + card.getManaCost());
+        } else if (type.equals(Type.AS_MINION)) {
+            activePlayer.addMinionOnBoard(card.createMinion());
         } else {
             nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
         }

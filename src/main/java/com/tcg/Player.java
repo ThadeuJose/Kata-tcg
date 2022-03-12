@@ -14,6 +14,7 @@ public class Player {
     private final int starterManaSlot = 0;
     private List<Card> hand;
     protected Deck deck;
+    private Board board;
 
     private Player(Builder builder) {
         this.name = builder.playerName;
@@ -21,6 +22,7 @@ public class Player {
         manaSlot = starterManaSlot;
         hand = new ArrayList<>();
         this.deck = builder.deck;
+        this.board = new Board();
     }
 
     public Player(Player player) {
@@ -30,6 +32,7 @@ public class Player {
         mana = player.mana;
         hand = new ArrayList<>(player.hand);
         deck = new Deck(player.deck);
+        board = player.board;
     }
 
     public int getCurrentHealth() {
@@ -95,6 +98,14 @@ public class Player {
         return name;
     }
 
+    public int getBoardSize() {
+        return board.size();
+    }
+
+    public void addMinionOnBoard(Minion minion) {
+        board.add(minion);
+    }
+
     public static Player createPlayerWithEmptyDeck() {
         return new Player.Builder().build();
     }
@@ -127,4 +138,5 @@ public class Player {
             return new Player(this);
         }
     }
+
 }
