@@ -17,12 +17,6 @@ public class Minion {
         }
     }
 
-    public Minion(Minion minion) {
-        power = minion.power;
-        health = minion.health;
-        sleep = minion.sleep;
-    }
-
     public int getPower() {
         return power;
     }
@@ -37,6 +31,16 @@ public class Minion {
 
     public boolean isAwake() {
         return !sleep;
+    }
+
+    public void takeDamage(int damage) {
+        health = health - damage;
+    }
+
+    public void validateIfCanAttack() {
+        if (!isAwake()) {
+            throw new CantAttackWithMinion("Cant attack with a minion in the same turn is play");
+        }
     }
 
 }

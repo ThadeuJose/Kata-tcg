@@ -117,13 +117,18 @@ public class Game {
         nonActivePlayer = temp;
     }
 
-    public void attackPlayerWithMinion(int minionIdx) {
-        Minion minion = activePlayer.getMinion(minionIdx);
-        if (minion.isAwake()) {
-            nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - minion.getPower());
-        } else {
-            throw new CantAttackWithMinion("Cant attack with a minion in the same turn is play");
-        }
+    public void attackPlayerWithMinion(int activePlayerMinionIdx) throws CantAttackWithMinion {
+        Minion minion = activePlayer.getMinion(activePlayerMinionIdx);
+        minion.validateIfCanAttack();
+        nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - minion.getPower());
+    }
+
+    public void attackMinionWithMinion(int nonActivePlayerMinionIdx, int activePlayerMinionIdx)
+            throws CantAttackWithMinion {
+        Minion minion = activePlayer.getMinion(activePlayerMinionIdx);
+        minion.validateIfCanAttack();
+        int damage = minion.getPower();
+        nonActivePlayer.getMinion(nonActivePlayerMinionIdx).takeDamage(damage);
     }
 
 }

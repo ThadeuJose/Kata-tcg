@@ -21,7 +21,7 @@ public class Board {
     }
 
     public Minion get(int idx) {
-        return new Minion(minions.get(idx));
+        return minions.get(idx);
     }
 
     public int size() {

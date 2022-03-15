@@ -78,4 +78,72 @@ public class AttackWithMinionTest {
 
         assertEquals(24, nonActivePlayer.getCurrentHealth());
     }
+
+    @Test
+    public void shouldntAttackAMinionWithAMinionIfIsFirstRound() {
+        thrown.expect(CantAttackWithMinion.class);
+        thrown.expectMessage("Cant attack with a minion in the same turn is play");
+
+        Deck deck1 = new Deck.Builder()
+                .addCard(1, 1)
+                .addCard(1, 5)
+                .addCard(1, 2)
+                .addCard(1, 2)
+                .build();
+
+        Deck deck2 = new Deck.Builder()
+                .addCard(1, 2)
+                .addCard(1, 5)
+                .addCard(1, 2)
+                .addCard(1, 2)
+                .build();
+
+        Player activePlayer = new Player.Builder().setDeck(deck1).build();
+        Player nonActivePlayer = new Player.Builder().setDeck(deck2).build();
+        Game game = new Game(activePlayer, nonActivePlayer);
+        game.init();
+        game.startTurn();
+
+        game.pass();
+        nonActivePlayer.setMana(2);
+        game.play(0, Type.AS_MINION);
+        game.pass();
+        activePlayer.setMana(1);
+        game.play(0, Type.AS_MINION);
+        game.attackMinionWithMinion(0, 0);
+    }
+
+    @Test
+    public void shouldAttackAMinionWithAMinion() {
+        Deck deck1 = new Deck.Builder()
+                .addCard(1, 1)
+                .addCard(1, 5)
+                .addCard(1, 2)
+                .addCard(1, 2)
+                .build();
+
+        Deck deck2 = new Deck.Builder()
+                .addCard(1, 2)
+                .addCard(1, 5)
+                .addCard(1, 2)
+                .addCard(1, 2)
+                .build();
+
+        Player activePlayer = new Player.Builder().setDeck(deck1).build();
+        Player nonActivePlayer = new Player.Builder().setDeck(deck2).build();
+        Game game = new Game(activePlayer, nonActivePlayer);
+        game.init();
+        game.startTurn();
+
+        activePlayer.setMana(1);
+        game.play(0, Type.AS_MINION);
+        game.pass();
+        nonActivePlayer.setMana(2);
+        game.play(0, Type.AS_MINION);
+        game.pass();
+        game.attackMinionWithMinion(0, 0);
+
+        assertEquals(1, nonActivePlayer.getMinion(0).getHealth());
+    }
+
 }
