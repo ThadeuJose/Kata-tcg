@@ -125,10 +125,13 @@ public class Game {
 
     public void attackMinionWithMinion(int nonActivePlayerMinionIdx, int activePlayerMinionIdx)
             throws CantAttackWithMinion {
-        Minion minion = activePlayer.getMinion(activePlayerMinionIdx);
-        minion.validateIfCanAttack();
-        int damage = minion.getPower();
-        nonActivePlayer.getMinion(nonActivePlayerMinionIdx).takeDamage(damage);
+        Minion alliedMinion = activePlayer.getMinion(activePlayerMinionIdx);
+        alliedMinion.validateIfCanAttack();
+        Minion enemyMinion = nonActivePlayer.getMinion(nonActivePlayerMinionIdx);
+        enemyMinion.takeDamage(alliedMinion.getPower());
+        alliedMinion.takeDamage(enemyMinion.getPower());
+        activePlayer.cleanMinionsWith0Health();
+        nonActivePlayer.cleanMinionsWith0Health();
     }
 
 }

@@ -34,4 +34,8 @@ public class Board {
         });
     }
 
+    public void cleanMinionsWith0Health() {
+        minions.removeIf(e -> e.getHealth() <= 0);
+    }
+
 }

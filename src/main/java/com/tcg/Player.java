@@ -114,6 +114,10 @@ public class Player {
         board.awakeMinions();
     }
 
+    public void cleanMinionsWith0Health() {
+        board.cleanMinionsWith0Health();
+    }
+
     public static Player createPlayerWithEmptyDeck() {
         return new Player.Builder().build();
     }
