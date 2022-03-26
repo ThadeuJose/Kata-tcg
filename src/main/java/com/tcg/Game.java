@@ -101,6 +101,22 @@ public class Game {
         }
     }
 
+    public void playAttackAtMinion(int damageCardIndex, Type type, int targetMinionIndex) {
+        if (activePlayer.getHandSize() == 0) {
+            throw new InvalidPlayException("Shouldn't try to play with empty hand");
+        }
+        Card card = activePlayer.getCardFromHand(damageCardIndex);
+        if (card.getManaCost() > activePlayer.getCurrentMana()) {
+
+            throw new CantAffordCardException(
+                    createCantAffordCardExceptionMessage(damageCardIndex, card.getManaCost(),
+                            activePlayer.getCurrentMana()));
+        }
+        activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
+        nonActivePlayer.getMinion(targetMinionIndex).takeDamage(card.getManaCost());
+
+    }
+
     private String createCantAffordCardExceptionMessage(int cardIndex, int manaCost, int currentMana) {
         String errorMessage = "Cant afford card at index %d with play cost %d with %d mana";
         return String.format(errorMessage, cardIndex, manaCost, currentMana);
