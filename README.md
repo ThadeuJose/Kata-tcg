@@ -74,7 +74,7 @@ When a Minions health drops to or below zero it is removed from the board. Kill 
 
 ## Miscellaneous
 
-Introduce Card Drawer cards that cost Mana but don't do any damage. Instead they let you draw a given number of cards from your deck. Those cards can be used in the current turn or later on (just as if normally drawn at the beginning of the active player's turn).
+Introduce Card Drawer cards that cost Mana but don't do any damage. Instead they let you draw a given number of cards from your deck. Those cards can be used in the current turn or later on (just as if normally drawn at the beginning of the active player's turn). If a player's card deck is empty before the game is over he receives 1 damage instead of drawing a card when it's his turn.
 
 Let Mana cost and damage dealt be different from each other thus making cheap powerful, expensive mediocre or entirely useless cards possible. This can add a whole new layer of play strategy as some cards might not be desired to be ever played, but eventually have to in order to free your hand for better cards.
 

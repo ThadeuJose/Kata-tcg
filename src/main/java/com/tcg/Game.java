@@ -92,6 +92,17 @@ public class Game {
             activePlayer.setHealth(activePlayer.getCurrentHealth() + card.getManaCost());
         } else if (type.equals(Type.AS_MINION)) {
             activePlayer.addMinionOnBoard(card.createMinion());
+        } else if (type.equals(Type.AS_DRAW)) {
+            for (int i = 0; i < card.quantityOfCardsToDraw(); i++) {
+                if (activePlayer.getDeckSize() == 0) {
+                    activePlayer.setHealth(activePlayer.getCurrentHealth() - 1);
+                    if (activePlayer.getCurrentHealth() <= 0) {
+                        winner = nonActivePlayer;
+                    }
+                } else {
+                    activePlayer.draw();
+                }
+            }
         } else {
             nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
         }

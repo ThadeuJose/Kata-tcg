@@ -15,4 +15,8 @@ public class Card {
         return new Minion(getManaCost());
     }
 
+    public int quantityOfCardsToDraw() {
+        return manaCost;
+    }
+
 }
