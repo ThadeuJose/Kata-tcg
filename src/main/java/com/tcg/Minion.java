@@ -48,8 +48,8 @@ public class Minion {
         return !alreadyAttack;
     }
 
-    public boolean attack() {
-        return alreadyAttack = true;
+    public void attack() {
+        alreadyAttack = true;
     }
 
     public void takeDamage(int damage) {
