@@ -8,14 +8,14 @@ public class ManaSlotTest {
     @Test
     public void shouldStartWith0Slot() {
         Player player = Player.createPlayerWithEmptyDeck();
-        assertEquals(0, player.getSlots());
+        assertEquals(0, player.getCurrentManaSlot());
     }
 
     @Test
     public void shouldAdd1Slot() {
         Player player = Player.createPlayerWithEmptyDeck();
         player.addEmptySlot();
-        assertEquals(1, player.getSlots());
+        assertEquals(1, player.getCurrentManaSlot());
     }
 
     @Test
