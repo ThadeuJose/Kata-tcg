@@ -11,4 +11,8 @@ public class Card {
         return manaCost;
     }
 
+    public Minion createMinion() {
+        return new Minion(getManaCost());
+    }
+
 }

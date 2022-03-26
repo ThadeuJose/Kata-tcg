@@ -90,6 +90,8 @@ public class Game {
 
         if (type.equals(Type.AS_HEALING)) {
             activePlayer.setHealth(activePlayer.getCurrentHealth() + card.getManaCost());
+        } else if (type.equals(Type.AS_MINION)) {
+            activePlayer.addMinionOnBoard(card.createMinion());
         } else {
             nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
         }
@@ -97,6 +99,22 @@ public class Game {
         if (nonActivePlayer.getCurrentHealth() <= 0) {
             winner = activePlayer;
         }
+    }
+
+    public void playAttackAtMinion(int damageCardIndex, Type type, int targetMinionIndex) {
+        if (activePlayer.getHandSize() == 0) {
+            throw new InvalidPlayException("Shouldn't try to play with empty hand");
+        }
+        Card card = activePlayer.getCardFromHand(damageCardIndex);
+        if (card.getManaCost() > activePlayer.getCurrentMana()) {
+
+            throw new CantAffordCardException(
+                    createCantAffordCardExceptionMessage(damageCardIndex, card.getManaCost(),
+                            activePlayer.getCurrentMana()));
+        }
+        activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
+        nonActivePlayer.getMinion(targetMinionIndex).takeDamage(card.getManaCost());
+
     }
 
     private String createCantAffordCardExceptionMessage(int cardIndex, int manaCost, int currentMana) {
@@ -109,9 +127,27 @@ public class Game {
     }
 
     public void pass() {
+        activePlayer.awakeMinions();
         Player temp = activePlayer;
         activePlayer = nonActivePlayer;
         nonActivePlayer = temp;
+    }
+
+    public void attackPlayerWithMinion(int activePlayerMinionIdx) throws CantAttackWithMinion {
+        Minion minion = activePlayer.getMinion(activePlayerMinionIdx);
+        minion.validateIfCanAttack();
+        nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - minion.getPower());
+    }
+
+    public void attackMinionWithMinion(int nonActivePlayerMinionIdx, int activePlayerMinionIdx)
+            throws CantAttackWithMinion {
+        Minion alliedMinion = activePlayer.getMinion(activePlayerMinionIdx);
+        alliedMinion.validateIfCanAttack();
+        Minion enemyMinion = nonActivePlayer.getMinion(nonActivePlayerMinionIdx);
+        enemyMinion.takeDamage(alliedMinion.getPower());
+        alliedMinion.takeDamage(enemyMinion.getPower());
+        activePlayer.cleanMinionsWith0Health();
+        nonActivePlayer.cleanMinionsWith0Health();
     }
 
 }
