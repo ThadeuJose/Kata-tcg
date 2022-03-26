@@ -12,7 +12,7 @@ public class Board {
         minions = new ArrayList<>();
     }
 
-    public void add(Minion minion) throws BoardOverloadException {
+    public void add(Minion minion) {
         if (size() >= MAX_MINIONS_BOARD) {
             throw new BoardOverloadException("Shouldn't have more then 3 minions on the board");
         } else {
@@ -29,9 +29,7 @@ public class Board {
     }
 
     public void awakeMinions() {
-        minions.stream().forEach(e -> {
-            e.awake();
-        });
+        minions.stream().forEach(Minion::awake);
     }
 
     public void cleanMinionsWith0Health() {
