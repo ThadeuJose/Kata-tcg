@@ -48,8 +48,8 @@ public class Minion {
         return !alreadyAttack;
     }
 
-    public boolean attack() {
-        return alreadyAttack = true;
+    public void attack() {
+        alreadyAttack = true;
     }
 
     public void takeDamage(int damage) {
@@ -78,8 +78,8 @@ public class Minion {
     }
 
     public static class Builder {
-        private int MINIMUM_POWER = 0;
-        private int MINIMUM_HEALTH = 1;
+        private static final int MINIMUM_POWER = 0;
+        private static final int MINIMUM_HEALTH = 1;
         private int power;
         private int health;
 
@@ -98,7 +98,7 @@ public class Minion {
             return this;
         }
 
-        private void validate() throws IllegalStateException {
+        private void validate() {
             StringJoiner sb = new StringJoiner("\n");
 
             if (power < 0) {

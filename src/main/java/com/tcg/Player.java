@@ -6,20 +6,20 @@ import java.util.List;
 public class Player {
     private static final int MAX_HAND_SIZE = 5;
     private static final int MAX_HEALTH = 30;
+    private static final int STARTER_HEALTH = 30;
+    private static final int STARTER_MANA_SLOT = 0;
     private String name;
     private int health;
     private int manaSlot;
     private int mana;
-    private final int starterHealth = 30;
-    private final int starterManaSlot = 0;
     private List<Card> hand;
     protected Deck deck;
     private Board board;
 
     private Player(Builder builder) {
         this.name = builder.playerName;
-        health = starterHealth;
-        manaSlot = starterManaSlot;
+        health = STARTER_HEALTH;
+        manaSlot = STARTER_MANA_SLOT;
         hand = new ArrayList<>();
         this.deck = builder.deck;
         this.board = new Board();
@@ -56,10 +56,6 @@ public class Player {
         if (hand.size() < MAX_HAND_SIZE) {
             hand.add(card);
         }
-    }
-
-    public int getSlots() {
-        return manaSlot;
     }
 
     public void addEmptySlot() {
