@@ -83,10 +83,6 @@ public class Player {
         this.health = Math.min(health, MAX_HEALTH);
     }
 
-    public void setManaSlot(int manaSlot) {
-        this.manaSlot = manaSlot;
-    }
-
     public void setMana(int mana) {
         this.mana = mana;
     }
