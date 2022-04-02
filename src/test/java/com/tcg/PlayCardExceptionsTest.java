@@ -15,7 +15,7 @@ public class PlayCardExceptionsTest {
                 Player playerTest = Player.createPlayerWithEmptyDeck();
                 Player p2 = Player.createPlayerWithEmptyDeck();
                 Game game = new Game(playerTest, p2);
-                game.play(0);
+                game.play(0, Type.AS_DAMAGE);
         }
 
         @Test
@@ -31,7 +31,7 @@ public class PlayCardExceptionsTest {
                 Player nonActivePlayer = new Player.Builder().build();
                 Game game = new Game(activePlayer, nonActivePlayer);
 
-                game.play(0);
+                game.play(0, Type.AS_DAMAGE);
         }
 
         @Test
@@ -44,7 +44,7 @@ public class PlayCardExceptionsTest {
 
                 Player nonActivePlayer = new Player.Builder().build();
                 Game game = new Game(activePlayer, nonActivePlayer);
-                game.play(5);
+                game.play(5, Type.AS_DAMAGE);
         }
 
         @Test
@@ -57,6 +57,6 @@ public class PlayCardExceptionsTest {
 
                 Player nonActivePlayer = new Player.Builder().build();
                 Game game = new Game(activePlayer, nonActivePlayer);
-                game.play(-1);
+                game.play(-1, Type.AS_DAMAGE);
         }
 }

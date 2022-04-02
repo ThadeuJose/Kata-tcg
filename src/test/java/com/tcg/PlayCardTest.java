@@ -20,9 +20,9 @@ public class PlayCardTest {
         Player nonActivePlayer = new Player.Builder().build();
         game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0);
-        game.play(0);
-        game.play(0);
+        game.play(0, Type.AS_DAMAGE);
+        game.play(0, Type.AS_DAMAGE);
+        game.play(0, Type.AS_DAMAGE);
     }
 
     @Test

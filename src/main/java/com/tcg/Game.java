@@ -57,25 +57,11 @@ public class Game {
 
     }
 
-    public void play(int cardIndex) throws InvalidPlayException {
-        if (activePlayer.getHandSize() == 0) {
-            throw new InvalidPlayException("Shouldn't try to play with empty hand");
-        }
-        Card card = activePlayer.getCardFromHand(cardIndex);
-        if (card.getManaCost() > activePlayer.getCurrentMana()) {
-
-            throw new CantAffordCardException(
-                    createCantAffordCardExceptionMessage(cardIndex, card.getManaCost(),
-                            activePlayer.getCurrentMana()));
-        }
-        activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
-        nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
-        if (nonActivePlayer.getCurrentHealth() <= 0) {
-            winner = activePlayer;
-        }
+    public void play(int cardIndex, Type type) {
+        play(cardIndex, type, createPlayerTarget());
     }
 
-    public void play(int cardIndex, Type type) {
+    public void play(int cardIndex, Type type, Target target) {
         if (activePlayer.getHandSize() == 0) {
             throw new InvalidPlayException("Shouldn't try to play with empty hand");
         }
@@ -96,36 +82,28 @@ public class Game {
             for (int i = 0; i < card.quantityOfCardsToDraw(); i++) {
                 if (activePlayer.getDeckSize() == 0) {
                     activePlayer.setHealth(activePlayer.getCurrentHealth() - 1);
-                    if (activePlayer.getCurrentHealth() <= 0) {
-                        winner = nonActivePlayer;
-                    }
                 } else {
                     activePlayer.draw();
                 }
             }
-        } else {
-            nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - card.getManaCost());
+        } else if (type.equals(Type.AS_DAMAGE)) {
+            target.takeDamage(card.getManaCost());
         }
 
+        if (activePlayer.getCurrentHealth() <= 0) {
+            winner = nonActivePlayer;
+        }
         if (nonActivePlayer.getCurrentHealth() <= 0) {
             winner = activePlayer;
         }
     }
 
-    public void playAttackAtMinion(int damageCardIndex, Type type, int targetMinionIndex) {
-        if (activePlayer.getHandSize() == 0) {
-            throw new InvalidPlayException("Shouldn't try to play with empty hand");
-        }
-        Card card = activePlayer.getCardFromHand(damageCardIndex);
-        if (card.getManaCost() > activePlayer.getCurrentMana()) {
+    public Target createPlayerTarget() {
+        return nonActivePlayer;
+    }
 
-            throw new CantAffordCardException(
-                    createCantAffordCardExceptionMessage(damageCardIndex, card.getManaCost(),
-                            activePlayer.getCurrentMana()));
-        }
-        activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
-        nonActivePlayer.getMinion(targetMinionIndex).takeDamage(card.getManaCost());
-
+    public Target createMinionTarget(int index) {
+        return nonActivePlayer.getMinion(index);
     }
 
     private String createCantAffordCardExceptionMessage(int cardIndex, int manaCost, int currentMana) {
