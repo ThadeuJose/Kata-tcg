@@ -5,74 +5,58 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class PlayCardExceptionsTest {
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+        @Rule
+        public ExpectedException thrown = ExpectedException.none();
 
-    @Test
-    public void activePlayerShouldntPlayCardWithEmptyHand() {
-        thrown.expect(InvalidPlayException.class);
-        thrown.expectMessage("Shouldn't try to play with empty hand");
-        Player playerTest = Player.createPlayerWithEmptyDeck();
-        Player p2 = Player.createPlayerWithEmptyDeck();
-        Game game = new Game(playerTest, p2);
-        game.play(0);
-    }
+        @Test
+        public void activePlayerShouldntPlayCardWithEmptyHand() {
+                thrown.expect(InvalidPlayException.class);
+                thrown.expectMessage("Shouldn't try to play with empty hand");
+                Player playerTest = Player.createPlayerWithEmptyDeck();
+                Player p2 = Player.createPlayerWithEmptyDeck();
+                Game game = new Game(playerTest, p2);
+                game.play(0);
+        }
 
-    @Test
-    public void activePlayerShouldntPlayCardWithCantAfford() {
-        thrown.expect(CantAffordCardException.class);
-        thrown.expectMessage("Cant afford card at index 0 with play cost 8 with 1 mana");
+        @Test
+        public void activePlayerShouldntPlayCardWithCantAfford() {
+                thrown.expect(CantAffordCardException.class);
+                thrown.expectMessage("Cant afford card at index 0 with play cost 8 with 1 mana");
 
-        Deck deck = new Deck.Builder()
-                .addCard(4, 8)
-                .build();
+                Player activePlayer = new Player.Builder()
+                                .setMana(1)
+                                .setCardsInHand(new Card.Builder(8).build())
+                                .build();
 
-        Player playerTest = new Player.Builder()
-                .setDeck(deck)
-                .build();
+                Player nonActivePlayer = new Player.Builder().build();
+                Game game = new Game(activePlayer, nonActivePlayer);
 
-        Player p2 = Player.createPlayerWithStandardDeck();
-        Game game = new Game(playerTest, p2);
-        game.init();
-        game.startTurn();
-        game.play(0);
-    }
+                game.play(0);
+        }
 
-    @Test
-    public void activePlayerShouldntPlayCardOutOfIndex() {
-        thrown.expect(IndexOutOfBoundsException.class);
+        @Test
+        public void activePlayerShouldntPlayCardOutOfIndex() {
+                thrown.expect(IndexOutOfBoundsException.class);
 
-        Deck deck = new Deck.Builder()
-                .addCard(4, 8)
-                .build();
+                Player activePlayer = new Player.Builder()
+                                .setCardsInHand(new Card.Builder(8).build())
+                                .build();
 
-        Player playerTest = new Player.Builder()
-                .setDeck(deck)
-                .build();
+                Player nonActivePlayer = new Player.Builder().build();
+                Game game = new Game(activePlayer, nonActivePlayer);
+                game.play(5);
+        }
 
-        Player p2 = Player.createPlayerWithStandardDeck();
-        Game game = new Game(playerTest, p2);
-        game.init();
-        game.startTurn();
-        game.play(5);
-    }
+        @Test
+        public void activePlayerShouldntPlayCardOutOfIndex2() {
+                thrown.expect(IndexOutOfBoundsException.class);
 
-    @Test
-    public void activePlayerShouldntPlayCardOutOfIndex2() {
-        thrown.expect(IndexOutOfBoundsException.class);
+                Player activePlayer = new Player.Builder()
+                                .setCardsInHand(new Card.Builder(8).build())
+                                .build();
 
-        Deck deck = new Deck.Builder()
-                .addCard(4, 8)
-                .build();
-
-        Player playerTest = new Player.Builder()
-                .setDeck(deck)
-                .build();
-
-        Player p2 = Player.createPlayerWithStandardDeck();
-        Game game = new Game(playerTest, p2);
-        game.init();
-        game.startTurn();
-        game.play(-1);
-    }
+                Player nonActivePlayer = new Player.Builder().build();
+                Game game = new Game(activePlayer, nonActivePlayer);
+                game.play(-1);
+        }
 }

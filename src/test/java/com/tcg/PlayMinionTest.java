@@ -11,21 +11,14 @@ public class PlayMinionTest {
     @Test
     public void shouldPlayMinion() {
 
-        Deck deck = new Deck.Builder()
-                .addCard(1, 1)
-                .addCard(1, 2)
-                .addCard(1, 5)
-                .addCard(1, 1)
+        Player activePlayer = new Player.Builder()
+                .setMana(1)
+                .setCardsInHand(new Card.Builder(1).build())
                 .build();
 
-        Player activePlayer = new Player.Builder().setDeck(deck).build();
-        Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = new Game(activePlayer, nonActivePlayer);
-        game.init();
-        game.startTurn();
+        Player nonActivePlayer = new Player.Builder().build();
 
-        activePlayer.setMana(1);
-        // [1,2,5]
+        Game game = new Game(activePlayer, nonActivePlayer);
         game.play(0, Type.AS_MINION);
         assertEquals(1, activePlayer.getBoardSize());
     }
@@ -33,23 +26,19 @@ public class PlayMinionTest {
     @Test
     public void shouldPlayMultipleMinions() {
 
-        Deck deck = new Deck.Builder()
-                .addCard(3, 1)
-                .addCard(1, 2)
-                .addCard(1, 5)
+        Player activePlayer = new Player.Builder()
+                .setMana(3)
+                .setCardsInHand(new Card.Builder(1).build(), new Card.Builder(1).build(), new Card.Builder(1).build())
                 .build();
 
-        Player activePlayer = new Player.Builder().setDeck(deck).build();
-        Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = new Game(activePlayer, nonActivePlayer);
-        game.init();
-        game.startTurn();
+        Player nonActivePlayer = new Player.Builder().build();
 
-        activePlayer.setMana(3);
-        // [1,1,1]
+        Game game = new Game(activePlayer, nonActivePlayer);
+
         game.play(0, Type.AS_MINION);
         game.play(0, Type.AS_MINION);
         game.play(0, Type.AS_MINION);
+
         assertEquals(3, activePlayer.getBoardSize());
     }
 
@@ -61,22 +50,16 @@ public class PlayMinionTest {
         thrown.expect(BoardOverloadException.class);
         thrown.expectMessage("Shouldn't have more then 3 minions on the board");
 
-        Deck deck = new Deck.Builder()
-                .addCard(4, 1)
-                .addCard(1, 2)
-                .addCard(1, 5)
+        Player activePlayer = new Player.Builder()
+                .setMana(4)
+                .setCardsInHand(new Card.Builder(1).build(),
+                        new Card.Builder(1).build(), new Card.Builder(1).build(), new Card.Builder(1).build())
                 .build();
 
-        Player activePlayer = new Player.Builder().setDeck(deck).build();
-        Player nonActivePlayer = Player.createPlayerWithStandardDeck();
+        Player nonActivePlayer = new Player.Builder().build();
+
         Game game = new Game(activePlayer, nonActivePlayer);
-        game.init();
-        game.startTurn();
 
-        activePlayer.setMana(4);
-        activePlayer.draw();
-
-        // [1,1,1,1]
         game.play(0, Type.AS_MINION);
         game.play(0, Type.AS_MINION);
         game.play(0, Type.AS_MINION);

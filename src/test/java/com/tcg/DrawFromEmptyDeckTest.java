@@ -21,11 +21,11 @@ public class DrawFromEmptyDeckTest {
     @Test
     public void playerShouldLostIfDrawFromEmptyLibraryAndHaveOnly1Health() {
         Deck deck = Deck.createEmptyDeck();
-        Player playerTest = new Player.Builder().setDeck(deck).build();
-        playerTest.setHealth(1);
+        Player playerTest = new Player.Builder().setHealth(1).setDeck(deck).build();
         Player player2 = new Player.Builder().setPlayerName("Player 2").build();
         Game game = new Game(playerTest, player2);
         game.startTurn();
+
         Optional<Player> winner = game.getWinner();
         assertTrue(winner.isPresent());
         assertEquals(player2.getName(), winner.get().getName());

@@ -7,25 +7,16 @@ import org.junit.Test;
 public class AttackMinionWithADamageCardTest {
     @Test
     public void shouldDealDamageToMinion() {
-        Deck deck1 = new Deck.Builder()
-                .addCard(1, 3)
-                .addCard(1, 5)
-                .addCard(1, 2)
-                .addCard(1, 2)
+        Player activePlayer = new Player.Builder()
+                .setMana(3)
+                .setCardsInHand(new Card.Builder(3).build())
+                .build();
+        Player nonActivePlayer = new Player.Builder()
+                .setMana(5)
+                .setCardsInHand(new Card.Builder(5).build())
                 .build();
 
-        Deck deck2 = new Deck.Builder()
-                .addCard(1, 5)
-                .addCard(1, 5)
-                .addCard(1, 2)
-                .addCard(1, 2)
-                .build();
-
-        Player activePlayer = new Player.Builder().setDeck(deck1).build();
-        Player nonActivePlayer = new Player.Builder().setDeck(deck2).build();
         Game game = new Game(activePlayer, nonActivePlayer);
-        game.init();
-        game.startTurn();
 
         game.pass();
         nonActivePlayer.setMana(5);

@@ -11,20 +11,15 @@ public class PlayCardTest {
 
     @Before
     public void setup() {
-        Deck deck = new Deck.Builder()
-                .addCard(1, 0)
-                .addCard(1, 1)
-                .addCard(2, 2)
+        Player activePlayer = new Player.Builder()
+                .setMana(3)
+                .setCardsInHand(new Card.Builder(0).build(),
+                        new Card.Builder(1).build(), new Card.Builder(2).build(), new Card.Builder(2).build())
                 .build();
 
-        Player player = new Player.Builder().setDeck(deck).build();
-        Player p2 = Player.createPlayerWithStandardDeck();
-        game = new Game(player, p2);
-        game.init();
-        game.startTurn();
-        // Set mana of player to 3
-        player.setMana(3);
-        // [0,1,2,2]
+        Player nonActivePlayer = new Player.Builder().build();
+        game = new Game(activePlayer, nonActivePlayer);
+
         game.play(0);
         game.play(0);
         game.play(0);

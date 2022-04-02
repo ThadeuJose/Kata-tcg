@@ -25,24 +25,16 @@ public class WinconTest {
 
     @Test
     public void shouldWinTheGameIfHealthDropToZero() {
-        Deck deck = new Deck.Builder()
-                .addCard(2, 2)
-                .addCard(1, 1)
-                .addCard(1, 0)
-                .build();
-
         Player playerTest = new Player.Builder()
-                .setDeck(deck)
+                .setMana(2)
+                .setCardsInHand(new Card.Builder(2).build())
                 .build();
 
-        Player lostPlayer = Player.createPlayerWithEmptyDeck();
+        Player lostPlayer = new Player.Builder().setHealth(2).build();
+
         game = new Game(playerTest, lostPlayer);
-        // Set mana of player to 2
-        playerTest.draw();
-        playerTest.setMana(2);
-        lostPlayer.setHealth(2);
-        // [2,1,2,0]
         game.play(0);
+
         assertEquals(0, lostPlayer.getCurrentHealth());
         Optional<Player> winnerPlayer = game.getWinner();
         assertTrue(winnerPlayer.isPresent());
@@ -51,24 +43,16 @@ public class WinconTest {
 
     @Test
     public void shouldWinTheGameIfHealthDropToBelowZero() {
-        Deck deck = new Deck.Builder()
-                .addCard(2, 2)
-                .addCard(1, 1)
-                .addCard(1, 0)
-                .build();
-
         Player playerTest = new Player.Builder()
-                .setDeck(deck)
+                .setMana(2)
+                .setCardsInHand(new Card.Builder(2).build())
                 .build();
 
-        Player lostPlayer = Player.createPlayerWithEmptyDeck();
+        Player lostPlayer = new Player.Builder().setHealth(1).build();
+
         game = new Game(playerTest, lostPlayer);
-        // Set mana of player to 2
-        playerTest.draw();
-        playerTest.setMana(2);
-        lostPlayer.setHealth(1);
-        // [2,1,2,0]
         game.play(0);
+
         assertEquals(-1, lostPlayer.getCurrentHealth());
         Optional<Player> winnerPlayer = game.getWinner();
         assertTrue(winnerPlayer.isPresent());

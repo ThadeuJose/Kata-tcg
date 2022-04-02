@@ -1,12 +1,12 @@
 package com.tcg;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Player {
     private static final int MAX_HAND_SIZE = 5;
     private static final int MAX_HEALTH = 30;
-    private static final int STARTER_HEALTH = 30;
     private static final int STARTER_MANA_SLOT = 0;
     private String name;
     private int health;
@@ -18,9 +18,10 @@ public class Player {
 
     private Player(Builder builder) {
         this.name = builder.playerName;
-        health = STARTER_HEALTH;
+        health = builder.health;
+        mana = builder.mana;
         manaSlot = STARTER_MANA_SLOT;
-        hand = new ArrayList<>();
+        hand = builder.hand;
         this.deck = builder.deck;
         this.board = new Board();
     }
@@ -124,12 +125,21 @@ public class Player {
 
     public static class Builder {
 
+        private static final int STARTER_HEALTH = 30;
+        private static final int STARTER_MANA = 0;
+
         private String playerName;
         private Deck deck;
+        private int health;
+        private int mana;
+        private List<Card> hand;
 
         public Builder() {
             playerName = "Player";
             deck = Deck.createEmptyDeck();
+            health = STARTER_HEALTH;
+            mana = STARTER_MANA;
+            hand = new ArrayList<>();
         }
 
         public Builder setPlayerName(String playerName) {
@@ -139,6 +149,21 @@ public class Player {
 
         public Builder setDeck(Deck deck) {
             this.deck = deck;
+            return this;
+        }
+
+        public Builder setHealth(int health) {
+            this.health = health;
+            return this;
+        }
+
+        public Builder setMana(int mana) {
+            this.mana = mana;
+            return this;
+        }
+
+        public Builder setCardsInHand(Card... cards) {
+            this.hand = new ArrayList<>(Arrays.asList(cards));
             return this;
         }
 

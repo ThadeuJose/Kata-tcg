@@ -9,15 +9,17 @@ public class CardDrawerTest {
     @Test
     public void shouldDrawCards() {
         Deck deck = new Deck.Builder()
-                .addCard(1, 5)
                 .addCard(5, 0)
                 .build();
 
-        Player player = new Player.Builder().setDeck(deck).build();
-        player.setMana(5);
-        player.draw();
+        Player player = new Player.Builder()
+                .setMana(5)
+                .setCardsInHand(new Card.Builder(5).build())
+                .setDeck(deck)
+                .build();
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = new Game(player, p2);
+
         game.play(0, Type.AS_DRAW);
 
         assertEquals(5, player.getHandSize());
@@ -26,15 +28,17 @@ public class CardDrawerTest {
     @Test
     public void shouldntDrawExcessiveCards() {
         Deck deck = new Deck.Builder()
-                .addCard(1, 7)
                 .addCard(8, 2)
                 .build();
 
-        Player player = new Player.Builder().setDeck(deck).build();
-        player.setMana(7);
-        player.draw();
+        Player player = new Player.Builder()
+                .setMana(7)
+                .setCardsInHand(new Card.Builder(7).build())
+                .setDeck(deck)
+                .build();
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = new Game(player, p2);
+
         game.play(0, Type.AS_DRAW);
 
         assertEquals(5, player.getHandSize());
@@ -43,15 +47,17 @@ public class CardDrawerTest {
     @Test
     public void shouldntEmptyDeck() {
         Deck deck = new Deck.Builder()
-                .addCard(1, 7)
                 .addCard(7, 2)
                 .build();
 
-        Player player = new Player.Builder().setDeck(deck).build();
-        player.setMana(7);
-        player.draw();
+        Player player = new Player.Builder()
+                .setMana(7)
+                .setCardsInHand(new Card.Builder(7).build())
+                .setDeck(deck)
+                .build();
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = new Game(player, p2);
+
         game.play(0, Type.AS_DRAW);
 
         assertEquals(0, player.getDeckSize());
@@ -59,13 +65,10 @@ public class CardDrawerTest {
 
     @Test
     public void shouldDealDamageIfIsEmptyDeck() {
-        Deck deck = new Deck.Builder()
-                .addCard(1, 7)
+        Player player = new Player.Builder()
+                .setMana(7)
+                .setCardsInHand(new Card.Builder(7).build())
                 .build();
-
-        Player player = new Player.Builder().setDeck(deck).build();
-        player.setMana(7);
-        player.draw();
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = new Game(player, p2);
         game.play(0, Type.AS_DRAW);
