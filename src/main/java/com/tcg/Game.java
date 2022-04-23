@@ -2,6 +2,12 @@ package com.tcg;
 
 import java.util.Optional;
 
+import com.tcg.action.Action;
+import com.tcg.action.CreateMinionAction;
+import com.tcg.action.DoDamageAction;
+import com.tcg.action.DrawAction;
+import com.tcg.action.HealingAction;
+
 public class Game {
     private static final int MAX_HAND_ACTIVE_PLAYER = 3;
     private static final int MAX_HAND_NON_ACTIVE_PLAYER = 4;
@@ -57,38 +63,23 @@ public class Game {
 
     }
 
-    public void play(int cardIndex, Type type) {
-        play(cardIndex, type, createPlayerTarget());
-    }
-
-    public void play(int cardIndex, Type type, Target target) {
+    public void play(Move move) {
         if (activePlayer.getHandSize() == 0) {
             throw new InvalidPlayException("Shouldn't try to play with empty hand");
         }
-        Card card = activePlayer.getCardFromHand(cardIndex);
+
+        Card card = activePlayer.getCardFromHand(move.getCardIndex());
         if (card.getManaCost() > activePlayer.getCurrentMana()) {
 
             throw new CantAffordCardException(
-                    createCantAffordCardExceptionMessage(cardIndex, card.getManaCost(),
+                    createCantAffordCardExceptionMessage(move.getCardIndex(), card.getManaCost(),
                             activePlayer.getCurrentMana()));
         }
+
         activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
 
-        if (type.equals(Type.AS_HEALING)) {
-            activePlayer.setHealth(activePlayer.getCurrentHealth() + card.getManaCost());
-        } else if (type.equals(Type.AS_MINION)) {
-            activePlayer.addMinionOnBoard(card.createMinion());
-        } else if (type.equals(Type.AS_DRAW)) {
-            for (int i = 0; i < card.quantityOfCardsToDraw(); i++) {
-                if (activePlayer.getDeckSize() == 0) {
-                    activePlayer.setHealth(activePlayer.getCurrentHealth() - 1);
-                } else {
-                    activePlayer.draw();
-                }
-            }
-        } else if (type.equals(Type.AS_DAMAGE)) {
-            target.takeDamage(card.getManaCost());
-        }
+        Action action = createAction(move, card, activePlayer);
+        action.execute();
 
         if (activePlayer.getCurrentHealth() <= 0) {
             winner = nonActivePlayer;
@@ -98,11 +89,30 @@ public class Game {
         }
     }
 
-    public Target createPlayerTarget() {
+    private Action createAction(Move move, Card card, Player affectedPlayer) {
+        Type type = move.getType();
+
+        if (type.equals(Type.AS_HEALING)) {
+            return new HealingAction(card, affectedPlayer);
+        }
+
+        if (type.equals(Type.AS_MINION)) {
+            return new CreateMinionAction(card, affectedPlayer);
+        }
+
+        if (type.equals(Type.AS_DRAW)) {
+            return new DrawAction(card, affectedPlayer);
+        }
+
+        return new DoDamageAction(card, move.getTarget());
+
+    }
+
+    public Target getOppositionPlayerTarget() {
         return nonActivePlayer;
     }
 
-    public Target createMinionTarget(int index) {
+    public Target getMinionTarget(int index) {
         return nonActivePlayer.getMinion(index);
     }
 

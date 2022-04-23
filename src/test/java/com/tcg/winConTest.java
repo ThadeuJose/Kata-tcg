@@ -33,7 +33,11 @@ public class WinconTest {
         Player lostPlayer = new Player.Builder().setHealth(2).build();
 
         game = new Game(playerTest, lostPlayer);
-        game.play(0, Type.AS_DAMAGE);
+
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
+                .setTarget(game.getOppositionPlayerTarget())
+                .build();
+        game.play(move);
 
         assertEquals(0, lostPlayer.getCurrentHealth());
         Optional<Player> winnerPlayer = game.getWinner();
@@ -51,7 +55,11 @@ public class WinconTest {
         Player lostPlayer = new Player.Builder().setHealth(1).build();
 
         game = new Game(playerTest, lostPlayer);
-        game.play(0, Type.AS_DAMAGE);
+
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
+                .setTarget(game.getOppositionPlayerTarget())
+                .build();
+        game.play(move);
 
         assertEquals(-1, lostPlayer.getCurrentHealth());
         Optional<Player> winnerPlayer = game.getWinner();
