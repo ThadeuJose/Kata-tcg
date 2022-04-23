@@ -16,7 +16,10 @@ public class HealingTest {
         Player nonActivePlayer = new Player.Builder().build();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_HEALING);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_HEALING)
+                .build();
+
+        game.play(move);
 
         assertEquals(30, activePlayer.getCurrentHealth());
     }
@@ -31,7 +34,9 @@ public class HealingTest {
         Player nonActivePlayer = new Player.Builder().build();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_HEALING);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_HEALING)
+                .build();
+        game.play(move);
 
         assertEquals(30, nonActivePlayer.getCurrentHealth());
     }
@@ -47,7 +52,10 @@ public class HealingTest {
         Player nonActivePlayer = new Player.Builder().build();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_HEALING);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_HEALING)
+                .build();
+
+        game.play(move);
 
         assertEquals(30, nonActivePlayer.getCurrentHealth());
     }

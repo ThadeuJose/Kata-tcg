@@ -19,7 +19,10 @@ public class PlayMinionTest {
         Player nonActivePlayer = new Player.Builder().build();
 
         Game game = new Game(activePlayer, nonActivePlayer);
-        game.play(0, Type.AS_MINION);
+
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+        game.play(move);
         assertEquals(1, activePlayer.getBoardSize());
     }
 
@@ -28,16 +31,19 @@ public class PlayMinionTest {
 
         Player activePlayer = new Player.Builder()
                 .setMana(3)
-                .setCardsInHand(new Card.Builder(1).build(), new Card.Builder(1).build(), new Card.Builder(1).build())
+                .setCardsInHand(new Card.Builder(1).build(), new Card.Builder(1).build(),
+                        new Card.Builder(1).build())
                 .build();
 
         Player nonActivePlayer = new Player.Builder().build();
 
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
-        game.play(0, Type.AS_MINION);
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+        game.play(move);
+        game.play(move);
+        game.play(move);
 
         assertEquals(3, activePlayer.getBoardSize());
     }
@@ -53,16 +59,19 @@ public class PlayMinionTest {
         Player activePlayer = new Player.Builder()
                 .setMana(4)
                 .setCardsInHand(new Card.Builder(1).build(),
-                        new Card.Builder(1).build(), new Card.Builder(1).build(), new Card.Builder(1).build())
+                        new Card.Builder(1).build(), new Card.Builder(1).build(),
+                        new Card.Builder(1).build())
                 .build();
 
         Player nonActivePlayer = new Player.Builder().build();
 
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
-        game.play(0, Type.AS_MINION);
-        game.play(0, Type.AS_MINION);
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+        game.play(move);
+        game.play(move);
+        game.play(move);
+        game.play(move);
     }
 }

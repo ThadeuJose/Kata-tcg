@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Player {
+public class Player implements Target {
     private static final int MAX_HAND_SIZE = 5;
     private static final int MAX_HEALTH = 30;
     private static final int STARTER_MANA_SLOT = 0;
@@ -166,6 +166,12 @@ public class Player {
         public Player build() {
             return new Player(this);
         }
+    }
+
+    @Override
+    public void takeDamage(int damageValue) {
+        // TODO Auto-generated method stub
+        setHealth(getCurrentHealth() - damageValue);
     }
 
 }

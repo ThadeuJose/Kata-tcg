@@ -20,9 +20,14 @@ public class PlayCardTest {
         Player nonActivePlayer = new Player.Builder().build();
         game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0);
-        game.play(0);
-        game.play(0);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
+                .setTarget(game.getOppositionPlayerTarget())
+                .build();
+
+        game.play(move);
+        game.play(move);
+        game.play(move);
+
     }
 
     @Test

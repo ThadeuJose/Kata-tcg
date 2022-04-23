@@ -23,7 +23,11 @@ public class AttackWithMinionTest {
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .setTarget(game.getOppositionPlayerTarget())
+                .build();
+
+        game.play(move);
 
         game.attackPlayerWithMinion(0);
     }
@@ -37,7 +41,10 @@ public class AttackWithMinionTest {
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+
+        game.play(move);
         game.pass();
         game.pass();
         game.attackPlayerWithMinion(0);
@@ -54,8 +61,11 @@ public class AttackWithMinionTest {
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+
+        game.play(move);
+        game.play(move);
         game.pass();
         game.pass();
         game.attackPlayerWithMinion(0);
@@ -79,10 +89,13 @@ public class AttackWithMinionTest {
                 .build();
         Game game = new Game(activePlayer, nonActivePlayer);
 
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+
         game.pass();
-        game.play(0, Type.AS_MINION);
+        game.play(move);
         game.pass();
-        game.play(0, Type.AS_MINION);
+        game.play(move);
         game.attackMinionWithMinion(0, 0);
     }
 
@@ -98,9 +111,12 @@ public class AttackWithMinionTest {
                 .build();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+
+        game.play(move);
         game.pass();
-        game.play(0, Type.AS_MINION);
+        game.play(move);
         game.pass();
         game.attackMinionWithMinion(0, 0);
 
@@ -119,9 +135,12 @@ public class AttackWithMinionTest {
                 .build();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+
+        game.play(move);
         game.pass();
-        game.play(0, Type.AS_MINION);
+        game.play(move);
         game.pass();
         game.attackMinionWithMinion(0, 0);
 
@@ -140,7 +159,11 @@ public class AttackWithMinionTest {
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+
+        game.play(move);
+
         game.pass();
         game.pass();
         game.attackPlayerWithMinion(0);
@@ -161,10 +184,13 @@ public class AttackWithMinionTest {
                 .build();
         Game game = new Game(activePlayer, nonActivePlayer);
 
-        game.play(0, Type.AS_MINION);
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
+                .build();
+
+        game.play(move);
         game.pass();
-        game.play(0, Type.AS_MINION);
-        game.play(0, Type.AS_MINION);
+        game.play(move);
+        game.play(move);
         game.pass();
         game.attackMinionWithMinion(0, 0);
         game.attackMinionWithMinion(0, 0);

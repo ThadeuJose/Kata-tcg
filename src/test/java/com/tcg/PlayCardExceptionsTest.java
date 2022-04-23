@@ -15,7 +15,10 @@ public class PlayCardExceptionsTest {
                 Player playerTest = Player.createPlayerWithEmptyDeck();
                 Player p2 = Player.createPlayerWithEmptyDeck();
                 Game game = new Game(playerTest, p2);
-                game.play(0);
+                Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
+                                .setTarget(game.getOppositionPlayerTarget())
+                                .build();
+                game.play(move);
         }
 
         @Test
@@ -31,7 +34,10 @@ public class PlayCardExceptionsTest {
                 Player nonActivePlayer = new Player.Builder().build();
                 Game game = new Game(activePlayer, nonActivePlayer);
 
-                game.play(0);
+                Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
+                                .setTarget(game.getOppositionPlayerTarget())
+                                .build();
+                game.play(move);
         }
 
         @Test
@@ -44,7 +50,11 @@ public class PlayCardExceptionsTest {
 
                 Player nonActivePlayer = new Player.Builder().build();
                 Game game = new Game(activePlayer, nonActivePlayer);
-                game.play(5);
+
+                Move move = new Move.Builder().setCardIndex(5).setType(Type.AS_DAMAGE)
+                                .setTarget(game.getOppositionPlayerTarget())
+                                .build();
+                game.play(move);
         }
 
         @Test
@@ -57,6 +67,11 @@ public class PlayCardExceptionsTest {
 
                 Player nonActivePlayer = new Player.Builder().build();
                 Game game = new Game(activePlayer, nonActivePlayer);
-                game.play(-1);
+
+                Move move = new Move.Builder().setCardIndex(-1).setType(Type.AS_DAMAGE)
+                                .setTarget(game.getOppositionPlayerTarget())
+                                .build();
+
+                game.play(move);
         }
 }
