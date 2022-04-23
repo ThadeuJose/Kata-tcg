@@ -7,6 +7,9 @@ import com.tcg.action.CreateMinionAction;
 import com.tcg.action.DoDamageAction;
 import com.tcg.action.DrawAction;
 import com.tcg.action.HealingAction;
+import com.tcg.attack.Attack;
+import com.tcg.attack.AttackMinionWithMinion;
+import com.tcg.attack.AttackPlayerWithMinion;
 
 public class Game {
     private static final int MAX_HAND_ACTIVE_PLAYER = 3;
@@ -132,21 +135,21 @@ public class Game {
         nonActivePlayer = temp;
     }
 
-    public void attackPlayerWithMinion(int activePlayerMinionIdx) throws CantAttackWithMinion {
-        Minion minion = activePlayer.getMinion(activePlayerMinionIdx);
-        minion.validateIfCanAttack();
-        nonActivePlayer.setHealth(nonActivePlayer.getCurrentHealth() - minion.getPower());
+    public void attackPlayerWithMinion(int activePlayerMinionIdx) {
+        Attack attack = new AttackPlayerWithMinion();
+        attack(activePlayerMinionIdx, attack);
     }
 
-    public void attackMinionWithMinion(int nonActivePlayerMinionIdx, int activePlayerMinionIdx)
-            throws CantAttackWithMinion {
+    public void attackMinionWithMinion(int activePlayerMinionIdx, int nonActivePlayerMinionIdx) {
+        Minion enemyMinion = nonActivePlayer.getMinion(nonActivePlayerMinionIdx);
+        Attack attack = new AttackMinionWithMinion(activePlayer, enemyMinion);
+        attack(activePlayerMinionIdx, attack);
+    }
+
+    private void attack(int activePlayerMinionIdx, Attack attack) {
         Minion alliedMinion = activePlayer.getMinion(activePlayerMinionIdx);
         alliedMinion.validateIfCanAttack();
-        Minion enemyMinion = nonActivePlayer.getMinion(nonActivePlayerMinionIdx);
-        enemyMinion.takeDamage(alliedMinion.getPower());
-        alliedMinion.takeDamage(enemyMinion.getPower());
-        activePlayer.cleanMinionsWith0Health();
-        nonActivePlayer.cleanMinionsWith0Health();
+        attack.execute(nonActivePlayer, alliedMinion);
     }
 
 }
