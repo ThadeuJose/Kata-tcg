@@ -1,15 +1,8 @@
 Refactor
-remove setHealth and setMana
 Put InvalidPlayException in the place of other Exceptions
 Remove IndexOutOfBoundsException ? Put this and activePlayer.getHandSize() == 0 inside getCardFromHand
 BoardOverloadException - Can't play a minion when there is 3 on the board
 Change name from InvalidPlayException to IllegalMoveException
-
-There is no test of custom card
-Card.getDamageValue()
-getHealingValue()
-draw(N)
-quantityOfCardsToDraw()
 
 Use card builder
 
@@ -26,7 +19,7 @@ game.makeAction();
 print winner
 
 makeAction(){
-Action action = activePlayer.makeAction();
+Action action = activePlayer.makeAction(Boardstate);
 game.parse(action)
 }
 

@@ -15,7 +15,7 @@ public class HealingAction implements Action {
 
     @Override
     public void execute() {
-        affectedPlayer.heal(card.getManaCost());
+        affectedPlayer.heal(card.getHealingValue());
     }
 
 }

@@ -14,7 +14,7 @@ public class DoDamageAction implements Action {
 
     @Override
     public void execute() {
-        target.takeDamage(card.getManaCost());
+        target.takeDamage(card.getDamageValue());
     }
 
 }
