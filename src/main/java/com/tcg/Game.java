@@ -79,7 +79,7 @@ public class Game {
                             activePlayer.getCurrentMana()));
         }
 
-        activePlayer.setMana(activePlayer.getCurrentMana() - card.getManaCost());
+        activePlayer.spendMana(card.getManaCost());
 
         Action action = createAction(move, card, activePlayer);
         action.execute();

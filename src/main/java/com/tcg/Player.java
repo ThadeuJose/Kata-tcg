@@ -83,8 +83,8 @@ public class Player implements Target {
         this.health = Math.min(health, MAX_HEALTH);
     }
 
-    public void setMana(int mana) {
-        this.mana = mana;
+    public void spendMana(int cost) {
+        this.mana -= cost;
     }
 
     public String getName() {
