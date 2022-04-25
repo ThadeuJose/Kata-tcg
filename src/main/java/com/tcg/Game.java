@@ -56,7 +56,7 @@ public class Game {
         activePlayer.addEmptySlot();
         activePlayer.refill();
         if (activePlayer.getDeckSize() == 0) {
-            activePlayer.setHealth(activePlayer.getCurrentHealth() - 1);
+            activePlayer.takeDamage(1);
             if (activePlayer.getCurrentHealth() <= 0) {
                 winner = nonActivePlayer;
             }

@@ -17,7 +17,7 @@ public class DrawAction implements Action {
     public void execute() {
         for (int i = 0; i < card.quantityOfCardsToDraw(); i++) {
             if (affectedPlayer.getDeckSize() == 0) {
-                affectedPlayer.setHealth(affectedPlayer.getCurrentHealth() - 1);
+                affectedPlayer.takeDamage(1);
             } else {
                 affectedPlayer.draw();
             }

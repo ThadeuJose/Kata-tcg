@@ -79,10 +79,6 @@ public class Player implements Target {
         return card;
     }
 
-    public void setHealth(int health) {
-        this.health = Math.min(health, MAX_HEALTH);
-    }
-
     public void spendMana(int cost) {
         this.mana -= cost;
     }
@@ -169,9 +165,13 @@ public class Player implements Target {
     }
 
     @Override
-    public void takeDamage(int damageValue) {
-        // TODO Auto-generated method stub
-        setHealth(getCurrentHealth() - damageValue);
+    public void takeDamage(int damage) {
+        health = getCurrentHealth() - damage;
+    }
+
+    public void heal(int value) {
+        int newHealth = getCurrentHealth() + value;
+        health = Math.min(newHealth, MAX_HEALTH);
     }
 
 }
