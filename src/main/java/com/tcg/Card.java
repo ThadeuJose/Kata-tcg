@@ -7,12 +7,6 @@ public class Card {
     private Minion minion;
     private int quantityOfCardsToDraw;
 
-    public Card(int manaCost) {
-        this.manaCost = manaCost;
-        this.quantityOfCardsToDraw = manaCost;
-        this.minion = new Minion(getManaCost());
-    }
-
     private Card(Builder builder) {
         this.manaCost = builder.manaCost;
         this.damageValue = builder.damageValue;

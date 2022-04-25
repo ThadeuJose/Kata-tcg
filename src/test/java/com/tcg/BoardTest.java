@@ -10,7 +10,7 @@ import org.junit.rules.ExpectedException;
 public class BoardTest {
     @Test
     public void shouldAddMinions() {
-        Card card = new Card(0);
+        Card card = new Card.Builder(0).build();
         Board board = new Board();
         board.add(card.createMinion());
         assertEquals(1, board.size());
@@ -18,7 +18,7 @@ public class BoardTest {
 
     @Test
     public void shouldHave3Minions() {
-        Card card = new Card(0);
+        Card card = new Card.Builder(0).build();
         Board board = new Board();
         board.add(card.createMinion());
         board.add(card.createMinion());
@@ -33,7 +33,7 @@ public class BoardTest {
     public void shouldntHaveMoreThen3MinionsOnBoard() {
         thrown.expect(BoardOverloadException.class);
         thrown.expectMessage("Shouldn't have more then 3 minions on the board");
-        Card card = new Card(0);
+        Card card = new Card.Builder(0).build();
         Board board = new Board();
         board.add(card.createMinion());
         board.add(card.createMinion());
@@ -51,7 +51,7 @@ public class BoardTest {
 
     @Test
     public void shouldAwakeAllMinions() {
-        Card card = new Card(0);
+        Card card = new Card.Builder(0).build();
         Board board = new Board();
         board.add(card.createMinion());
         board.add(card.createMinion());

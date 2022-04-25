@@ -57,7 +57,7 @@ public class Deck {
 
         public Builder addCard(int quantity, int manaCost) {
             for (int i = 0; i < quantity; i++) {
-                list.add(new Card(manaCost));
+                list.add(new Card.Builder(manaCost).build());
             }
             return this;
         }
