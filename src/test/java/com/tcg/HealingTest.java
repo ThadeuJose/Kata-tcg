@@ -57,6 +57,6 @@ public class HealingTest {
 
         game.play(move);
 
-        assertEquals(30, nonActivePlayer.getCurrentHealth());
+        assertEquals(30, activePlayer.getCurrentHealth());
     }
 }
