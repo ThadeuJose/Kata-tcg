@@ -6,7 +6,7 @@ public class Move {
     private Type type;
     private Target target;
 
-    public Move(Builder builder) {
+    private Move(Builder builder) {
         cardIndex = builder.cardIndex;
         type = builder.type;
         target = builder.target;
