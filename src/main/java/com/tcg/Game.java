@@ -1,22 +1,26 @@
 package com.tcg;
 
+import java.util.Objects;
 import java.util.Optional;
+
+import org.springframework.stereotype.Component;
 
 import com.tcg.action.Action;
 import com.tcg.action.CreateMinionAction;
 import com.tcg.action.DoDamageAction;
 import com.tcg.action.DrawAction;
 import com.tcg.action.HealingAction;
-import com.tcg.attack.Attack;
-import com.tcg.attack.AttackMinionWithMinion;
-import com.tcg.attack.AttackPlayerWithMinion;
+import com.tcg.system.PrintSystem;
 
+@Component
 public class Game {
     private static final int MAX_HAND_ACTIVE_PLAYER = 3;
     private static final int MAX_HAND_NON_ACTIVE_PLAYER = 4;
     private Player activePlayer;
     private Player nonActivePlayer;
     private Player winner;
+
+    PrintSystem printSystem;
 
     public Game() {
         // No Test constructor
@@ -34,7 +38,21 @@ public class Game {
         this.winner = null;
     }
 
+    public Game(PrintSystem printSystem) {
+        // No Test constructor
+        Player p1 = new Player.Builder().setPlayerName("Player 1").setDeck(Deck.createStandardDeck()).build();
+        Player p2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
+        activePlayer = p1;
+        nonActivePlayer = p2;
+        winner = null;
+        this.printSystem = printSystem;
+    }
+
     public void init() {
+        if (Objects.nonNull(printSystem)) {
+            printSystem.print("Start the game");
+        }
+
         for (int i = 0; i < MAX_HAND_ACTIVE_PLAYER; i++) {
             activePlayer.draw();
         }
@@ -136,20 +154,30 @@ public class Game {
     }
 
     public void attackPlayerWithMinion(int activePlayerMinionIdx) {
-        Attack attack = new AttackPlayerWithMinion();
-        attack(activePlayerMinionIdx, attack);
+        Minion alliedMinion = activePlayer.getMinion(activePlayerMinionIdx);
+
+        alliedMinion.validateIfCanAttack();
+
+        attack(nonActivePlayer, alliedMinion);
+        attack(alliedMinion, nonActivePlayer);
+
+    }
+
+    private void attack(Target target, Combatant combatant) {
+        target.takeDamage(combatant.getAttackValue());
     }
 
     public void attackMinionWithMinion(int activePlayerMinionIdx, int nonActivePlayerMinionIdx) {
         Minion enemyMinion = nonActivePlayer.getMinion(nonActivePlayerMinionIdx);
-        Attack attack = new AttackMinionWithMinion(activePlayer, enemyMinion);
-        attack(activePlayerMinionIdx, attack);
-    }
-
-    private void attack(int activePlayerMinionIdx, Attack attack) {
         Minion alliedMinion = activePlayer.getMinion(activePlayerMinionIdx);
-        alliedMinion.validateIfCanAttack();
-        attack.execute(nonActivePlayer, alliedMinion);
-    }
 
+        alliedMinion.validateIfCanAttack();
+
+        enemyMinion.takeDamage(alliedMinion.getAttackValue());
+
+        alliedMinion.takeDamage(enemyMinion.getAttackValue());
+
+        activePlayer.cleanMinionsWith0Health();
+        nonActivePlayer.cleanMinionsWith0Health();
+    }
 }

@@ -2,7 +2,7 @@ package com.tcg;
 
 import java.util.StringJoiner;
 
-public class Minion implements Target {
+public class Minion implements Target, Combatant {
 
     private int power;
     private int health;
@@ -55,6 +55,11 @@ public class Minion implements Target {
     @Override
     public void takeDamage(int damage) {
         health = health - damage;
+    }
+
+    @Override
+    public int getAttackValue() {
+        return getPower();
     }
 
     public void validateIfCanAttack() {

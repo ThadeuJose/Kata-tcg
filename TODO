@@ -1,11 +1,35 @@
-Refactor
+have to make a ICombatant to take Attack Value
+
+Maybe ?
+https://theliquidfire.com/2017/09/11/make-a-ccg-action-system/
+
+http://theliquidfire.com/2018/01/29/make-a-ccg-targeting/
+
+https://martinfowler.com/articles/replaceThrowWithNotification.html
 Put InvalidPlayException in the place of other Exceptions
 Remove IndexOutOfBoundsException ? Put this and activePlayer.getHandSize() == 0 inside getCardFromHand
 BoardOverloadException - Can't play a minion when there is 3 on the board
 Change name from InvalidPlayException to IllegalMoveException
 
 Console UI
-Remove the other branch - console ui?
+Remove the other branch - console ui? Nope
+
+https://www.baeldung.com/java-testing-system-out-println
+
+https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/test/java/de/kimminich/kata/tcg/strategy/ConsoleInputStrategyTest.java
+
+https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/main/java/de/kimminich/kata/tcg/strategy/ConsoleInputStrategy.java
+
+https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/test/java/de/kimminich/kata/tcg/GameIntegrationTest.java
+
+Print a player Winner
+
+game.run()
+
+while(!game.hasWinner){
+game.makePlay();
+}
+print winner
 
 Action makeAction(Boardstate)
 
@@ -24,9 +48,6 @@ game.parse(action)
 Start simple - IA game
 Strategy send "move class"
 receive one command and translate
-
-Refactor everything to use this exception?
-https://github.com/bkimminich/kata-tcg/blob/b2e260c78288d3cbda05f4e7a8c2038c328612bc/tcg-java/src/main/java/de/kimminich/kata/tcg/exception/IllegalMoveException.java#L3
 
 https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/test/java/de/kimminich/kata/tcg/GameIntegrationTest.java
 

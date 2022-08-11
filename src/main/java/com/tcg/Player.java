@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Player implements Target {
+public class Player implements Target, Combatant {
     private static final int MAX_HAND_SIZE = 5;
     private static final int MAX_HEALTH = 30;
     private static final int STARTER_MANA_SLOT = 0;
@@ -34,6 +34,9 @@ public class Player implements Target {
         hand = new ArrayList<>(player.hand);
         deck = new Deck(player.deck);
         board = player.board;
+    }
+
+    public Player(String string, PassStrategy passStrategy) {
     }
 
     public int getCurrentHealth() {
@@ -172,6 +175,11 @@ public class Player implements Target {
     public void heal(int value) {
         int newHealth = getCurrentHealth() + value;
         health = Math.min(newHealth, MAX_HEALTH);
+    }
+
+    @Override
+    public int getAttackValue() {
+        return 0;
     }
 
 }
