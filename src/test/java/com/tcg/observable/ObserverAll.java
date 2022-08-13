@@ -1,6 +1,5 @@
 package com.tcg.observable;
 
-import java.beans.PropertyChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
