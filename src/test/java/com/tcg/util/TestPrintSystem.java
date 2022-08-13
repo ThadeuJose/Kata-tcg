@@ -21,4 +21,8 @@ public class TestPrintSystem extends PrintSystem {
     public String get(int index) {
         return log.get(index);
     }
+
+    public Object getLastRegister() {
+        return log.get(log.size() - 1);
+    }
 }

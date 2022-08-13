@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.tcg.strategy.Strategy;
+
 public class Player implements Target, Combatant {
     private static final int MAX_HAND_SIZE = 5;
     private static final int MAX_HEALTH = 30;
@@ -15,6 +17,7 @@ public class Player implements Target, Combatant {
     private List<Card> hand;
     protected Deck deck;
     private Board board;
+    private Strategy strategy;
 
     private Player(Builder builder) {
         this.name = builder.playerName;
@@ -36,7 +39,15 @@ public class Player implements Target, Combatant {
         board = player.board;
     }
 
-    public Player(String string, PassStrategy passStrategy) {
+    public Player(Player player, Strategy strategy) {
+        name = player.name;
+        health = player.health;
+        manaSlot = player.manaSlot;
+        mana = player.mana;
+        hand = new ArrayList<>(player.hand);
+        deck = new Deck(player.deck);
+        board = player.board;
+        this.strategy = strategy;
     }
 
     public int getCurrentHealth() {
@@ -180,6 +191,10 @@ public class Player implements Target, Combatant {
     @Override
     public int getAttackValue() {
         return 0;
+    }
+
+    public void play(Game game) {
+        strategy.play(game);
     }
 
 }

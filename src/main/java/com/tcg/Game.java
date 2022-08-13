@@ -48,6 +48,15 @@ public class Game {
         this.printSystem = printSystem;
     }
 
+    public Game(PrintSystem printSystem, Player player) {
+        // No Test constructor
+        this.printSystem = printSystem;
+        Player p2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
+        activePlayer = player;
+        nonActivePlayer = p2;
+        winner = null;
+    }
+
     public void init() {
         if (Objects.nonNull(printSystem)) {
             printSystem.print("Start the game");
@@ -179,5 +188,18 @@ public class Game {
 
         activePlayer.cleanMinionsWith0Health();
         nonActivePlayer.cleanMinionsWith0Health();
+    }
+
+    private boolean endGame = true;
+
+    public void endGame() {
+        endGame = false;
+    }
+
+    public void run() {
+        while (endGame) {
+            activePlayer.play(this);
+        }
+        printSystem.print("Player 1 quit");
     }
 }

@@ -1,18 +1,22 @@
-Implement the Observe Pattern with name nameChannel and object sender 
-ObserverAll observerAll = new ObserverAll(observable);
-Register himself 
-Send message 
-
-https://github.com/ThadeuJose/digimon-ccg/commit/8ae829cf865ccbd22f8d2c1ed19d337653267942
-https://en.wikipedia.org/wiki/Observer_pattern#Java
-https://bitbucket.org/thejon/blogccg/src/master/Assets/Scripts/Common/Notifications/NotificationCenter.cs
-
-Show information on Screen 
+Começar a fazer Player Console
+Fazer aparecer as informações na tela
+Life Opponent
+*Cards in hand
+*Opponent Board
+*My life
+*My board
+\*My Cards
+Show information on Screen
 [0]Cost 0 - Damage 0 Healing 0 Minion 0/1 Card Draw 0
 [1]Cost 1 - Damage 3 Healing 0 Minion 3/3 Card Draw 0
 [2]Cost 2 - Damage 3 Healing 2 Minion 3/2 Card Draw 1
 [3]Cost 7 - Damage 0 Healing 0 Minion 0/1 Card Draw 7
 [3]Cost 7 - Damage 0 Healing 0 Minion 8/8 Card Draw 0
+
+Refactor to use architecture
+Delete merged branchs
+Shuffle nos decks e na ordem
+Sonar
 
 have to make a ICombatant to take Attack Value
 
@@ -74,8 +78,6 @@ Integrate hand class with rest of application
 Make hand private again
 No hand -> automatic pass
 No Playable Card -> automatic pass
-
-
 
 Implement exit game with anything with is not "" or number
 
