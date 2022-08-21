@@ -80,6 +80,16 @@ public class Card {
         return true;
     }
 
+    @Override
+    public String toString() {
+        Minion minion = createMinion();
+        String minionStats = minion.getAttackValue() + "/" + minion.getHealth();
+        return "Cost " + getManaCost() + " - Damage " + getDamageValue() + " Healing " + getHealingValue()
+                + " Minion " + minionStats
+                + " Card Draw "
+                + quantityOfCardsToDraw();
+    }
+
     public static class Builder {
         private int manaCost;
         private int damageValue;
