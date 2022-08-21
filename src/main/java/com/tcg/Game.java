@@ -57,6 +57,14 @@ public class Game {
         winner = null;
     }
 
+    public Game(PrintSystem printSystem, Player player1, Player player2) {
+        // No Test constructor
+        this.printSystem = printSystem;
+        activePlayer = player1;
+        nonActivePlayer = player2;
+        winner = null;
+    }
+
     public void init() {
         if (Objects.nonNull(printSystem)) {
             printSystem.print("Start the game");
@@ -156,6 +164,9 @@ public class Game {
     }
 
     public void pass() {
+        if (Objects.nonNull(printSystem)) {
+            printSystem.print("Player 1 pass");
+        }
         activePlayer.awakeMinions();
         Player temp = activePlayer;
         activePlayer = nonActivePlayer;
@@ -198,6 +209,7 @@ public class Game {
 
     public void run() {
         while (endGame) {
+            startTurn();
             activePlayer.play(this);
         }
         printSystem.print("Player 1 quit");

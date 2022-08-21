@@ -1,32 +1,46 @@
 Put sonar key in .env
 Put a exception if init start with empty deck.
 
+Show My Mana and Opponent
+Make a InputSystem
+
+Loop Wrong 
+    Should idle until I pass - State Machine? 
+
+Cant win with opponent have minus life
+
+https://martinfowler.com/articles/replaceThrowWithNotification.html
+Put InvalidPlayException in the place of other Exceptions
+Remove IndexOutOfBoundsException ? Put this and activePlayer.getHandSize() == 0 inside getCardFromHand
+BoardOverloadException - Can't play a minion when there is 3 on the board
+Change name from InvalidPlayException to IllegalMoveException
+
+Make a PlayerSystem ? 
+
+
+
+Refactor to use architecture
+Delete merged branchs
+Shuffle nos decks e na ordem
+Refactor 
+    PlayerConsoleStrategy -> ConsoleStrategy
+    Colocar a Strategy no Builder 
+    Fazer as factory de deck e Player
+
+Refactor test
+Test if two object are equals
+
 Fazer aparecer as informações na tela
-*My Cards
 *Opponent Board
 *My board
-
-
-And command exit e play damage card 
-
-Show information on Screen
-[0]Cost 0 - Damage 0 Healing 0 Minion 0/1 Card Draw 0
-[1]Cost 1 - Damage 3 Healing 0 Minion 3/3 Card Draw 0
-[2]Cost 2 - Damage 3 Healing 2 Minion 3/2 Card Draw 1
-[3]Cost 7 - Damage 0 Healing 0 Minion 0/1 Card Draw 7
-[3]Cost 7 - Damage 0 Healing 0 Minion 8/8 Card Draw 0
 
 Death Repaer
 Make a Action System
 After Every action notify a Reaper System who loop and see if any minion is death
 http://theliquidfire.com/2017/12/26/make-a-ccg-enemy-a-i/
 
-Refactor test
-Test if two object are equals
 
-Refactor to use architecture
-Delete merged branchs
-Shuffle nos decks e na ordem
+
 
 have to make a ICombatant to take Attack Value
 
@@ -35,53 +49,11 @@ https://theliquidfire.com/2017/09/11/make-a-ccg-action-system/
 
 http://theliquidfire.com/2018/01/29/make-a-ccg-targeting/
 
-https://martinfowler.com/articles/replaceThrowWithNotification.html
-Put InvalidPlayException in the place of other Exceptions
-Remove IndexOutOfBoundsException ? Put this and activePlayer.getHandSize() == 0 inside getCardFromHand
-BoardOverloadException - Can't play a minion when there is 3 on the board
-Change name from InvalidPlayException to IllegalMoveException
 
-Console UI
-Remove the other branch - console ui? Nope
-
-https://www.baeldung.com/java-testing-system-out-println
-
-https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/test/java/de/kimminich/kata/tcg/strategy/ConsoleInputStrategyTest.java
-
-https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/main/java/de/kimminich/kata/tcg/strategy/ConsoleInputStrategy.java
-
-https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/test/java/de/kimminich/kata/tcg/GameIntegrationTest.java
-
-Print a player Winner
-
-game.run()
-
-while(!game.hasWinner){
-game.makePlay();
-}
-print winner
-
-Action makeAction(Boardstate)
-
-game.run()
-
-while(!game.hasWinner){
-game.makeAction();
-}
-print winner
-
-makeAction(){
-Action action = activePlayer.makeAction(Boardstate);
-game.parse(action)
-}
 
 Start simple - IA game
 Strategy send "move class"
 receive one command and translate
-
-https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/test/java/de/kimminich/kata/tcg/GameIntegrationTest.java
-
-https://github.com/bkimminich/kata-tcg/blob/master/tcg-java/src/test/java/de/kimminich/kata/tcg/strategy/ConsoleInputStrategyTest.java
 
 Put everything in a test hardness
 Integrate hand class with rest of application
@@ -92,7 +64,6 @@ No Playable Card -> automatic pass
 Implement exit game with anything with is not "" or number
 
 Implement aggressive burn IA
-Commit
 
 Game Raise exception Player catch then
 
@@ -105,8 +76,6 @@ should call startTurn a lot
 should call choose
 Should print player win the game
 
-Make Player abstract and implement a test player
-
 Run in normal console
 
 IA
@@ -114,9 +83,20 @@ Implement Play More Expensive First IA
 
 QOL Make hand not change position of card: 0 1 2 -> 0 2
 
-Deck should have only 20 cards - Deckbuilder validate()
 Make a class PlayerInfo ?
+
+Deck should have only 20 cards - Deckbuilder validate()
+
+Interesting Cards
+[0]Cost 0 - Damage 0 Healing 0 Minion 0/1 Card Draw 0
+[1]Cost 1 - Damage 3 Healing 0 Minion 3/3 Card Draw 0
+[2]Cost 2 - Damage 3 Healing 2 Minion 3/2 Card Draw 1
+[3]Cost 7 - Damage 0 Healing 0 Minion 0/1 Card Draw 7
+[3]Cost 7 - Damage 0 Healing 0 Minion 8/8 Card Draw 0
 
 Pass Sonar
 mvn sonar:sonar
 Profit
+
+Source 
+https://theliquidfire.com/projects/

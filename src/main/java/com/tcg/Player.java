@@ -197,4 +197,13 @@ public class Player implements Target, Combatant {
         strategy.play(game);
     }
 
+    public String printHand() {
+        String result = "";
+        for (int i = 0; i < hand.size(); i++) {
+            Card card = hand.get(i);
+            result += "[" + i + "] " + card.toString() + "\n";
+        }
+        return result;
+    }
+
 }

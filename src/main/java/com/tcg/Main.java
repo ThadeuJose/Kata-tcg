@@ -9,6 +9,7 @@ public class Main {
         try (AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfig.class);) {
             Game game = ctx.getBean(Game.class);
             game.init();
+            game.run();
         }
     }
 }
