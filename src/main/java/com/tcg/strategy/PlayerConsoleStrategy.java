@@ -22,9 +22,3 @@ public class PlayerConsoleStrategy implements Strategy {
     }
 
 }
-
-// Fazer aparecer as informações na tela
-// *Opponent Board
-// *My life
-// *My board
-// *My Cards
