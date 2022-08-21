@@ -9,6 +9,13 @@ public class Minion implements Target, Combatant {
     private boolean sleep;
     private boolean alreadyAttack;
 
+    public Minion(int power, int health) {
+        this.power = power;
+        this.health = health;
+        sleep = true;
+        alreadyAttack = false;
+    }
+
     public Minion(int manaCost) {
         sleep = true;
         alreadyAttack = false;
@@ -21,7 +28,7 @@ public class Minion implements Target, Combatant {
         }
     }
 
-    public Minion(Builder builder) {
+    private Minion(Builder builder) {
         sleep = true;
         alreadyAttack = false;
         power = builder.power;
@@ -81,6 +88,31 @@ public class Minion implements Target, Combatant {
             builder.setPower(value).setHealth(value);
         }
         return builder.build();
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + health;
+        result = prime * result + power;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Minion other = (Minion) obj;
+        if (health != other.health)
+            return false;
+        if (power != other.power)
+            return false;
+        return true;
     }
 
     public static class Builder {

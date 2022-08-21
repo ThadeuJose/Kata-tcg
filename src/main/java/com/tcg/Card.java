@@ -7,6 +7,14 @@ public class Card {
     private Minion minion;
     private int quantityOfCardsToDraw;
 
+    public Card(int manaCost, int damageValue, int healingValue, Minion minion, int quantityOfCardsToDraw) {
+        this.manaCost = manaCost;
+        this.damageValue = damageValue;
+        this.healingValue = healingValue;
+        this.minion = minion;
+        this.quantityOfCardsToDraw = quantityOfCardsToDraw;
+    }
+
     private Card(Builder builder) {
         this.manaCost = builder.manaCost;
         this.damageValue = builder.damageValue;
@@ -33,6 +41,43 @@ public class Card {
 
     public int quantityOfCardsToDraw() {
         return quantityOfCardsToDraw;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + damageValue;
+        result = prime * result + healingValue;
+        result = prime * result + manaCost;
+        result = prime * result + ((minion == null) ? 0 : minion.hashCode());
+        result = prime * result + quantityOfCardsToDraw;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Card other = (Card) obj;
+        if (damageValue != other.damageValue)
+            return false;
+        if (healingValue != other.healingValue)
+            return false;
+        if (manaCost != other.manaCost)
+            return false;
+        if (minion == null) {
+            if (other.minion != null)
+                return false;
+        } else if (!minion.equals(other.minion))
+            return false;
+        if (quantityOfCardsToDraw != other.quantityOfCardsToDraw)
+            return false;
+        return true;
     }
 
     public static class Builder {
