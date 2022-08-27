@@ -27,12 +27,13 @@ public class PlayerConsoleStrategy implements Strategy {
         printSystem.print("Opponent: " + opponent.getHandSize() + " cards in hand");
         // Opponent Board
         printSystem.print("Myself: " + myself.getCurrentHealth() + " Life");
+        printSystem.print("Myself: " + myself.getCurrentMana() + " mana");
         // My Board
         printSystem.print("Hand: \n" + myself.printHand());
 
-        System.out.println("Digit command: ");
+        printSystem.print("Digit command: ");
         String command = inputSystem.getInput();
-        System.out.println(command);
+        printSystem.print(command);
 
         if (command.equals("D")) {
             Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
