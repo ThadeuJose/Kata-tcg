@@ -1,13 +1,19 @@
-Put sonar key in .env
 Put a exception if init start with empty deck.
 
 Show My Mana and Opponent
-Make a InputSystem
+Refactor: PlayerConsoleStrategy -> ConsoleStrategy
 
-Loop Wrong 
-    Should idle until I pass - State Machine? 
+Loop Wrong
+Should idle until I pass - State Machine?
 
 Cant win with opponent have minus life
+Victory System after every action who give damage
+
+Colocar a Strategy no Player Builder
+Fazer as factory de deck e Player
+
+Make TestPlayer... into a decorator
+Refactor to use architecture
 
 https://martinfowler.com/articles/replaceThrowWithNotification.html
 Put InvalidPlayException in the place of other Exceptions
@@ -15,17 +21,11 @@ Remove IndexOutOfBoundsException ? Put this and activePlayer.getHandSize() == 0 
 BoardOverloadException - Can't play a minion when there is 3 on the board
 Change name from InvalidPlayException to IllegalMoveException
 
-Make a PlayerSystem ? 
-
-
+Make a PlayerSystem ?
 
 Refactor to use architecture
 Delete merged branchs
 Shuffle nos decks e na ordem
-Refactor 
-    PlayerConsoleStrategy -> ConsoleStrategy
-    Colocar a Strategy no Builder 
-    Fazer as factory de deck e Player
 
 Refactor test
 Test if two object are equals
@@ -39,17 +39,12 @@ Make a Action System
 After Every action notify a Reaper System who loop and see if any minion is death
 http://theliquidfire.com/2017/12/26/make-a-ccg-enemy-a-i/
 
-
-
-
 have to make a ICombatant to take Attack Value
 
 Maybe ?
 https://theliquidfire.com/2017/09/11/make-a-ccg-action-system/
 
 http://theliquidfire.com/2018/01/29/make-a-ccg-targeting/
-
-
 
 Start simple - IA game
 Strategy send "move class"
@@ -95,8 +90,7 @@ Interesting Cards
 [3]Cost 7 - Damage 0 Healing 0 Minion 8/8 Card Draw 0
 
 Pass Sonar
-mvn sonar:sonar
 Profit
 
-Source 
+Source
 https://theliquidfire.com/projects/

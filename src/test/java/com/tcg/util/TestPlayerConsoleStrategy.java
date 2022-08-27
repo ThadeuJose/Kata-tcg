@@ -7,7 +7,7 @@ import com.tcg.system.PrintSystem;
 public class TestPlayerConsoleStrategy extends PlayerConsoleStrategy {
 
     public TestPlayerConsoleStrategy(PrintSystem printSystem) {
-        super(printSystem);
+        super(printSystem, new NullInputSytem());
     }
 
     @Override

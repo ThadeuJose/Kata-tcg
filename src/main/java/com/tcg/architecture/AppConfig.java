@@ -7,6 +7,7 @@ import com.tcg.Game;
 import com.tcg.Player;
 import com.tcg.strategy.PassStrategy;
 import com.tcg.strategy.PlayerConsoleStrategy;
+import com.tcg.system.InputSystem;
 import com.tcg.system.PrintSystem;
 
 @Configuration
@@ -18,6 +19,11 @@ public class AppConfig {
     }
 
     @Bean
+    public InputSystem inputSystem() {
+        return new InputSystem();
+    }
+
+    @Bean
     public Game game() {
         return new Game(printSystem(), player1(), player2());
     }
@@ -25,7 +31,7 @@ public class AppConfig {
     @Bean
     public Player player1() {
         Player player = Player.createPlayerWithStandardDeck();
-        return new Player(player, new PlayerConsoleStrategy(printSystem()));
+        return new Player(player, new PlayerConsoleStrategy(printSystem(), inputSystem()));
     }
 
     @Bean

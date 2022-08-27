@@ -6,16 +6,17 @@ import com.tcg.Game;
 import com.tcg.Move;
 import com.tcg.Player;
 import com.tcg.Type;
+import com.tcg.system.InputSystem;
 import com.tcg.system.PrintSystem;
 
 public class PlayerConsoleStrategy implements Strategy {
 
     private PrintSystem printSystem;
-    private Scanner scanner;
+    private InputSystem inputSystem;
 
-    public PlayerConsoleStrategy(PrintSystem printSystem) {
+    public PlayerConsoleStrategy(PrintSystem printSystem, InputSystem inputSystem) {
         this.printSystem = printSystem;
-        scanner = new Scanner(System.in);
+        this.inputSystem = inputSystem;
     }
 
     @Override
@@ -30,7 +31,7 @@ public class PlayerConsoleStrategy implements Strategy {
         printSystem.print("Hand: \n" + myself.printHand());
 
         System.out.println("Digit command: ");
-        String command = scanner.nextLine();
+        String command = inputSystem.getInput();
         System.out.println(command);
 
         if (command.equals("D")) {

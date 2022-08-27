@@ -10,7 +10,6 @@ import com.tcg.util.TestPlayerConsoleStrategy;
 import com.tcg.util.TestPlayerPassStrategy;
 import com.tcg.util.TestPrintSystem;
 
-@Ignore
 public class GameIntegrationTest {
 
     @Test
