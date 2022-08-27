@@ -2,7 +2,6 @@ package com.tcg;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.tcg.strategy.EndGameStrategy;
@@ -48,7 +47,8 @@ public class GameIntegrationTest {
         assertEquals("Opponent: 30 Life", printSystem.get(1));
         assertEquals("Opponent: 4 cards in hand", printSystem.get(2));
         assertEquals("Myself: 30 Life", printSystem.get(3));
-        assertEquals(handString, printSystem.get(4));
+        assertEquals("Myself: 1 mana", printSystem.get(4));
+        assertEquals(handString, printSystem.get(5));
     }
 
     private Game createGame(TestPrintSystem printSystem) {
