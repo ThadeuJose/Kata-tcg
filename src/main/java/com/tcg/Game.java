@@ -90,6 +90,9 @@ public class Game {
     public void startTurn() {
         activePlayer.addEmptySlot();
         activePlayer.refill();
+
+        passTurn = false;
+
         if (activePlayer.getDeckSize() == 0) {
             activePlayer.takeDamage(1);
             if (activePlayer.getCurrentHealth() <= 0) {
@@ -168,9 +171,12 @@ public class Game {
             printSystem.print("Player 1 pass");
         }
         activePlayer.awakeMinions();
+
         Player temp = activePlayer;
         activePlayer = nonActivePlayer;
         nonActivePlayer = temp;
+
+        passTurn = true;
     }
 
     public void attackPlayerWithMinion(int activePlayerMinionIdx) {
@@ -202,6 +208,7 @@ public class Game {
     }
 
     private boolean endGame = true;
+    private boolean passTurn = false;
 
     public void endGame() {
         endGame = false;
@@ -210,8 +217,17 @@ public class Game {
     public void run() {
         while (endGame) {
             startTurn();
-            activePlayer.play(this);
+            do {
+                activePlayer.play(this);
+            } while (shouldPassTurn());
         }
         printSystem.print("Player 1 quit");
+    }
+
+    private boolean shouldPassTurn() {
+        if (passTurn) {
+            return false;
+        }
+        return endGame;
     }
 }
