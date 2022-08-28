@@ -9,12 +9,12 @@ import com.tcg.Type;
 import com.tcg.system.InputSystem;
 import com.tcg.system.PrintSystem;
 
-public class PlayerConsoleStrategy implements Strategy {
+public class ConsoleStrategy implements Strategy {
 
     private PrintSystem printSystem;
     private InputSystem inputSystem;
 
-    public PlayerConsoleStrategy(PrintSystem printSystem, InputSystem inputSystem) {
+    public ConsoleStrategy(PrintSystem printSystem, InputSystem inputSystem) {
         this.printSystem = printSystem;
         this.inputSystem = inputSystem;
     }
