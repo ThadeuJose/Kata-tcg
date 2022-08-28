@@ -136,7 +136,7 @@ public class Player implements Target, Combatant {
 
         public Builder() {
             playerName = "Player";
-            deck = Deck.createEmptyDeck();
+            deck = DeckFactory.createEmptyDeck();
             health = STARTER_HEALTH;
             mana = STARTER_MANA;
             manaSlot = STARTER_MANA_SLOT;

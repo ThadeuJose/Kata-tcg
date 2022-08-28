@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.tcg.Deck;
+import com.tcg.DeckFactory;
 import com.tcg.Game;
 import com.tcg.Player;
 import com.tcg.strategy.PassStrategy;
@@ -33,13 +34,15 @@ public class AppConfig {
     @Bean
     public Player player1() {
         Strategy strategy = new PlayerConsoleStrategy(printSystem(), inputSystem());
-        return new Player.Builder().setDeck(Deck.createStandardDeck()).setStrategy(strategy).build();
+        Deck standardDeck = DeckFactory.createStandardDeck();
+        return new Player.Builder().setDeck(standardDeck).setStrategy(strategy).build();
     }
 
     @Bean
     public Player player2() {
         Strategy strategy = new PassStrategy();
-        return new Player.Builder().setDeck(Deck.createStandardDeck()).setStrategy(strategy).build();
+        Deck standardDeck = DeckFactory.createStandardDeck();
+        return new Player.Builder().setDeck(standardDeck).setStrategy(strategy).build();
     }
 
 }
