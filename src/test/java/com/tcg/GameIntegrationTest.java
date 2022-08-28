@@ -4,10 +4,12 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.tcg.strategy.ConsoleStrategy;
 import com.tcg.strategy.EndGameStrategy;
+import com.tcg.strategy.PassStrategy;
 import com.tcg.strategy.Strategy;
-import com.tcg.util.TestPlayerConsoleStrategy;
-import com.tcg.util.TestPlayerPassStrategy;
+import com.tcg.util.NullInputSytem;
+import com.tcg.util.TestPlayerDecorator;
 import com.tcg.util.TestPrintSystem;
 
 public class GameIntegrationTest {
@@ -61,14 +63,14 @@ public class GameIntegrationTest {
 
     private Game createGameWithPlayerConsole(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
-        Strategy strategy = new TestPlayerConsoleStrategy(printSystem);
+        Strategy strategy = new TestPlayerDecorator(new ConsoleStrategy(printSystem, new NullInputSytem()));
         Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
         return new Game(printSystem, player);
     }
 
     private Game createGameWithPlayerPass(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
-        Strategy strategy = new TestPlayerPassStrategy();
+        Strategy strategy = new TestPlayerDecorator(new PassStrategy());
         Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
         return new Game(printSystem, player);
     }
