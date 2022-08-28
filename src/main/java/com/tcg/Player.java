@@ -9,7 +9,7 @@ import com.tcg.strategy.Strategy;
 public class Player implements Target, Combatant {
     private static final int MAX_HAND_SIZE = 5;
     private static final int MAX_HEALTH = 30;
-    private static final int STARTER_MANA_SLOT = 0;
+
     private String name;
     private int health;
     private int manaSlot;
@@ -20,13 +20,14 @@ public class Player implements Target, Combatant {
     private Strategy strategy;
 
     private Player(Builder builder) {
-        this.name = builder.playerName;
+        name = builder.playerName;
         health = builder.health;
         mana = builder.mana;
-        manaSlot = STARTER_MANA_SLOT;
+        manaSlot = builder.manaSlot;
         hand = builder.hand;
-        this.deck = builder.deck;
-        this.board = new Board();
+        deck = builder.deck;
+        board = builder.board;
+        strategy = builder.strategy;
     }
 
     public Player(Player player) {
@@ -37,17 +38,6 @@ public class Player implements Target, Combatant {
         hand = new ArrayList<>(player.hand);
         deck = new Deck(player.deck);
         board = player.board;
-    }
-
-    public Player(Player player, Strategy strategy) {
-        name = player.name;
-        health = player.health;
-        manaSlot = player.manaSlot;
-        mana = player.mana;
-        hand = new ArrayList<>(player.hand);
-        deck = new Deck(player.deck);
-        board = player.board;
-        this.strategy = strategy;
     }
 
     public int getCurrentHealth() {
@@ -133,19 +123,25 @@ public class Player implements Target, Combatant {
 
         private static final int STARTER_HEALTH = 30;
         private static final int STARTER_MANA = 0;
+        private static final int STARTER_MANA_SLOT = 0;
 
         private String playerName;
         private Deck deck;
         private int health;
         private int mana;
+        private int manaSlot;
         private List<Card> hand;
+        private Board board;
+        private Strategy strategy;
 
         public Builder() {
             playerName = "Player";
             deck = Deck.createEmptyDeck();
             health = STARTER_HEALTH;
             mana = STARTER_MANA;
+            manaSlot = STARTER_MANA_SLOT;
             hand = new ArrayList<>();
+            board = new Board();
         }
 
         public Builder setPlayerName(String playerName) {
@@ -170,6 +166,11 @@ public class Player implements Target, Combatant {
 
         public Builder setCardsInHand(Card... cards) {
             this.hand = new ArrayList<>(Arrays.asList(cards));
+            return this;
+        }
+
+        public Builder setStrategy(Strategy strategy) {
+            this.strategy = strategy;
             return this;
         }
 

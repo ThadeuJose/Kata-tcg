@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import com.tcg.strategy.EndGameStrategy;
+import com.tcg.strategy.Strategy;
 import com.tcg.util.TestPlayerConsoleStrategy;
 import com.tcg.util.TestPlayerPassStrategy;
 import com.tcg.util.TestPrintSystem;
@@ -53,22 +54,22 @@ public class GameIntegrationTest {
 
     private Game createGame(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
-        Player playerTest1 = new Player.Builder().setDeck(deck).build();
-        Player playerTest2 = new Player(playerTest1, new EndGameStrategy());
-        return new Game(printSystem, playerTest2);
+        Strategy strategy = new EndGameStrategy();
+        Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
+        return new Game(printSystem, player);
     }
 
     private Game createGameWithPlayerConsole(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
-        Player player = new Player.Builder().setDeck(deck).build();
-        Player playerTest1 = new Player(player, new TestPlayerConsoleStrategy(printSystem));
-        return new Game(printSystem, playerTest1);
+        Strategy strategy = new TestPlayerConsoleStrategy(printSystem);
+        Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
+        return new Game(printSystem, player);
     }
 
     private Game createGameWithPlayerPass(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
-        Player player = new Player.Builder().setDeck(deck).build();
-        Player playerTest1 = new Player(player, new TestPlayerPassStrategy());
-        return new Game(printSystem, playerTest1);
+        Strategy strategy = new TestPlayerPassStrategy();
+        Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
+        return new Game(printSystem, player);
     }
 }
