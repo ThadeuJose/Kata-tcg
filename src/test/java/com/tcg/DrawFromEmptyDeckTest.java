@@ -10,7 +10,7 @@ import org.junit.Test;
 public class DrawFromEmptyDeckTest {
     @Test
     public void playerShouldReceive1DamageIfDrawFromEmptyLibrary() {
-        Deck deck = Deck.createEmptyDeck();
+        Deck deck = DeckFactory.createEmptyDeck();
         Player playerTest = new Player.Builder().setDeck(deck).build();
         Player player2 = Player.createPlayerWithStandardDeck();
         Game game = new Game(playerTest, player2);
@@ -20,7 +20,7 @@ public class DrawFromEmptyDeckTest {
 
     @Test
     public void playerShouldLostIfDrawFromEmptyLibraryAndHaveOnly1Health() {
-        Deck deck = Deck.createEmptyDeck();
+        Deck deck = DeckFactory.createEmptyDeck();
         Player playerTest = new Player.Builder().setHealth(1).setDeck(deck).build();
         Player player2 = new Player.Builder().setPlayerName("Player 2").build();
         Game game = new Game(playerTest, player2);
