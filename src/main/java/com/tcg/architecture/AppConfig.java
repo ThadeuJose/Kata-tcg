@@ -35,14 +35,15 @@ public class AppConfig {
     public Player player1() {
         Strategy strategy = new ConsoleStrategy(printSystem(), inputSystem());
         Deck standardDeck = DeckFactory.createStandardDeck();
-        return new Player.Builder().setDeck(standardDeck).setStrategy(strategy).build();
+        return new Player.Builder().setPlayerName("Player 1").setDeck(standardDeck).setStrategy(strategy).build();
     }
 
     @Bean
     public Player player2() {
         Strategy strategy = new PassStrategy();
         Deck standardDeck = DeckFactory.createStandardDeck();
-        return new Player.Builder().setDeck(standardDeck).setStrategy(strategy).build();
+        return new Player.Builder().setPlayerName("Player 2").setDeck(standardDeck).setStrategy(strategy)
+                .build();
     }
 
 }
