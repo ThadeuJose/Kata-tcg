@@ -11,6 +11,7 @@ import com.tcg.action.DoDamageAction;
 import com.tcg.action.DrawAction;
 import com.tcg.action.HealingAction;
 import com.tcg.system.PrintSystem;
+import com.tcg.system.VictorySystem;
 
 @Component
 public class Game {
@@ -21,12 +22,14 @@ public class Game {
     private Player winner;
 
     PrintSystem printSystem;
+    VictorySystem victorySystem;
 
     public Game(PrintSystem printSystem, Player player1, Player player2) {
         this.printSystem = printSystem;
         activePlayer = player1;
         nonActivePlayer = player2;
         winner = null;
+        victorySystem = new VictorySystem(this);
     }
 
     public void init() {
@@ -57,9 +60,7 @@ public class Game {
 
         if (activePlayer.getDeckSize() == 0) {
             activePlayer.takeDamage(1);
-            if (activePlayer.getCurrentHealth() <= 0) {
-                winner = nonActivePlayer;
-            }
+            checkWinner();
         } else {
             activePlayer.draw();
         }
@@ -86,12 +87,7 @@ public class Game {
         Action action = createAction(move, card, activePlayer);
         action.execute();
 
-        if (activePlayer.getCurrentHealth() <= 0) {
-            winner = nonActivePlayer;
-        }
-        if (nonActivePlayer.getCurrentHealth() <= 0) {
-            winner = activePlayer;
-        }
+        checkWinner();
     }
 
     private Action createAction(Move move, Card card, Player affectedPlayer) {
@@ -128,6 +124,10 @@ public class Game {
 
     public Optional<Player> getWinner() {
         return Optional.ofNullable(winner);
+    }
+
+    public void setWinner(Player winner) {
+        this.winner = winner;
     }
 
     public void pass() {
@@ -176,14 +176,11 @@ public class Game {
         while (isRunning()) {
             startTurn();
 
-            do {
+            while (needPlayerInput()) {
                 activePlayer.play(this);
-            } while (needPlayerInput());
-
-            if ((activePlayer.getCurrentHealth() <= 0) || (nonActivePlayer.getCurrentHealth() <= 0)) {
-                setVictory();
             }
 
+            checkWinner();
         }
 
         Optional<Player> winner = getWinner();
@@ -223,5 +220,9 @@ public class Game {
 
     private void afterSetTurn() {
         currentState = State.PLAYER_INPUT;
+    }
+
+    private void checkWinner() {
+        victorySystem.checkWinner();
     }
 }

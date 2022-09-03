@@ -25,6 +25,7 @@ public class WinconTest {
     @Test
     public void shouldWinTheGameIfHealthDropToZero() {
         Player playerTest = new Player.Builder()
+                .setPlayerName("Player 1")
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
@@ -41,12 +42,13 @@ public class WinconTest {
         assertEquals(0, lostPlayer.getCurrentHealth());
         Optional<Player> winnerPlayer = game.getWinner();
         assertTrue(winnerPlayer.isPresent());
-        assertEquals(playerTest, winnerPlayer.get());
+        assertEquals(playerTest.getName(), winnerPlayer.get().getName());
     }
 
     @Test
     public void shouldWinTheGameIfHealthDropToBelowZero() {
         Player playerTest = new Player.Builder()
+                .setPlayerName("Player 1")
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
@@ -63,7 +65,7 @@ public class WinconTest {
         assertEquals(-1, lostPlayer.getCurrentHealth());
         Optional<Player> winnerPlayer = game.getWinner();
         assertTrue(winnerPlayer.isPresent());
-        assertEquals(playerTest, winnerPlayer.get());
+        assertEquals(playerTest.getName(), winnerPlayer.get().getName());
     }
 
 }
