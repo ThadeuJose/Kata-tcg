@@ -24,7 +24,7 @@ public class GameIntegrationTest {
     }
 
     @Test
-    public void shouldShowMessageWhenAPlayerPass() {
+    public void shouldShowMessageWhenAPlayerQuit() {
         TestPrintSystem printSystem = new TestPrintSystem();
         Game game = createAnyGame(printSystem);
         game.init();
