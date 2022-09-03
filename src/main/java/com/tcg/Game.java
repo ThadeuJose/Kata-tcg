@@ -91,8 +91,6 @@ public class Game {
         activePlayer.addEmptySlot();
         activePlayer.refill();
 
-        passTurn = false;
-
         if (activePlayer.getDeckSize() == 0) {
             activePlayer.takeDamage(1);
             if (activePlayer.getCurrentHealth() <= 0) {
@@ -101,6 +99,8 @@ public class Game {
         } else {
             activePlayer.draw();
         }
+
+        afterSetTurn();
 
     }
 
@@ -170,13 +170,14 @@ public class Game {
         if (Objects.nonNull(printSystem)) {
             printSystem.print("Player 1 pass");
         }
+
         activePlayer.awakeMinions();
 
         Player temp = activePlayer;
         activePlayer = nonActivePlayer;
         nonActivePlayer = temp;
 
-        passTurn = true;
+        passCommand();
     }
 
     public void attackPlayerWithMinion(int activePlayerMinionIdx) {
@@ -207,27 +208,56 @@ public class Game {
         nonActivePlayer.cleanMinionsWith0Health();
     }
 
-    private boolean endGame = true;
-    private boolean passTurn = false;
-
-    public void endGame() {
-        endGame = false;
-    }
-
     public void run() {
-        while (endGame) {
+        while (isRunning()) {
             startTurn();
+
             do {
                 activePlayer.play(this);
-            } while (shouldPassTurn());
+            } while (needPlayerInput());
+
+            if ((activePlayer.getCurrentHealth() <= 0) || (nonActivePlayer.getCurrentHealth() <= 0)) {
+                setVictory();
+            }
+
         }
-        printSystem.print("Player 1 quit");
+
+        Optional<Player> winner = getWinner();
+        if (!winner.isEmpty()) {
+            Player player = winner.get();
+            printSystem.print(player.getName() + " win");
+        } else {
+            printSystem.print("Player 1 quit");
+        }
     }
 
-    private boolean shouldPassTurn() {
-        if (passTurn) {
-            return false;
-        }
-        return endGame;
+    private enum State {
+        START_TURN, PLAYER_INPUT, QUIT, VICTORIOUS
+    };
+
+    private State currentState = State.START_TURN;
+
+    public void endGame() {
+        currentState = State.QUIT;
+    }
+
+    public void setVictory() {
+        currentState = State.VICTORIOUS;
+    }
+
+    private boolean isRunning() {
+        return !currentState.equals(State.QUIT) && !currentState.equals(State.VICTORIOUS);
+    }
+
+    public boolean needPlayerInput() {
+        return currentState.equals(State.PLAYER_INPUT);
+    }
+
+    private void passCommand() {
+        currentState = State.START_TURN;
+    }
+
+    private void afterSetTurn() {
+        currentState = State.PLAYER_INPUT;
     }
 }

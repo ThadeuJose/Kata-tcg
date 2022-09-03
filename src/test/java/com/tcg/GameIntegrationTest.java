@@ -23,12 +23,44 @@ public class GameIntegrationTest {
     }
 
     @Test
-    public void shouldShowWinnerMessageWhenIsOver() {
+    public void shouldShowMessageWhenAPlayerPass() {
         TestPrintSystem printSystem = new TestPrintSystem();
         Game game = createGame(printSystem);
         game.init();
         game.run();
         assertEquals("Player 1 quit", printSystem.getLastRegister());
+    }
+
+    @Test
+    public void shouldShowWinnerMessageWhenIsOver() {
+        TestPrintSystem printSystem = new TestPrintSystem();
+
+        Strategy strategy = new Strategy() {
+            @Override
+            public void play(Game game) {
+                Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
+                        .setTarget(game.getOppositionPlayerTarget())
+                        .build();
+                game.play(move);
+                game.pass();
+            }
+        };
+
+        Card card = new Card.Builder(1).setDamage(2).build();
+        Player player = new Player.Builder().setPlayerName("Player 1").setDeck(Deck.createStandardDeck())
+                .setMana(2)
+                .setCardsInHand(card)
+                .setStrategy(strategy)
+                .build();
+
+        Player player2 = new Player.Builder().setHealth(2).setDeck(Deck.createStandardDeck())
+                .setStrategy(new PassStrategy())
+                .build();
+
+        Game game = new Game(printSystem, player, player2);
+        game.init();
+        game.run();
+        assertEquals("Player 1 win", printSystem.getLastRegister());
     }
 
     @Test
