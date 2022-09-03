@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
@@ -21,7 +22,7 @@ public class AttackWithMinionTest {
                 .setCardsInHand(new Card.Builder(1).build())
                 .build();
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .setTarget(game.getOppositionPlayerTarget())
@@ -39,7 +40,7 @@ public class AttackWithMinionTest {
                 .setCardsInHand(new Card.Builder(1).build())
                 .build();
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -59,7 +60,7 @@ public class AttackWithMinionTest {
                 .setCardsInHand(new Card.Builder(1).build(), new Card.Builder(5).build())
                 .build();
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -87,7 +88,7 @@ public class AttackWithMinionTest {
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -109,7 +110,7 @@ public class AttackWithMinionTest {
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -133,7 +134,7 @@ public class AttackWithMinionTest {
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -157,7 +158,7 @@ public class AttackWithMinionTest {
                 .build();
 
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -182,7 +183,7 @@ public class AttackWithMinionTest {
                 .setMana(6)
                 .setCardsInHand(new Card.Builder(1).build(), new Card.Builder(5).build())
                 .build();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();

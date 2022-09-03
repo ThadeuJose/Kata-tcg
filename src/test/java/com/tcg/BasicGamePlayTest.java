@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -7,7 +8,7 @@ import org.junit.Test;
 public class BasicGamePlayTest {
     @Test
     public void activePlayerShouldReceive1ManaSlot() {
-        Game game = new Game();
+        Game game = createGame();
         game.init();
         game.startTurn();
         Player player = game.getActivePlayer();
@@ -16,7 +17,7 @@ public class BasicGamePlayTest {
 
     @Test
     public void activePlayerShouldRefillEmptyManaSlot() {
-        Game game = new Game();
+        Game game = createGame();
         game.init();
         game.startTurn();
         Player player = game.getActivePlayer();
@@ -25,7 +26,7 @@ public class BasicGamePlayTest {
 
     @Test
     public void activePlayerShouldDrawACard() {
-        Game game = new Game();
+        Game game = createGame();
         game.init();
         game.startTurn();
         Player player = game.getActivePlayer();
@@ -34,7 +35,7 @@ public class BasicGamePlayTest {
 
     @Test
     public void activePlayerShouldDrawACardFromDeck() {
-        Game game = new Game();
+        Game game = createGame();
         game.init();
         game.startTurn();
         Player player = game.getActivePlayer();

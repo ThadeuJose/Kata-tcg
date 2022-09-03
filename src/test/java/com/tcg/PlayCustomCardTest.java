@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class PlayCustomCardTest {
                 .build();
         nonActivePlayer = new Player.Builder().build();
 
-        game = new Game(activePlayer, nonActivePlayer);
+        game = createGame(activePlayer, nonActivePlayer);
     }
 
     @Test

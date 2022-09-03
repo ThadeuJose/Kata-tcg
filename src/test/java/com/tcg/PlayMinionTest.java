@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Rule;
@@ -18,7 +19,7 @@ public class PlayMinionTest {
 
         Player nonActivePlayer = new Player.Builder().build();
 
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -37,7 +38,7 @@ public class PlayMinionTest {
 
         Player nonActivePlayer = new Player.Builder().build();
 
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -65,7 +66,7 @@ public class PlayMinionTest {
 
         Player nonActivePlayer = new Player.Builder().build();
 
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();

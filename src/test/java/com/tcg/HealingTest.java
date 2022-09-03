@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class HealingTest {
                 .build();
 
         Player nonActivePlayer = new Player.Builder().build();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_HEALING)
                 .build();
@@ -32,7 +33,7 @@ public class HealingTest {
                 .build();
 
         Player nonActivePlayer = new Player.Builder().build();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_HEALING)
                 .build();
@@ -50,7 +51,7 @@ public class HealingTest {
                 .build();
 
         Player nonActivePlayer = new Player.Builder().build();
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_HEALING)
                 .build();

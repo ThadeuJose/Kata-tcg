@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -12,11 +13,9 @@ public class WinconTest {
     // If the opponent player's Health drops to or below zero the active player wins
     // the game.
 
-    Game game;
-
     @Test
     public void shouldNotStartWithWinner() {
-        game = new Game();
+        Game game = createGame();
         game.init();
         game.startTurn();
         Optional<Player> winnerPlayer = game.getWinner();
@@ -32,7 +31,7 @@ public class WinconTest {
 
         Player lostPlayer = new Player.Builder().setHealth(2).build();
 
-        game = new Game(playerTest, lostPlayer);
+        Game game = createGame(playerTest, lostPlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
                 .setTarget(game.getOppositionPlayerTarget())
@@ -54,7 +53,7 @@ public class WinconTest {
 
         Player lostPlayer = new Player.Builder().setHealth(1).build();
 
-        game = new Game(playerTest, lostPlayer);
+        Game game = createGame(playerTest, lostPlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
                 .setTarget(game.getOppositionPlayerTarget())

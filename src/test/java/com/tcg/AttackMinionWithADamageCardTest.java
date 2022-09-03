@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -16,7 +17,7 @@ public class AttackMinionWithADamageCardTest {
                 .setCardsInHand(new Card.Builder(5).build())
                 .build();
 
-        Game game = new Game(activePlayer, nonActivePlayer);
+        Game game = createGame(activePlayer, nonActivePlayer);
 
         game.pass();
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)

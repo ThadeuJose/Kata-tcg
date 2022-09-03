@@ -22,43 +22,7 @@ public class Game {
 
     PrintSystem printSystem;
 
-    public Game() {
-        // No Test constructor
-        Player p1 = new Player.Builder().setPlayerName("Player 1").setDeck(Deck.createStandardDeck()).build();
-        Player p2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
-        this.activePlayer = p1;
-        this.nonActivePlayer = p2;
-        this.winner = null;
-    }
-
-    public Game(Player activePlayer, Player nonActivePlayer) {
-        // Test constructor
-        this.activePlayer = activePlayer;
-        this.nonActivePlayer = nonActivePlayer;
-        this.winner = null;
-    }
-
-    public Game(PrintSystem printSystem) {
-        // No Test constructor
-        Player p1 = new Player.Builder().setPlayerName("Player 1").setDeck(Deck.createStandardDeck()).build();
-        Player p2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
-        activePlayer = p1;
-        nonActivePlayer = p2;
-        winner = null;
-        this.printSystem = printSystem;
-    }
-
-    public Game(PrintSystem printSystem, Player player) {
-        // No Test constructor
-        this.printSystem = printSystem;
-        Player p2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
-        activePlayer = player;
-        nonActivePlayer = p2;
-        winner = null;
-    }
-
     public Game(PrintSystem printSystem, Player player1, Player player2) {
-        // No Test constructor
         this.printSystem = printSystem;
         activePlayer = player1;
         nonActivePlayer = player2;
@@ -249,7 +213,7 @@ public class Game {
         return !currentState.equals(State.QUIT) && !currentState.equals(State.VICTORIOUS);
     }
 
-    public boolean needPlayerInput() {
+    private boolean needPlayerInput() {
         return currentState.equals(State.PLAYER_INPUT);
     }
 

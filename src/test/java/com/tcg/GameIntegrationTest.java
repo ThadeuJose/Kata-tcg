@@ -1,5 +1,6 @@
 package com.tcg;
 
+import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class GameIntegrationTest {
     @Test
     public void shouldStartGame() {
         TestPrintSystem printSystem = new TestPrintSystem();
-        Game game = createGame(printSystem);
+        Game game = createAnyGame(printSystem);
         game.init();
         assertEquals("Start the game", printSystem.get(0));
     }
@@ -25,7 +26,7 @@ public class GameIntegrationTest {
     @Test
     public void shouldShowMessageWhenAPlayerPass() {
         TestPrintSystem printSystem = new TestPrintSystem();
-        Game game = createGame(printSystem);
+        Game game = createAnyGame(printSystem);
         game.init();
         game.run();
         assertEquals("Player 1 quit", printSystem.getLastRegister());
@@ -47,7 +48,7 @@ public class GameIntegrationTest {
         };
 
         Card card = new Card.Builder(1).setDamage(2).build();
-        Player player = new Player.Builder().setPlayerName("Player 1").setDeck(Deck.createStandardDeck())
+        Player player1 = new Player.Builder().setPlayerName("Player 1").setDeck(Deck.createStandardDeck())
                 .setMana(2)
                 .setCardsInHand(card)
                 .setStrategy(strategy)
@@ -57,7 +58,7 @@ public class GameIntegrationTest {
                 .setStrategy(new PassStrategy())
                 .build();
 
-        Game game = new Game(printSystem, player, player2);
+        Game game = createGame(printSystem, player1, player2);
         game.init();
         game.run();
         assertEquals("Player 1 win", printSystem.getLastRegister());
@@ -86,24 +87,27 @@ public class GameIntegrationTest {
         assertEquals(handString, printSystem.get(5));
     }
 
-    private Game createGame(TestPrintSystem printSystem) {
+    private Game createAnyGame(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
         Strategy strategy = new EndGameStrategy();
-        Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
-        return new Game(printSystem, player);
+        Player player1 = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
+        Player player2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
+        return createGame(printSystem, player1, player2);
     }
 
     private Game createGameWithPlayerConsole(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
         Strategy strategy = new TestPlayerDecorator(new ConsoleStrategy(printSystem, new NullInputSytem()));
-        Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
-        return new Game(printSystem, player);
+        Player player1 = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
+        Player player2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
+        return createGame(printSystem, player1, player2);
     }
 
     private Game createGameWithPlayerPass(TestPrintSystem printSystem) {
         Deck deck = Deck.createStandardDeck();
         Strategy strategy = new TestPlayerDecorator(new PassStrategy());
-        Player player = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
-        return new Game(printSystem, player);
+        Player player1 = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
+        Player player2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
+        return createGame(printSystem, player1, player2);
     }
 }
