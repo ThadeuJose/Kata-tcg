@@ -2,6 +2,7 @@ package com.tcg;
 
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -62,6 +63,34 @@ public class GameIntegrationTest {
         game.init();
         game.run();
         assertEquals("Player 1 win", printSystem.getLastRegister());
+    }
+
+    @Test
+    public void shouldLossInStartTurn() {
+        TestPrintSystem printSystem = new TestPrintSystem();
+
+        Strategy strategy = new Strategy() {
+            @Override
+            public void play(Game game) {
+                fail("Should loss before action");
+            }
+        };
+
+        Deck deck = new Deck.Builder().addCard(3, 2).build();
+
+        Player player1 = new Player.Builder().setHealth(1).setDeck(deck)
+                .setStrategy(strategy)
+                .build();
+
+        Player player2 = new Player.Builder().setPlayerName("Player 2")
+                .setDeck(Deck.createStandardDeck())
+                .setStrategy(new PassStrategy())
+                .build();
+
+        Game game = createGame(printSystem, player1, player2);
+        game.init();
+        game.run();
+        assertEquals("Player 2 win", printSystem.getLastRegister());
     }
 
     @Test
