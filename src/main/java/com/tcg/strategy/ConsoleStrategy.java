@@ -1,7 +1,5 @@
 package com.tcg.strategy;
 
-import java.util.Scanner;
-
 import com.tcg.Game;
 import com.tcg.Move;
 import com.tcg.Player;
