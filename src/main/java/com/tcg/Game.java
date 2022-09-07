@@ -83,6 +83,21 @@ public class Game {
         actionSystem.action(move);
     }
 
+    public void attackPlayerWithMinion(int activePlayerMinionIdx) {
+        Move move = new Move.Builder().setType(Type.AS_MINION_ATTACK_PLAYER)
+                .setActivePlayerMinionIdx(activePlayerMinionIdx)
+                .build();
+        actionSystem.action(move);
+    }
+
+    public void attackMinionWithMinion(int activePlayerMinionIdx, int nonActivePlayerMinionIdx) {
+        Move move = new Move.Builder().setType(Type.AS_MINION_ATTACK_MINION)
+                .setActivePlayerMinionIdx(activePlayerMinionIdx)
+                .setNonActivePlayerMinionIdx(nonActivePlayerMinionIdx)
+                .build();
+        actionSystem.action(move);
+    }
+
     public Target getOppositionPlayerTarget() {
         return match.getNonActivePlayer();
     }
@@ -109,34 +124,6 @@ public class Game {
         match.changeActivePlayer();
 
         passCommand();
-    }
-
-    public void attackPlayerWithMinion(int activePlayerMinionIdx) {
-        Minion alliedMinion = match.getActivePlayer().getMinion(activePlayerMinionIdx);
-
-        alliedMinion.validateIfCanAttack();
-
-        attack(match.getNonActivePlayer(), alliedMinion);
-        attack(alliedMinion, match.getNonActivePlayer());
-
-    }
-
-    private void attack(Target target, Combatant combatant) {
-        target.takeDamage(combatant.getAttackValue());
-    }
-
-    public void attackMinionWithMinion(int activePlayerMinionIdx, int nonActivePlayerMinionIdx) {
-        Minion enemyMinion = match.getNonActivePlayer().getMinion(nonActivePlayerMinionIdx);
-        Minion alliedMinion = match.getActivePlayer().getMinion(activePlayerMinionIdx);
-
-        alliedMinion.validateIfCanAttack();
-
-        enemyMinion.takeDamage(alliedMinion.getAttackValue());
-
-        alliedMinion.takeDamage(enemyMinion.getAttackValue());
-
-        match.getActivePlayer().cleanMinionsWith0Health();
-        match.getNonActivePlayer().cleanMinionsWith0Health();
     }
 
     public void run() {

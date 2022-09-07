@@ -2,10 +2,13 @@ package com.tcg.system;
 
 import com.tcg.CantAffordCardException;
 import com.tcg.Card;
+import com.tcg.Combatant;
 import com.tcg.Game;
 import com.tcg.InvalidPlayException;
+import com.tcg.Minion;
 import com.tcg.Move;
 import com.tcg.Player;
+import com.tcg.Target;
 import com.tcg.Type;
 import com.tcg.action.Action;
 import com.tcg.action.CreateMinionAction;
@@ -33,9 +36,14 @@ public class ActionSystem {
             game.pass();
         } else if (type.equals(Type.AS_END)) {
             game.endGame();
+        } else if (type.equals(Type.AS_MINION_ATTACK_PLAYER)) {
+            attackPlayerWithMinion(move.getActivePlayerMinionIdx());
+        } else if (type.equals(Type.AS_MINION_ATTACK_MINION)) {
+            attackMinionWithMinion(move.getActivePlayerMinionIdx(), move.getNonActivePlayerMinionIdx());
         } else {
             play(move);
         }
+
     }
 
     public void play(Move move) {
@@ -46,6 +54,7 @@ public class ActionSystem {
         }
 
         Card card = activePlayer.getCardFromHand(move.getCardIndex());
+
         if (card.getManaCost() > activePlayer.getCurrentMana()) {
 
             throw new CantAffordCardException(
@@ -88,6 +97,28 @@ public class ActionSystem {
     private void checkWinner() {
         Message message = new Message("victory", null);
         observable.sendMessage(message);
+    }
+
+    private void attackPlayerWithMinion(int activePlayerMinionIdx) {
+        Minion alliedMinion = match.getActivePlayer().getMinion(activePlayerMinionIdx);
+
+        alliedMinion.validateIfCanAttack();
+
+        match.getNonActivePlayer().takeDamage(alliedMinion.getAttackValue());
+    }
+
+    private void attackMinionWithMinion(int activePlayerMinionIdx, int nonActivePlayerMinionIdx) {
+        Minion alliedMinion = match.getActivePlayer().getMinion(activePlayerMinionIdx);
+
+        alliedMinion.validateIfCanAttack();
+
+        Minion enemyMinion = match.getNonActivePlayer().getMinion(nonActivePlayerMinionIdx);
+
+        enemyMinion.takeDamage(alliedMinion.getAttackValue());
+        alliedMinion.takeDamage(enemyMinion.getAttackValue());
+
+        match.getActivePlayer().cleanMinionsWith0Health();
+        match.getNonActivePlayer().cleanMinionsWith0Health();
     }
 
 }
