@@ -10,6 +10,8 @@ import com.tcg.action.CreateMinionAction;
 import com.tcg.action.DoDamageAction;
 import com.tcg.action.DrawAction;
 import com.tcg.action.HealingAction;
+import com.tcg.architecture.observer.Message;
+import com.tcg.architecture.observer.Observable;
 import com.tcg.system.PrintSystem;
 import com.tcg.system.VictorySystem;
 
@@ -23,13 +25,17 @@ public class Game {
 
     PrintSystem printSystem;
     VictorySystem victorySystem;
+    Observable observable;
 
     public Game(PrintSystem printSystem, Player player1, Player player2) {
         this.printSystem = printSystem;
         activePlayer = player1;
         nonActivePlayer = player2;
         winner = null;
+        // TODO Refactor
         victorySystem = new VictorySystem(this);
+        observable = new Observable();
+        observable.addObserver("victory", victorySystem);
     }
 
     public void init() {
@@ -176,6 +182,8 @@ public class Game {
         while (isRunning()) {
             startTurn();
 
+            checkWinner();
+
             while (needPlayerInput()) {
                 activePlayer.play(this);
             }
@@ -223,6 +231,7 @@ public class Game {
     }
 
     private void checkWinner() {
-        victorySystem.checkWinner();
+        Message message = new Message("victory", null);
+        observable.sendMessage(message);
     }
 }

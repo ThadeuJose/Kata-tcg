@@ -7,9 +7,10 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Observable {
-    private final Map<String, Set<Observer>> topicMap = new HashMap<String, Set<Observer>>();
+    private final Map<String, Set<Observer>> topicMap;
 
     public Observable() {
+        topicMap = new HashMap<String, Set<Observer>>();
     }
 
     public void addObserver(String topic, Observer observer) {

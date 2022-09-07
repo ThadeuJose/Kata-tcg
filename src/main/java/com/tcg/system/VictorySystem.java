@@ -1,8 +1,10 @@
 package com.tcg.system;
 
 import com.tcg.Game;
+import com.tcg.architecture.observer.Message;
+import com.tcg.architecture.observer.Observer;
 
-public class VictorySystem {
+public class VictorySystem implements Observer {
 
     Game game;
 
@@ -20,6 +22,11 @@ public class VictorySystem {
             game.setWinner(game.getActivePlayer());
             game.setVictory();
         }
+    }
+
+    @Override
+    public void update(Message message) {
+        checkWinner();
     }
 
 }
