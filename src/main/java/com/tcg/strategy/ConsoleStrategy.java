@@ -37,11 +37,15 @@ public class ConsoleStrategy implements Strategy {
             Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
                     .setTarget(game.getOppositionPlayerTarget())
                     .build();
-            game.play(move);
+            game.action(move);
         } else if (command.equals("P")) {
-            game.pass();
+            Move move = new Move.Builder().setType(Type.AS_PASS)
+                    .build();
+            game.action(move);
         } else {
-            game.endGame();
+            Move move = new Move.Builder().setType(Type.AS_END)
+                    .build();
+            game.action(move);
         }
 
     }

@@ -75,6 +75,16 @@ public class Game {
 
     }
 
+    public void action(Move move) {
+        Type type = move.getType();
+        if (type.equals(Type.AS_PASS)) {
+            pass();
+        } else if (type.equals(Type.AS_END)) {
+            endGame();
+        } else {
+            play(move);
+        }
+    }
     public void play(Move move) {
         if (activePlayer.getHandSize() == 0) {
             throw new InvalidPlayException("Shouldn't try to play with empty hand");

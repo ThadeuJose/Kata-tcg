@@ -1,6 +1,8 @@
 package com.tcg.util;
 
 import com.tcg.Game;
+import com.tcg.Move;
+import com.tcg.Type;
 import com.tcg.strategy.Strategy;
 
 public class TestPlayerDecorator implements Strategy {
@@ -13,7 +15,9 @@ public class TestPlayerDecorator implements Strategy {
     @Override
     public void play(Game game) {
         strategy.play(game);
-        game.endGame();
+        Move move = new Move.Builder().setType(Type.AS_END)
+                .build();
+        game.action(move);
     }
 
 }
