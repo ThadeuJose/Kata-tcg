@@ -111,9 +111,11 @@ public class GameIntegrationTest {
         String handString = "Hand: \n[0] Cost 0 - Damage 0 Healing 0 Minion 0/1 Card Draw 0\n[1] Cost 0 - Damage 0 Healing 0 Minion 0/1 Card Draw 0\n[2] Cost 1 - Damage 1 Healing 1 Minion 1/1 Card Draw 1\n[3] Cost 1 - Damage 1 Healing 1 Minion 1/1 Card Draw 1\n";
         assertEquals("Opponent: 30 Life", printSystem.get(1));
         assertEquals("Opponent: 4 cards in hand", printSystem.get(2));
-        assertEquals("Myself: 30 Life", printSystem.get(3));
-        assertEquals("Myself: 1 mana", printSystem.get(4));
-        assertEquals(handString, printSystem.get(5));
+        assertEquals("Opponent board:\n", printSystem.get(3));
+        assertEquals("Myself: 30 Life", printSystem.get(4));
+        assertEquals("Myself: 1 mana", printSystem.get(5));
+        assertEquals("My board:\n", printSystem.get(6));
+        assertEquals(handString, printSystem.get(7));
     }
 
     private Game createAnyGame(TestPrintSystem printSystem) {

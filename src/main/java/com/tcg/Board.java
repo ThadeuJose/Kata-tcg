@@ -36,4 +36,22 @@ public class Board {
         minions.removeIf(e -> e.getHealth() <= 0);
     }
 
+    public String printAllInformation() {
+        String result = "";
+        for (int i = 0; i < minions.size(); i++) {
+            Minion minion = minions.get(i);
+            result += "[" + i + "] " + minion.printAllInformation() + "\n";
+        }
+        return result;
+    }
+
+    public String printWithoutInformation() {
+        String result = "";
+        for (int i = 0; i < minions.size(); i++) {
+            Minion minion = minions.get(i);
+            result += "[" + i + "] " + minion.printWithoutInformation() + "\n";
+        }
+        return result;
+    }
+
 }

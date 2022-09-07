@@ -82,14 +82,6 @@ public class Minion implements Target, Combatant {
 
     }
 
-    public static Minion buildDefaultMinion(int value) {
-        Builder builder = new Builder();
-        if (value > 0) {
-            builder.setPower(value).setHealth(value);
-        }
-        return builder.build();
-    }
-
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -113,6 +105,32 @@ public class Minion implements Target, Combatant {
         if (power != other.power)
             return false;
         return true;
+    }
+
+    public String printAllInformation() {
+        String result = "";
+        if (!isAwake()) {
+            result += "[Sleep]";
+        }
+        if (canAttack() && isAwake()) {
+            result += "[Can Attack]";
+        }
+        if (result.length() > 0) {
+            return String.join(" ", printWithoutInformation(), result);
+        }
+        return printWithoutInformation();
+    }
+
+    public String printWithoutInformation() {
+        return getAttackValue() + "/" + getHealth();
+    }
+
+    public static Minion buildDefaultMinion(int value) {
+        Builder builder = new Builder();
+        if (value > 0) {
+            builder.setPower(value).setHealth(value);
+        }
+        return builder.build();
     }
 
     public static class Builder {

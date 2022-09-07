@@ -207,4 +207,12 @@ public class Player implements Target, Combatant {
         return result;
     }
 
+    public String printBoardWithAllInformation() {
+        return board.printAllInformation();
+    }
+
+    public String printBoardWithoutInformation() {
+        return board.printWithoutInformation();
+    }
+
 }
