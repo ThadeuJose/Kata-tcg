@@ -38,8 +38,7 @@ public class ConsoleStrategy implements Strategy {
         String command = inputSystem.getInput();
         printSystem.print(command);
 
-        Target oppositionPlayerTarget = game.getOppositionPlayerTarget();
-        game.action(interpreter.createMove(command, oppositionPlayerTarget));
+        game.action(interpreter.createMove(command));
 
     }
 

@@ -2,12 +2,10 @@ package com.tcg;
 
 public class Interpreter {
 
-    public Move createMove(String command, Target oppositionPlayerTarget) {
+    public Move createMove(String command) {
         Move move;
         if (command.equals("D")) {
-            move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
-                    .setTarget(oppositionPlayerTarget)
-                    .build();
+            move = new Move.Builder().dealDamage(0, Move.toPlayer());
 
         } else if (command.equals("P")) {
             move = new Move.Builder().setType(Type.AS_PASS)
