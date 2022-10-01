@@ -2,8 +2,8 @@ package com.tcg.util;
 
 import com.tcg.Deck;
 import com.tcg.Game;
+import com.tcg.Move;
 import com.tcg.Player;
-import com.tcg.Player.Builder;
 import com.tcg.system.PrintSystem;
 
 public class CreateUtils {
@@ -24,8 +24,12 @@ public class CreateUtils {
         return new Game(printSystem, player1, player2);
     }
 
-    public static Builder aPlayer() {
+    public static Player.Builder aPlayer() {
         return new Player.Builder();
+    }
+
+    public static Move.Builder aMove() {
+        return new Move.Builder();
     }
 
 }

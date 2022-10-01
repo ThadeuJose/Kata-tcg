@@ -2,14 +2,14 @@ package com.tcg;
 
 import static com.tcg.Move.toMinion;
 import static com.tcg.Move.toPlayer;
+import static com.tcg.util.CreateUtils.aMove;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.tcg.Move.Builder;
-import com.tcg.target.TargetType;
 import com.tcg.target.TargetMinion;
 import com.tcg.target.TargetPlayer;
+import com.tcg.target.TargetType;
 
 public class MoveTest {
     @Test
@@ -33,7 +33,4 @@ public class MoveTest {
         assertEquals(new TargetMinion(1), actualClass);
     }
 
-    private Builder aMove() {
-        return new Move.Builder();
-    }
 }
