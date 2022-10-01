@@ -1,17 +1,28 @@
 package com.tcg;
 
+import com.tcg.target.TargetType;
+import com.tcg.target.TargetMinion;
+import com.tcg.target.TargetPlayer;
+
 public class Move {
 
     private int cardIndex;
     private Type type;
-    private Target target;
+
     private int activePlayerMinionIdx;
     private int nonActivePlayerMinionIdx;
+
+    private Target target;
+
+    private TargetType targetType;
 
     private Move(Builder builder) {
         cardIndex = builder.cardIndex;
         type = builder.type;
+
         target = builder.target;
+        targetType = builder.targetType;
+
         activePlayerMinionIdx = builder.activePlayerMinionIdx;
         nonActivePlayerMinionIdx = builder.nonActivePlayerMinionIdx;
     }
@@ -36,12 +47,18 @@ public class Move {
         return nonActivePlayerMinionIdx;
     }
 
+    public TargetType getTargetType() {
+        return targetType;
+    }
+
     public static class Builder {
         private int cardIndex;
         private Type type;
         private Target target;
         private int activePlayerMinionIdx;
         private int nonActivePlayerMinionIdx;
+
+        private TargetType targetType;
 
         public Builder setCardIndex(int cardIndex) {
             this.cardIndex = cardIndex;
@@ -68,11 +85,40 @@ public class Move {
             return this;
         }
 
+        public Move dealDamageToPlayer(int cardIndex) {
+            this.cardIndex = cardIndex;
+            this.type = Type.AS_DAMAGE;
+            this.targetType = new TargetPlayer();
+            return build();
+        }
+
+        public Move dealDamageToMinion(int cardIndex, int targetMinionIndex) {
+            this.cardIndex = cardIndex;
+            this.type = Type.AS_DAMAGE;
+            this.targetType = new TargetMinion(targetMinionIndex);
+            return build();
+        }
+
+        public Move dealDamage(int cardIndex, TargetType target) {
+            this.cardIndex = cardIndex;
+            this.type = Type.AS_DAMAGE;
+            this.targetType = target;
+            return build();
+        }
+
         // TODO Make validate can only create a damage with target
         public Move build() {
             return new Move(this);
         }
 
+    }
+
+    public static TargetMinion toMinion(int index) {
+        return new TargetMinion(index);
+    }
+
+    public static TargetPlayer toPlayer() {
+        return new TargetPlayer();
     }
 
 }

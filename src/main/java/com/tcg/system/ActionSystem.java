@@ -1,8 +1,9 @@
 package com.tcg.system;
 
+import java.util.Objects;
+
 import com.tcg.CantAffordCardException;
 import com.tcg.Card;
-import com.tcg.Combatant;
 import com.tcg.Game;
 import com.tcg.InvalidPlayException;
 import com.tcg.Minion;
@@ -18,6 +19,7 @@ import com.tcg.action.HealingAction;
 import com.tcg.architecture.observer.Message;
 import com.tcg.architecture.observer.Observable;
 import com.tcg.model.Match;
+import com.tcg.target.TargetVisitor;
 
 public class ActionSystem {
     Game game;
@@ -85,7 +87,15 @@ public class ActionSystem {
             return new DrawAction(card, affectedPlayer);
         }
 
-        return new DoDamageAction(card, move.getTarget());
+        return new DoDamageAction(card, getTarget(move));
+
+    }
+
+    private Target getTarget(Move move) {
+        if (Objects.nonNull(move.getTarget()))
+            return move.getTarget();
+
+        return move.getTargetType().visit(new TargetVisitor(game));
 
     }
 

@@ -25,9 +25,7 @@ public class AttackMinionWithADamageCardTest {
                 .build();
         game.play(move);
         game.pass();
-        move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
-                .setTarget(game.getMinionTarget(0))
-                .build();
+        move = new Move.Builder().dealDamage(0, Move.toMinion(0));
         game.play(move);
 
         assertEquals(2, nonActivePlayer.getMinion(0).getHealth());
