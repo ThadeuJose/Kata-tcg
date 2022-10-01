@@ -18,8 +18,8 @@ public class MoveTest {
         assertEquals(Type.AS_DAMAGE, actual.getType());
         assertEquals(2, actual.getCardIndex());
 
-        TargetType expected = actual.getTargetType();
-        assertEquals(TargetPlayer.class, expected.getClass());
+        TargetType actualClass = actual.getTargetType();
+        assertEquals(TargetPlayer.class, actualClass.getClass());
     }
 
     @Test
@@ -28,9 +28,9 @@ public class MoveTest {
         assertEquals(Type.AS_DAMAGE, actual.getType());
         assertEquals(2, actual.getCardIndex());
 
-        TargetType expected = actual.getTargetType();
-        assertEquals(TargetMinion.class, expected.getClass());
-        assertEquals(new TargetMinion(1), expected);
+        TargetType actualClass = actual.getTargetType();
+        assertEquals(TargetMinion.class, actualClass.getClass());
+        assertEquals(new TargetMinion(1), actualClass);
     }
 
     private Builder aMove() {
