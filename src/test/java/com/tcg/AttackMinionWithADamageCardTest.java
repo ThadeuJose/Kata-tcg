@@ -1,5 +1,7 @@
 package com.tcg;
 
+import static com.tcg.Move.toMinion;
+import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
@@ -20,12 +22,10 @@ public class AttackMinionWithADamageCardTest {
         Game game = createGame(activePlayer, nonActivePlayer);
 
         game.pass();
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .setTarget(game.getOppositionPlayerTarget())
-                .build();
+        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION).build();
         game.play(move);
         game.pass();
-        move = new Move.Builder().dealDamage(0, Move.toMinion(0));
+        move = aMove().dealDamage(0, toMinion(0));
         game.play(move);
 
         assertEquals(2, nonActivePlayer.getMinion(0).getHealth());

@@ -1,5 +1,7 @@
 package com.tcg;
 
+import static com.tcg.Move.toPlayer;
+import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 
 import org.junit.Rule;
@@ -19,9 +21,7 @@ public class PlayCardExceptionsTest {
         Player nonActivePlayer = Player.createPlayerWithEmptyDeck();
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
-                .setTarget(game.getOppositionPlayerTarget())
-                .build();
+        Move move = aMove().dealDamage(0, toPlayer());
 
         game.play(move);
     }
@@ -40,9 +40,8 @@ public class PlayCardExceptionsTest {
 
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
-                .setTarget(game.getOppositionPlayerTarget())
-                .build();
+        Move move = aMove().dealDamage(0, toPlayer());
+
         game.play(move);
     }
 
@@ -58,9 +57,7 @@ public class PlayCardExceptionsTest {
 
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = new Move.Builder().setCardIndex(5).setType(Type.AS_DAMAGE)
-                .setTarget(game.getOppositionPlayerTarget())
-                .build();
+        Move move = aMove().dealDamage(5, toPlayer());
         game.play(move);
     }
 
@@ -75,9 +72,7 @@ public class PlayCardExceptionsTest {
         Player nonActivePlayer = new Player.Builder().build();
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = new Move.Builder().setCardIndex(-1).setType(Type.AS_DAMAGE)
-                .setTarget(game.getOppositionPlayerTarget())
-                .build();
+        Move move = aMove().dealDamage(-1, toPlayer());
 
         game.play(move);
     }

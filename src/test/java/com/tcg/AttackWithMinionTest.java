@@ -25,7 +25,6 @@ public class AttackWithMinionTest {
         Game game = createGame(activePlayer, nonActivePlayer);
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .setTarget(game.getOppositionPlayerTarget())
                 .build();
 
         game.play(move);

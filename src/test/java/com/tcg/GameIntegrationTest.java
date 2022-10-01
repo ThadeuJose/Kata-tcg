@@ -1,5 +1,7 @@
 package com.tcg;
 
+import static com.tcg.Move.toPlayer;
+import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -40,9 +42,7 @@ public class GameIntegrationTest {
         Strategy strategy = new Strategy() {
             @Override
             public void play(Game game) {
-                Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
-                        .setTarget(game.getOppositionPlayerTarget())
-                        .build();
+                Move move = aMove().dealDamage(0, toPlayer());
                 game.play(move);
                 game.pass();
             }

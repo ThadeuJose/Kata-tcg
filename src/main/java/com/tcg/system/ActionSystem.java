@@ -92,11 +92,7 @@ public class ActionSystem {
     }
 
     private Target getTarget(Move move) {
-        if (Objects.nonNull(move.getTarget()))
-            return move.getTarget();
-
         return move.getTargetType().visit(new TargetVisitor(game));
-
     }
 
     private String createCantAffordCardExceptionMessage(int cardIndex, int manaCost, int currentMana) {

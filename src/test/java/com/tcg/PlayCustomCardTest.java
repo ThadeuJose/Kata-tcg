@@ -1,5 +1,7 @@
 package com.tcg;
 
+import static com.tcg.Move.toPlayer;
+import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
@@ -32,8 +34,7 @@ public class PlayCustomCardTest {
 
     @Test
     public void shouldDealCorrectDamage() {
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DAMAGE)
-                .setTarget(game.getOppositionPlayerTarget()).build();
+        Move move = aMove().dealDamage(0, toPlayer());
         game.play(move);
         assertEquals(27, nonActivePlayer.getCurrentHealth());
     }

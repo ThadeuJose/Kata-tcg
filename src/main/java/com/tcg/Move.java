@@ -12,15 +12,12 @@ public class Move {
     private int activePlayerMinionIdx;
     private int nonActivePlayerMinionIdx;
 
-    private Target target;
-
     private TargetType targetType;
 
     private Move(Builder builder) {
         cardIndex = builder.cardIndex;
         type = builder.type;
 
-        target = builder.target;
         targetType = builder.targetType;
 
         activePlayerMinionIdx = builder.activePlayerMinionIdx;
@@ -33,10 +30,6 @@ public class Move {
 
     public Type getType() {
         return type;
-    }
-
-    public Target getTarget() {
-        return target;
     }
 
     public int getActivePlayerMinionIdx() {
@@ -67,11 +60,6 @@ public class Move {
 
         public Builder setType(Type type) {
             this.type = type;
-            return this;
-        }
-
-        public Builder setTarget(Target target) {
-            this.target = target;
             return this;
         }
 
