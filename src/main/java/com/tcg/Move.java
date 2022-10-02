@@ -47,7 +47,6 @@ public class Move {
     public static class Builder {
         private int cardIndex;
         private Type type;
-        private Target target;
         private int activePlayerMinionIdx;
         private int nonActivePlayerMinionIdx;
 
