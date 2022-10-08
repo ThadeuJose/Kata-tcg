@@ -72,17 +72,8 @@ public class Move {
             return this;
         }
 
-        public Move dealDamageToPlayer(int cardIndex) {
-            this.cardIndex = cardIndex;
-            this.type = Type.AS_DAMAGE;
-            this.targetType = new TargetPlayer();
-            return build();
-        }
-
-        public Move dealDamageToMinion(int cardIndex, int targetMinionIndex) {
-            this.cardIndex = cardIndex;
-            this.type = Type.AS_DAMAGE;
-            this.targetType = new TargetMinion(targetMinionIndex);
+        public Move endTurn() {
+            this.type = Type.AS_END;
             return build();
         }
 
@@ -90,6 +81,24 @@ public class Move {
             this.cardIndex = cardIndex;
             this.type = Type.AS_DAMAGE;
             this.targetType = target;
+            return build();
+        }
+
+        public Move heal(int cardIndex) {
+            this.cardIndex = cardIndex;
+            this.type = Type.AS_HEALING;
+            return build();
+        }
+
+        public Move draw(int cardIndex) {
+            this.cardIndex = cardIndex;
+            this.type = Type.AS_DRAW;
+            return build();
+        }
+
+        public Move createMinion(int cardIndex) {
+            this.cardIndex = cardIndex;
+            this.type = Type.AS_MINION;
             return build();
         }
 

@@ -2,10 +2,7 @@ package com.tcg.strategy;
 
 import com.tcg.Game;
 import com.tcg.Interpreter;
-import com.tcg.Move;
 import com.tcg.Player;
-import com.tcg.Target;
-import com.tcg.Type;
 import com.tcg.system.InputSystem;
 import com.tcg.system.PrintSystem;
 
