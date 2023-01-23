@@ -15,6 +15,7 @@ public class PassTest {
                 .setPlayerName("Player 2")
                 .build();
         Game game = createGame(player1, player2);
+        game.startTurn();
         game.pass();
         Player activePlayer = game.getActivePlayer();
         assertEquals(player2.getName(), activePlayer.getName());
@@ -29,7 +30,9 @@ public class PassTest {
                 .setPlayerName("Player 2")
                 .build();
         Game game = createGame(player1, player2);
+        game.startTurn();
         game.pass();
+        game.startTurn();
         game.pass();
         Player activePlayer = game.getActivePlayer();
         assertEquals(player1.getName(), activePlayer.getName());

@@ -7,6 +7,8 @@ import com.tcg.Deck;
 import com.tcg.DeckFactory;
 import com.tcg.Game;
 import com.tcg.Player;
+import com.tcg.model.ManaRefillService;
+import com.tcg.model.state.StateMachine;
 import com.tcg.strategy.PassStrategy;
 import com.tcg.strategy.ConsoleStrategy;
 import com.tcg.strategy.Strategy;
@@ -28,7 +30,7 @@ public class AppConfig {
 
     @Bean
     public Game game() {
-        return new Game(printSystem(), player1(), player2());
+        return new Game(new StateMachine(), new ManaRefillService(), printSystem(), player1(), player2());
     }
 
     @Bean

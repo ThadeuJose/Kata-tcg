@@ -2,10 +2,13 @@ package com.tcg;
 
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import com.tcg.model.ManaRefillService;
 
 public class AttackWithMinionTest {
 
@@ -22,7 +25,11 @@ public class AttackWithMinionTest {
                 .setCardsInHand(new Card.Builder(1).build())
                 .build();
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = createGame(activePlayer, nonActivePlayer);
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -39,13 +46,20 @@ public class AttackWithMinionTest {
                 .setCardsInHand(new Card.Builder(1).build())
                 .build();
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = createGame(activePlayer, nonActivePlayer);
+
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
 
         game.play(move);
         game.pass();
+
+        game.startTurn();
         game.pass();
         game.attackPlayerWithMinion(0);
 
@@ -59,7 +73,11 @@ public class AttackWithMinionTest {
                 .setCardsInHand(new Card.Builder(1).build(), new Card.Builder(5).build())
                 .build();
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = createGame(activePlayer, nonActivePlayer);
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -67,7 +85,10 @@ public class AttackWithMinionTest {
         game.play(move);
         game.play(move);
         game.pass();
+
+        game.startTurn();
         game.pass();
+
         game.attackPlayerWithMinion(0);
         game.attackPlayerWithMinion(1);
 
@@ -87,14 +108,20 @@ public class AttackWithMinionTest {
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
-        Game game = createGame(activePlayer, nonActivePlayer);
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
 
         game.pass();
+        game.startTurn();
         game.play(move);
         game.pass();
+        game.startTurn();
         game.play(move);
         game.attackMinionWithMinion(0, 0);
     }
@@ -109,13 +136,19 @@ public class AttackWithMinionTest {
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
-        Game game = createGame(activePlayer, nonActivePlayer);
+
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
 
         game.play(move);
         game.pass();
+        game.startTurn();
         game.play(move);
         game.pass();
         game.attackMinionWithMinion(0, 0);
@@ -133,13 +166,18 @@ public class AttackWithMinionTest {
                 .setMana(2)
                 .setCardsInHand(new Card.Builder(2).build())
                 .build();
-        Game game = createGame(activePlayer, nonActivePlayer);
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
 
         game.play(move);
         game.pass();
+        game.startTurn();
         game.play(move);
         game.pass();
         game.attackMinionWithMinion(0, 0);
@@ -157,7 +195,11 @@ public class AttackWithMinionTest {
                 .build();
 
         Player nonActivePlayer = Player.createPlayerWithStandardDeck();
-        Game game = createGame(activePlayer, nonActivePlayer);
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
@@ -165,6 +207,7 @@ public class AttackWithMinionTest {
         game.play(move);
 
         game.pass();
+        game.startTurn();
         game.pass();
         game.attackPlayerWithMinion(0);
         game.attackPlayerWithMinion(0);
@@ -182,16 +225,24 @@ public class AttackWithMinionTest {
                 .setMana(6)
                 .setCardsInHand(new Card.Builder(1).build(), new Card.Builder(5).build())
                 .build();
-        Game game = createGame(activePlayer, nonActivePlayer);
+
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
+
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
 
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
                 .build();
 
         game.play(move);
         game.pass();
+
+        game.startTurn();
         game.play(move);
         game.play(move);
         game.pass();
+
         game.attackMinionWithMinion(0, 0);
         game.attackMinionWithMinion(0, 0);
     }

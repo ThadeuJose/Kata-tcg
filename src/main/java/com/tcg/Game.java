@@ -7,7 +7,10 @@ import org.springframework.stereotype.Component;
 
 import com.tcg.architecture.observer.Message;
 import com.tcg.architecture.observer.Observable;
+import com.tcg.model.ManaRefillService;
 import com.tcg.model.Match;
+import com.tcg.model.state.EventEnum;
+import com.tcg.model.state.StateMachine;
 import com.tcg.strategy.boardstate.BoardStateMapper;
 import com.tcg.strategy.boardstate.OpponentBoardstate;
 import com.tcg.strategy.boardstate.PlayerBoardstate;
@@ -27,7 +30,11 @@ public class Game {
     ActionSystem actionSystem;
     Observable observable;
 
-    public Game(PrintSystem printSystem, Player player1, Player player2) {
+    private StateMachine stateMachine;
+    private ManaRefillService manaRefillService;
+
+    public Game(StateMachine stateMachine, ManaRefillService manaRefillService, PrintSystem printSystem, Player player1,
+            Player player2) {
         this.printSystem = printSystem;
 
         // TODO Refactor
@@ -37,6 +44,9 @@ public class Game {
         observable = new Observable();
         observable.addObserver("victory", victorySystem);
         actionSystem = new ActionSystem(this, observable, match);
+
+        this.stateMachine = stateMachine;
+        this.manaRefillService = manaRefillService;
 
     }
 
@@ -64,8 +74,9 @@ public class Game {
 
     public void startTurn() {
         Player player = match.getActivePlayer();
-        player.addEmptySlot();
-        player.refill();
+        manaRefillService.refillPlayerMana(player);
+
+        afterSetTurn();
 
         if (player.getDeckSize() == 0) {
             player.takeDamage(1);
@@ -73,8 +84,6 @@ public class Game {
         } else {
             player.draw();
         }
-
-        afterSetTurn();
 
     }
 
@@ -133,7 +142,7 @@ public class Game {
         while (isRunning()) {
             startTurn();
 
-            checkWinner();
+            // checkWinner();
 
             while (needPlayerInput()) {
                 PlayerBoardstate playerBoardstate = BoardStateMapper.mapPlayerBoardstatefromMatch(match);
@@ -141,7 +150,8 @@ public class Game {
                 action(match.getActivePlayer().play(opponentBoardstate, playerBoardstate));
             }
 
-            checkWinner();
+            // TODO Refactor should end loop after deal damage
+            // checkWinner();
         }
 
         Optional<Player> winner = getWinner();
@@ -153,34 +163,28 @@ public class Game {
         }
     }
 
-    private enum State {
-        START_TURN, PLAYER_INPUT, QUIT, VICTORIOUS
-    };
-
-    private State currentState = State.START_TURN;
-
     public void endGame() {
-        currentState = State.QUIT;
+        stateMachine.update(EventEnum.QUIT_COMMAND);
     }
 
     public void setVictory() {
-        currentState = State.VICTORIOUS;
+        stateMachine.update(EventEnum.PLAYER_GO_TO_0_HEALTH);
     }
 
     private boolean isRunning() {
-        return !currentState.equals(State.QUIT) && !currentState.equals(State.VICTORIOUS);
+        return !stateMachine.isFinalState();
     }
 
     private boolean needPlayerInput() {
-        return currentState.equals(State.PLAYER_INPUT);
+        return stateMachine.stillNeedPlayerInput();
     }
 
     private void passCommand() {
-        currentState = State.START_TURN;
+        stateMachine.update(EventEnum.PASS_COMMAND);
     }
 
     private void afterSetTurn() {
-        currentState = State.PLAYER_INPUT;
+        stateMachine.update(EventEnum.TURN_IS_SET);
     }
 
     private void checkWinner() {

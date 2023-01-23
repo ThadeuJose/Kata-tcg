@@ -4,8 +4,11 @@ import static com.tcg.Move.toMinion;
 import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
 
 import org.junit.Test;
+
+import com.tcg.model.ManaRefillService;
 
 public class AttackMinionWithADamageCardTest {
     @Test
@@ -19,12 +22,19 @@ public class AttackMinionWithADamageCardTest {
                 .setCardsInHand(new Card.Builder(5).build())
                 .build();
 
-        Game game = createGame(activePlayer, nonActivePlayer);
+        ManaRefillService manaRefillService = mock(ManaRefillService.class);
 
+        Game game = createGame(manaRefillService, activePlayer, nonActivePlayer);
+
+        game.startTurn();
         game.pass();
+
+        game.startTurn();
         Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION).build();
         game.play(move);
         game.pass();
+
+        game.startTurn();
         move = aMove().dealDamage(0, toMinion(0));
         game.play(move);
 
