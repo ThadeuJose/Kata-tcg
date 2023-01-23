@@ -1,8 +1,9 @@
 package com.tcg.strategy;
 
-import com.tcg.Game;
 import com.tcg.Interpreter;
-import com.tcg.Player;
+import com.tcg.Move;
+import com.tcg.strategy.boardstate.OpponentBoardstate;
+import com.tcg.strategy.boardstate.PlayerBoardstate;
 import com.tcg.system.InputSystem;
 import com.tcg.system.PrintSystem;
 
@@ -20,23 +21,20 @@ public class ConsoleStrategy implements Strategy {
     }
 
     @Override
-    public void play(Game game) {
-        Player opponent = game.getNonActivePlayer();
-        Player myself = game.getActivePlayer();
-        printSystem.print("Opponent: " + opponent.getCurrentHealth() + " Life");
-        printSystem.print("Opponent: " + opponent.getHandSize() + " cards in hand");
-        printSystem.print("Opponent board:\n" + opponent.printBoardWithoutInformation());
-        printSystem.print("Myself: " + myself.getCurrentHealth() + " Life");
-        printSystem.print("Myself: " + myself.getCurrentMana() + " mana");
-        printSystem.print("My board:\n" + myself.printBoardWithAllInformation());
-        printSystem.print("Hand: \n" + myself.printHand());
+    public Move play(OpponentBoardstate opponentBoardstate, PlayerBoardstate playerBoardstate) {
+        printSystem.print("Opponent: " + opponentBoardstate.getCurrentHealth() + " Life");
+        printSystem.print("Opponent: " + opponentBoardstate.getHandSize() + " cards in hand");
+        printSystem.print("Opponent board:\n" + opponentBoardstate.getBoard().printWithoutInformation());
+
+        printSystem.print("Myself: " + playerBoardstate.getCurrentHealth() + " Life");
+        printSystem.print("Myself: " + playerBoardstate.getCurrentMana() + " mana");
+        printSystem.print("My board:\n" + playerBoardstate.getBoard().printAllInformation());
+        printSystem.print("Hand: \n" + playerBoardstate.getHand().printHand());
 
         printSystem.print("Digit command: ");
         String command = inputSystem.getInput();
         printSystem.print(command);
-
-        game.action(interpreter.createMove(command));
-
+        return interpreter.createMove(command);
     }
 
 }

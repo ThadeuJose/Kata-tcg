@@ -1,12 +1,15 @@
 package com.tcg.strategy;
 
-import com.tcg.Game;
+import com.tcg.Move;
+import com.tcg.Type;
+import com.tcg.strategy.boardstate.OpponentBoardstate;
+import com.tcg.strategy.boardstate.PlayerBoardstate;
 
 public class PassStrategy implements Strategy {
 
     @Override
-    public void play(Game game) {
-        game.pass();
+    public Move play(OpponentBoardstate opponentBoardstate, PlayerBoardstate playerBoardstate) {
+        return new Move.Builder().setType(Type.AS_PASS).build();
     }
 
 }

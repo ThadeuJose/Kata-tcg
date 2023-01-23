@@ -12,6 +12,10 @@ public class Board {
         minions = new ArrayList<>();
     }
 
+    public Board(Board board) {
+        minions = new ArrayList<>(board.minions);
+    }
+
     public void add(Minion minion) {
         if (size() >= MAX_MINIONS_BOARD) {
             throw new BoardOverloadException("Shouldn't have more then 3 minions on the board");

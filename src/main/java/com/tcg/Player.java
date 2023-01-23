@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.tcg.model.Hand;
 import com.tcg.strategy.Strategy;
+import com.tcg.strategy.boardstate.OpponentBoardstate;
+import com.tcg.strategy.boardstate.PlayerBoardstate;
 
 public class Player implements Target, Combatant {
     private static final int MAX_HAND_SIZE = 5;
@@ -194,8 +197,8 @@ public class Player implements Target, Combatant {
         return 0;
     }
 
-    public void play(Game game) {
-        strategy.play(game);
+    public Move play(OpponentBoardstate opponentBoardstate, PlayerBoardstate playerBoardstate) {
+        return strategy.play(opponentBoardstate, playerBoardstate);
     }
 
     public String printHand() {
@@ -213,6 +216,14 @@ public class Player implements Target, Combatant {
 
     public String printBoardWithoutInformation() {
         return board.printWithoutInformation();
+    }
+
+    public Board getBoard() {
+        return new Board(board);
+    }
+
+    public Hand getHand() {
+        return new Hand(hand);
     }
 
 }

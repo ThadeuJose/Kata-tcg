@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import com.tcg.architecture.observer.Message;
 import com.tcg.architecture.observer.Observable;
 import com.tcg.model.Match;
+import com.tcg.strategy.boardstate.BoardStateMapper;
+import com.tcg.strategy.boardstate.OpponentBoardstate;
+import com.tcg.strategy.boardstate.PlayerBoardstate;
 import com.tcg.system.ActionSystem;
 import com.tcg.system.PrintSystem;
 import com.tcg.system.VictorySystem;
@@ -133,7 +136,9 @@ public class Game {
             checkWinner();
 
             while (needPlayerInput()) {
-                match.getActivePlayer().play(this);
+                PlayerBoardstate playerBoardstate = BoardStateMapper.mapPlayerBoardstatefromMatch(match);
+                OpponentBoardstate opponentBoardstate = BoardStateMapper.mapOpponentBoardstatefromMatch(match);
+                action(match.getActivePlayer().play(opponentBoardstate, playerBoardstate));
             }
 
             checkWinner();
