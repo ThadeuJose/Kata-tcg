@@ -1,7 +1,5 @@
 package com.tcg.system;
 
-import java.util.Objects;
-
 import com.tcg.CantAffordCardException;
 import com.tcg.Card;
 import com.tcg.Game;
