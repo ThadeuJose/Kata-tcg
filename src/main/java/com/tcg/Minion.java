@@ -35,6 +35,13 @@ public class Minion implements Target, Combatant {
         health = builder.health;
     }
 
+    public Minion(Minion minion) {
+        sleep = minion.sleep;
+        alreadyAttack = minion.alreadyAttack;
+        power = minion.power;
+        health = minion.health;
+    }
+
     public int getPower() {
         return power;
     }

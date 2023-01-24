@@ -80,10 +80,12 @@ public class Player implements Target, Combatant {
         mana = manaSlot;
     }
 
-    public Card getCardFromHand(int cardIndex) {
-        Card card = hand.get(cardIndex);
+    public Card getCard(int cardIndex) {
+        return new Card(hand.get(cardIndex));
+    }
+
+    public void removeCard(int cardIndex) {
         hand.remove(cardIndex);
-        return card;
     }
 
     public void spendMana(int cost) {

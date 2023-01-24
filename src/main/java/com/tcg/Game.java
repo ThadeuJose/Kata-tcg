@@ -41,7 +41,7 @@ public class Game {
         this.manaRefillService = manaRefillService;
 
         victorySystem = new VictorySystem(match, stateMachine);
-        actionSystem = new ActionSystem(this, victorySystem, match);
+        actionSystem = new ActionSystem(stateMachine, printSystem, victorySystem, match);
 
     }
 

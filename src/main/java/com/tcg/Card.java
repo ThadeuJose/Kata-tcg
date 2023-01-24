@@ -23,6 +23,14 @@ public class Card {
         this.quantityOfCardsToDraw = builder.quantityOfCardsToDraw;
     }
 
+    public Card(Card card) {
+        this.manaCost = card.manaCost;
+        this.damageValue = card.damageValue;
+        this.healingValue = card.healingValue;
+        this.minion = new Minion(card.minion);
+        this.quantityOfCardsToDraw = card.quantityOfCardsToDraw;
+    }
+
     public int getManaCost() {
         return manaCost;
     }
