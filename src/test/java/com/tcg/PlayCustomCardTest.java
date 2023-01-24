@@ -1,6 +1,5 @@
 package com.tcg;
 
-import static com.tcg.Move.toPlayer;
 import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
@@ -34,23 +33,21 @@ public class PlayCustomCardTest {
 
     @Test
     public void shouldDealCorrectDamage() {
-        Move move = aMove().dealDamage(0, toPlayer());
+        Move move = aMove().dealDamageToPlayer(0);
         game.play(move);
         assertEquals(27, nonActivePlayer.getCurrentHealth());
     }
 
     @Test
     public void shouldHealCorrectValue() {
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_HEALING)
-                .build();
+        Move move = new Move.Builder().heal(0);
         game.play(move);
         assertEquals(20, activePlayer.getCurrentHealth());
     }
 
     @Test
     public void shouldCreateCorrectMinion() {
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
         game.play(move);
 
         Minion minion = activePlayer.getMinion(0);
@@ -60,8 +57,7 @@ public class PlayCustomCardTest {
 
     @Test
     public void shouldDrawCorrectQuantityOfCard() {
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DRAW)
-                .build();
+        Move move = new Move.Builder().draw(0);
         game.play(move);
         assertEquals(3, activePlayer.getHandSize());
     }

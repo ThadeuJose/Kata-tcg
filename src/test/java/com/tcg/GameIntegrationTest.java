@@ -1,13 +1,11 @@
 package com.tcg;
 
-import static com.tcg.Move.toPlayer;
 import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
@@ -47,11 +45,12 @@ public class GameIntegrationTest {
         TestPrintSystem printSystem = new TestPrintSystem();
 
         Strategy strategy2 = mock(Strategy.class);
-        when(strategy2.play(any(), any())).thenReturn(aMove().dealDamage(0, toPlayer()),
-                aMove().setType(Type.AS_PASS).build());
+        when(strategy2.play(any(), any())).thenReturn(aMove().dealDamageToPlayer(0),
+                aMove().pass());
 
         Card card = new Card.Builder(1).setDamage(2).build();
-        Player player1 = new Player.Builder().setPlayerName("Player 1").setDeck(DeckFactory.createStandardDeck())
+        Player player1 = new Player.Builder().setPlayerName("Player 1")
+                .setDeck(DeckFactory.createStandardDeck())
                 .setMana(2)
                 .setCardsInHand(card)
                 .setStrategy(strategy2)
@@ -97,9 +96,11 @@ public class GameIntegrationTest {
     public void shouldPassTurn() {
         TestPrintSystem printSystem = new TestPrintSystem();
 
-        Player player1 = new Player.Builder().setPlayerName("Player 1").setDeck(DeckFactory.createStandardDeck())
+        Player player1 = new Player.Builder().setPlayerName("Player 1")
+                .setDeck(DeckFactory.createStandardDeck())
                 .setStrategy(new PassStrategy()).build();
-        Player player2 = new Player.Builder().setPlayerName("Player 2").setDeck(DeckFactory.createStandardDeck())
+        Player player2 = new Player.Builder().setPlayerName("Player 2")
+                .setDeck(DeckFactory.createStandardDeck())
                 .setStrategy(new EndGameStrategy()).build();
 
         Game game = createGame(printSystem, player1, player2);
@@ -116,10 +117,12 @@ public class GameIntegrationTest {
 
         ConsoleStrategy consoleStrategy = new ConsoleStrategy(printSystem, inputSystem);
 
-        Player player1 = new Player.Builder().setPlayerName("Player 1").setDeck(DeckFactory.createStandardDeck())
+        Player player1 = new Player.Builder().setPlayerName("Player 1")
+                .setDeck(DeckFactory.createStandardDeck())
                 .setStrategy(consoleStrategy)
                 .build();
-        Player player2 = new Player.Builder().setPlayerName("Player 2").setDeck(DeckFactory.createStandardDeck())
+        Player player2 = new Player.Builder().setPlayerName("Player 2")
+                .setDeck(DeckFactory.createStandardDeck())
                 .setStrategy(new EndGameStrategy())
                 .build();
 
@@ -144,7 +147,8 @@ public class GameIntegrationTest {
         Deck deck = Deck.createStandardDeck();
         Strategy strategy = new EndGameStrategy();
         Player player1 = new Player.Builder().setDeck(deck).setStrategy(strategy).build();
-        Player player2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck()).build();
+        Player player2 = new Player.Builder().setPlayerName("Player 2").setDeck(Deck.createStandardDeck())
+                .build();
         return createGame(printSystem, player1, player2);
     }
 

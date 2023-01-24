@@ -91,17 +91,12 @@ public class Game {
     }
 
     public void attackPlayerWithMinion(int activePlayerMinionIdx) {
-        Move move = new Move.Builder().setType(Type.AS_MINION_ATTACK_PLAYER)
-                .setActivePlayerMinionIdx(activePlayerMinionIdx)
-                .build();
+        Move move = new Move.Builder().attackPlayerWithMinion(activePlayerMinionIdx);
         actionSystem.action(move);
     }
 
     public void attackMinionWithMinion(int activePlayerMinionIdx, int nonActivePlayerMinionIdx) {
-        Move move = new Move.Builder().setType(Type.AS_MINION_ATTACK_MINION)
-                .setActivePlayerMinionIdx(activePlayerMinionIdx)
-                .setNonActivePlayerMinionIdx(nonActivePlayerMinionIdx)
-                .build();
+        Move move = new Move.Builder().attackMinionWithMinion(activePlayerMinionIdx, nonActivePlayerMinionIdx);
         actionSystem.action(move);
     }
 

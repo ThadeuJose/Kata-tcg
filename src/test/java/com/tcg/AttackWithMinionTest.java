@@ -31,8 +31,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.play(move);
 
@@ -53,8 +52,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.play(move);
         game.pass();
@@ -79,8 +77,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.play(move);
         game.play(move);
@@ -114,8 +111,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.pass();
         game.startTurn();
@@ -143,8 +139,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.play(move);
         game.pass();
@@ -172,8 +167,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.play(move);
         game.pass();
@@ -201,8 +195,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.play(move);
 
@@ -232,8 +225,7 @@ public class AttackWithMinionTest {
 
         game.startTurn();
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_MINION)
-                .build();
+        Move move = new Move.Builder().createMinion(0);
 
         game.play(move);
         game.pass();

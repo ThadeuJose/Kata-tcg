@@ -5,9 +5,6 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.tcg.target.TargetPlayer;
-import com.tcg.target.TargetType;
-
 public class InterpreterTest {
 
     @Test
@@ -22,7 +19,7 @@ public class InterpreterTest {
     public void shouldReturnPassMove() {
         Interpreter interpreter = new Interpreter();
         Move actual = interpreter.createMove("P");
-        Move expected = new Move.Builder().setType(Type.AS_PASS).build();
+        Move expected = new Move.Builder().pass();
         assertEquals(expected.getType(), actual.getType());
     }
 
@@ -30,24 +27,18 @@ public class InterpreterTest {
     public void shouldReturnDamageMove() {
         Interpreter interpreter = new Interpreter();
         Move actual = interpreter.createMove("D");
-        Move expected = aMove().dealDamage(0, Move.toPlayer());
+        Move expected = aMove().dealDamageToPlayer(0);
         assertEquals(expected.getType(), actual.getType());
         assertEquals(expected.getCardIndex(), actual.getCardIndex());
-
-        TargetType actualClass = actual.getTargetType();
-        assertEquals(TargetPlayer.class, actualClass.getClass());
     }
 
     @Test
     public void shouldReturnDamageMoveWithIndexDifferentOfZero() {
         Interpreter interpreter = new Interpreter();
         Move actual = interpreter.createMove("D5");
-        Move expected = aMove().dealDamage(5, Move.toPlayer());
+        Move expected = aMove().dealDamageToPlayer(5);
         assertEquals(expected.getType(), actual.getType());
         assertEquals(expected.getCardIndex(), actual.getCardIndex());
-
-        TargetType actualClass = actual.getTargetType();
-        assertEquals(TargetPlayer.class, actualClass.getClass());
     }
 
     @Test

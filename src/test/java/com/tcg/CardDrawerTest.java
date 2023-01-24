@@ -21,8 +21,7 @@ public class CardDrawerTest {
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = createGame(player, p2);
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DRAW)
-                .build();
+        Move move = new Move.Builder().draw(0);
         game.play(move);
 
         assertEquals(5, player.getHandSize());
@@ -42,8 +41,7 @@ public class CardDrawerTest {
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = createGame(player, p2);
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DRAW)
-                .build();
+        Move move = new Move.Builder().draw(0);
         game.play(move);
 
         assertEquals(5, player.getHandSize());
@@ -63,8 +61,7 @@ public class CardDrawerTest {
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = createGame(player, p2);
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DRAW)
-                .build();
+        Move move = new Move.Builder().draw(0);
         game.play(move);
 
         assertEquals(0, player.getDeckSize());
@@ -79,8 +76,7 @@ public class CardDrawerTest {
         Player p2 = Player.createPlayerWithStandardDeck();
         Game game = createGame(player, p2);
 
-        Move move = new Move.Builder().setCardIndex(0).setType(Type.AS_DRAW)
-                .build();
+        Move move = new Move.Builder().draw(0);
 
         game.play(move);
 

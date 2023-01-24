@@ -1,6 +1,5 @@
 package com.tcg;
 
-import static com.tcg.Move.toPlayer;
 import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 
@@ -21,7 +20,7 @@ public class PlayCardExceptionsTest {
         Player nonActivePlayer = Player.createPlayerWithEmptyDeck();
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = aMove().dealDamage(0, toPlayer());
+        Move move = aMove().dealDamageToPlayer(0);
 
         game.play(move);
     }
@@ -40,7 +39,7 @@ public class PlayCardExceptionsTest {
 
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = aMove().dealDamage(0, toPlayer());
+        Move move = aMove().dealDamageToPlayer(0);
 
         game.play(move);
     }
@@ -57,7 +56,7 @@ public class PlayCardExceptionsTest {
 
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = aMove().dealDamage(5, toPlayer());
+        Move move = aMove().dealDamageToPlayer(5);
         game.play(move);
     }
 
@@ -72,7 +71,7 @@ public class PlayCardExceptionsTest {
         Player nonActivePlayer = new Player.Builder().build();
         Game game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = aMove().dealDamage(-1, toPlayer());
+        Move move = aMove().dealDamageToPlayer(-1);
 
         game.play(move);
     }

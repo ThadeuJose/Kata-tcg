@@ -1,6 +1,5 @@
 package com.tcg;
 
-import static com.tcg.Move.toPlayer;
 import static com.tcg.util.CreateUtils.aMove;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
@@ -36,7 +35,7 @@ public class WinconTest {
 
         Game game = createGame(playerTest, lostPlayer);
 
-        Move move = aMove().dealDamage(0, toPlayer());
+        Move move = aMove().dealDamageToPlayer(0);
         game.play(move);
 
         assertEquals(0, lostPlayer.getCurrentHealth());
@@ -57,7 +56,7 @@ public class WinconTest {
 
         Game game = createGame(playerTest, lostPlayer);
 
-        Move move = aMove().dealDamage(0, toPlayer());
+        Move move = aMove().dealDamageToPlayer(0);
         game.play(move);
 
         assertEquals(-1, lostPlayer.getCurrentHealth());

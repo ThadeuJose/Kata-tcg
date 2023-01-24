@@ -1,6 +1,5 @@
 package com.tcg;
 
-import static com.tcg.Move.toPlayer;
 import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
@@ -22,7 +21,7 @@ public class PlayCardTest {
         Player nonActivePlayer = new Player.Builder().build();
         game = createGame(activePlayer, nonActivePlayer);
 
-        Move move = new Move.Builder().dealDamage(0, toPlayer());
+        Move move = new Move.Builder().dealDamageToPlayer(0);
 
         game.play(move);
         game.play(move);
