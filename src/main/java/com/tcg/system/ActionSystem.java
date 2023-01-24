@@ -14,19 +14,17 @@ import com.tcg.action.CreateMinionAction;
 import com.tcg.action.DoDamageAction;
 import com.tcg.action.DrawAction;
 import com.tcg.action.HealingAction;
-import com.tcg.architecture.observer.Message;
-import com.tcg.architecture.observer.Observable;
 import com.tcg.model.Match;
 import com.tcg.target.TargetVisitor;
 
 public class ActionSystem {
     Game game;
-    Observable observable;
+    VictorySystem victorySystem;
     Match match;
 
-    public ActionSystem(Game game, Observable observable, Match match) {
+    public ActionSystem(Game game, VictorySystem victorySystem, Match match) {
         this.game = game;
-        this.observable = observable;
+        this.victorySystem = victorySystem;
         this.match = match;
     }
 
@@ -99,8 +97,7 @@ public class ActionSystem {
     }
 
     private void checkWinner() {
-        Message message = new Message("victory", null);
-        observable.sendMessage(message);
+        victorySystem.checkWinner();
     }
 
     private void attackPlayerWithMinion(int activePlayerMinionIdx) {

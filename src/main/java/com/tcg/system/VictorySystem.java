@@ -1,32 +1,38 @@
 package com.tcg.system;
 
-import com.tcg.Game;
-import com.tcg.architecture.observer.Message;
-import com.tcg.architecture.observer.Observer;
+import java.util.Optional;
 
-public class VictorySystem implements Observer {
+import com.tcg.Player;
+import com.tcg.model.Match;
+import com.tcg.model.state.EventEnum;
+import com.tcg.model.state.StateMachine;
 
-    Game game;
+public class VictorySystem {
 
-    public VictorySystem(Game game) {
-        this.game = game;
+    private Player winner;
+    private Match match;
+    private StateMachine stateMachine;
+
+    public VictorySystem(Match match, StateMachine stateMachine) {
+        this.winner = null;
+        this.match = match;
+        this.stateMachine = stateMachine;
     }
 
     public void checkWinner() {
-        if (game.getActivePlayer().getCurrentHealth() <= 0) {
-            game.setWinner(game.getNonActivePlayer());
-            game.setVictory();
+        if (match.getActivePlayer().getCurrentHealth() <= 0) {
+            winner = match.getNonActivePlayer();
+            stateMachine.update(EventEnum.PLAYER_GO_TO_0_HEALTH);
         }
 
-        if (game.getNonActivePlayer().getCurrentHealth() <= 0) {
-            game.setWinner(game.getActivePlayer());
-            game.setVictory();
+        if (match.getNonActivePlayer().getCurrentHealth() <= 0) {
+            winner = match.getActivePlayer();
+            stateMachine.update(EventEnum.PLAYER_GO_TO_0_HEALTH);
         }
     }
 
-    @Override
-    public void update(Message message) {
-        checkWinner();
+    public Optional<Player> getWinner() {
+        return Optional.ofNullable(winner);
     }
 
 }

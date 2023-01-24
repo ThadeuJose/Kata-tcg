@@ -5,8 +5,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
-import com.tcg.architecture.observer.Message;
-import com.tcg.architecture.observer.Observable;
 import com.tcg.model.ManaRefillService;
 import com.tcg.model.Match;
 import com.tcg.model.state.EventEnum;
@@ -28,7 +26,6 @@ public class Game {
     PrintSystem printSystem;
     VictorySystem victorySystem;
     ActionSystem actionSystem;
-    Observable observable;
 
     private StateMachine stateMachine;
     private ManaRefillService manaRefillService;
@@ -40,13 +37,11 @@ public class Game {
         // TODO Refactor
         match = new Match(player1, player2);
 
-        victorySystem = new VictorySystem(this);
-        observable = new Observable();
-        observable.addObserver("victory", victorySystem);
-        actionSystem = new ActionSystem(this, observable, match);
-
         this.stateMachine = stateMachine;
         this.manaRefillService = manaRefillService;
+
+        victorySystem = new VictorySystem(match, stateMachine);
+        actionSystem = new ActionSystem(this, victorySystem, match);
 
     }
 
@@ -119,11 +114,7 @@ public class Game {
     }
 
     public Optional<Player> getWinner() {
-        return match.getWinner();
-    }
-
-    public void setWinner(Player winner) {
-        match.setWinner(winner);
+        return victorySystem.getWinner();
     }
 
     public void pass() {
@@ -167,10 +158,6 @@ public class Game {
         stateMachine.update(EventEnum.QUIT_COMMAND);
     }
 
-    public void setVictory() {
-        stateMachine.update(EventEnum.PLAYER_GO_TO_0_HEALTH);
-    }
-
     private boolean isRunning() {
         return !stateMachine.isFinalState();
     }
@@ -188,7 +175,6 @@ public class Game {
     }
 
     private void checkWinner() {
-        Message message = new Message("victory", null);
-        observable.sendMessage(message);
+        victorySystem.checkWinner();
     }
 }
