@@ -18,7 +18,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnPassMove() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("P");
+        Move actual = interpreter.createMove("p");
         Move expected = new Move.Builder().pass();
         assertEquals(expected.getType(), actual.getType());
     }
@@ -26,7 +26,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnDamageMove() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("D");
+        Move actual = interpreter.createMove("d");
         Move expected = aMove().dealDamageToPlayer(0);
         assertEquals(expected.getType(), actual.getType());
         assertEquals(expected.getCardIndex(), actual.getCardIndex());
@@ -35,7 +35,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnDamageMoveWithIndexDifferentOfZero() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("D5");
+        Move actual = interpreter.createMove("d 5");
         Move expected = aMove().dealDamageToPlayer(5);
         assertEquals(expected.getType(), actual.getType());
         assertEquals(expected.getCardIndex(), actual.getCardIndex());
@@ -44,7 +44,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnHealMove() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("H");
+        Move actual = interpreter.createMove("h");
         Move expected = aMove().heal(0);
 
         assertEquals(expected.getType(), actual.getType());
@@ -54,7 +54,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnHealMoveWithIndexDifferentOfZero() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("H4");
+        Move actual = interpreter.createMove("h 4");
         Move expected = aMove().heal(4);
 
         assertEquals(expected.getType(), actual.getType());
@@ -64,7 +64,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnDrawMove() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("R");
+        Move actual = interpreter.createMove("r");
         Move expected = aMove().draw(0);
 
         assertEquals(expected.getType(), actual.getType());
@@ -74,7 +74,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnDrawMoveWithIndexDifferentOfZero() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("R4");
+        Move actual = interpreter.createMove("r 4");
         Move expected = aMove().draw(4);
 
         assertEquals(expected.getType(), actual.getType());
@@ -84,7 +84,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnCreateMinionMove() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("C");
+        Move actual = interpreter.createMove("c");
         Move expected = aMove().createMinion(0);
 
         assertEquals(expected.getType(), actual.getType());
@@ -94,7 +94,7 @@ public class InterpreterTest {
     @Test
     public void shouldReturnCreateMinionMoveWithIndexDifferentOfZero() {
         Interpreter interpreter = new Interpreter();
-        Move actual = interpreter.createMove("C3");
+        Move actual = interpreter.createMove("c 3");
         Move expected = aMove().createMinion(3);
 
         assertEquals(expected.getType(), actual.getType());
