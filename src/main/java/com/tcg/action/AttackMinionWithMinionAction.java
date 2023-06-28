@@ -3,14 +3,14 @@ package com.tcg.action;
 import com.tcg.Minion;
 import com.tcg.Player;
 
-public class AttackMinionWithMinion implements Action {
+public class AttackMinionWithMinionAction implements Action {
 
     private Player activePlayer;
     private Player nonActivePlayer;
     private int activePlayerMinionIdx;
     private int nonActivePlayerMinionIdx;
 
-    public AttackMinionWithMinion(Player activePlayer, Player nonActivePlayer, int activePlayerMinionIdx,
+    public AttackMinionWithMinionAction(Player activePlayer, Player nonActivePlayer, int activePlayerMinionIdx,
             int nonActivePlayerMinionIdx) {
         this.activePlayer = activePlayer;
         this.nonActivePlayer = nonActivePlayer;

@@ -1,6 +1,7 @@
 package com.tcg.system;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.function.Consumer;
 
 import com.tcg.Minion;
@@ -8,7 +9,7 @@ import com.tcg.Move;
 import com.tcg.Player;
 import com.tcg.Type;
 import com.tcg.action.Action;
-import com.tcg.action.AttackMinionWithMinion;
+import com.tcg.action.AttackMinionWithMinionAction;
 import com.tcg.action.AttackPlayerWithMinionAction;
 import com.tcg.action.EndGameAction;
 import com.tcg.action.PassAction;
@@ -20,6 +21,7 @@ import com.tcg.model.Match;
 import com.tcg.model.state.StateMachine;
 
 public class ActionSystem {
+
     private VictorySystem victorySystem;
     private Match match;
     private StateMachine stateMachine;
@@ -48,7 +50,9 @@ public class ActionSystem {
 
     public void action(Move move) {
         Type type = move.getType();
-        map.get(type).accept(move);
+        if (Objects.nonNull(type)) {
+            map.get(type).accept(move);
+        }
     }
 
     private void createMinion(Move move) {
@@ -106,7 +110,7 @@ public class ActionSystem {
         Player activePlayer = match.getActivePlayer();
         Player nonActivePlayer = match.getNonActivePlayer();
 
-        Action action = new AttackMinionWithMinion(activePlayer, nonActivePlayer, activePlayerMinionIdx,
+        Action action = new AttackMinionWithMinionAction(activePlayer, nonActivePlayer, activePlayerMinionIdx,
                 nonActivePlayerMinionIdx);
         action.execute();
     }

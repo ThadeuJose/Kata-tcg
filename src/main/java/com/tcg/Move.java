@@ -2,7 +2,7 @@ package com.tcg;
 
 public class Move {
 
-    private Type type;
+    protected Type type;
 
     private int cardIndex;
 
