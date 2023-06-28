@@ -2,12 +2,15 @@ package com.tcg.model.state;
 
 import java.util.EnumMap;
 
+import org.springframework.stereotype.Component;
+
 import com.tcg.model.state.states.PlayerInputState;
 import com.tcg.model.state.states.QuitState;
 import com.tcg.model.state.states.StartTurnState;
 import com.tcg.model.state.states.State;
 import com.tcg.model.state.states.VictoryState;
 
+@Component
 public class StateMachine {
 
     private StateEnum currentState;

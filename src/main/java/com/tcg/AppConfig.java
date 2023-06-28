@@ -1,41 +1,22 @@
-package com.tcg.architecture;
+package com.tcg;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
-import com.tcg.Deck;
-import com.tcg.DeckFactory;
-import com.tcg.Game;
-import com.tcg.Player;
-import com.tcg.model.ManaRefillService;
-import com.tcg.model.state.StateMachine;
-import com.tcg.strategy.PassStrategy;
 import com.tcg.strategy.ConsoleStrategy;
+import com.tcg.strategy.PassStrategy;
 import com.tcg.strategy.Strategy;
 import com.tcg.system.InputSystem;
 import com.tcg.system.PrintSystem;
 
 @Configuration
+@ComponentScan
 public class AppConfig {
 
     @Bean
-    public PrintSystem printSystem() {
-        return new PrintSystem();
-    }
-
-    @Bean
-    public InputSystem inputSystem() {
-        return new InputSystem();
-    }
-
-    @Bean
-    public Game game() {
-        return new Game(new StateMachine(), new ManaRefillService(), printSystem(), player1(), player2());
-    }
-
-    @Bean
-    public Player player1() {
-        Strategy strategy = new ConsoleStrategy(printSystem(), inputSystem());
+    public Player player1(PrintSystem printSystem, InputSystem inputSystem) {
+        Strategy strategy = new ConsoleStrategy(printSystem, inputSystem);
         Deck standardDeck = DeckFactory.createStandardDeck();
         return new Player.Builder().setPlayerName("Player 1").setDeck(standardDeck).setStrategy(strategy).build();
     }

@@ -2,6 +2,9 @@ package com.tcg.system;
 
 import java.util.Scanner;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class InputSystem {
     private Scanner scanner;
 
