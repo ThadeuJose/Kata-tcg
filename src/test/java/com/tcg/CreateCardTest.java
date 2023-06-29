@@ -16,7 +16,7 @@ public class CreateCardTest {
                 .setMinion(MinionFactory.createMinion(3, 2))
                 .setCardDraw(1)
                 .build();
-        Minion minion = new Minion(3, 2);
+        Minion minion = MinionFactory.createMinion(3, 2);
         Card expected = new Card(2, 3, 2, minion, 1);
         assertEquals(expected, actual);
     }
@@ -24,7 +24,7 @@ public class CreateCardTest {
     @Test
     public void shouldCreateCorrectDefaultCard() {
         Card expected = new Card.Builder(2).build();
-        Minion minion = new Minion(2, 2);
+        Minion minion = MinionFactory.createMinion(2, 2);
         Card actual = new Card(2, 2, 2, minion, 2);
         assertEquals(expected, actual);
     }
@@ -32,7 +32,7 @@ public class CreateCardTest {
     @Test
     public void shouldCreateCorrect0Card() {
         Card expected = new Card.Builder(0).build();
-        Minion minion = new Minion(0, 1);
+        Minion minion = MinionFactory.createMinion(0, 1);
         Card actual = new Card(0, 0, 0, minion, 0);
         assertEquals(expected, actual);
     }
