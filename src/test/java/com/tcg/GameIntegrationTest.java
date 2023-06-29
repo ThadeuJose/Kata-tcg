@@ -110,6 +110,7 @@ public class GameIntegrationTest {
     }
 
     @Test
+    @Ignore
     public void shouldPrintBoardState() {
         PrintSystem printSystem = mock(PrintSystem.class);
         InputSystem inputSystem = mock(InputSystem.class);

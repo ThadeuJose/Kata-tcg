@@ -30,12 +30,11 @@ public class Game {
     private StateMachine stateMachine;
     private ManaRefillService manaRefillService;
 
-    public Game(StateMachine stateMachine, ManaRefillService manaRefillService, PrintSystem printSystem, Player player1,
-            Player player2) {
+    public Game(StateMachine stateMachine, ManaRefillService manaRefillService, PrintSystem printSystem, Match match) {
         this.printSystem = printSystem;
 
         // TODO Refactor
-        match = new Match(player1, player2);
+        this.match = match;
 
         this.stateMachine = stateMachine;
         this.manaRefillService = manaRefillService;
@@ -50,21 +49,13 @@ public class Game {
             printSystem.print("Start the game");
         }
 
-        for (int i = 0; i < MAX_HAND_ACTIVE_PLAYER; i++) {
-            match.getActivePlayer().draw();
-        }
-        for (int i = 0; i < MAX_HAND_NON_ACTIVE_PLAYER; i++) {
-            match.getNonActivePlayer().draw();
-        }
+        // for (int i = 0; i < MAX_HAND_ACTIVE_PLAYER; i++) {
+        // match.getActivePlayer().draw();
+        // }
+        // for (int i = 0; i < MAX_HAND_NON_ACTIVE_PLAYER; i++) {
+        // match.getNonActivePlayer().draw();
+        // }
 
-    }
-
-    public Player getActivePlayer() {
-        return new Player(match.getActivePlayer());
-    }
-
-    public Player getNonActivePlayer() {
-        return new Player(match.getNonActivePlayer());
     }
 
     public void startTurn() {

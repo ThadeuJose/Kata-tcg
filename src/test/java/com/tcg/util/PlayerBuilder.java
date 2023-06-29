@@ -20,8 +20,21 @@ public class PlayerBuilder {
         return aPlayer().build();
     }
 
+    public static PlayerBuilder anyPlayer1() {
+        return aPlayer().withName("Player 1");
+    }
+
+    public static PlayerBuilder anyPlayer2() {
+        return aPlayer().withName("Player 2");
+    }
+
     public PlayerBuilder withName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public PlayerBuilder withStrategy(Strategy strategy) {
+        this.strategy = strategy;
         return this;
     }
 

@@ -1,44 +1,47 @@
 package com.tcg;
 
-import static com.tcg.util.CreateUtils.createGame;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.tcg.model.ManaRefillService;
+import com.tcg.util.GameBuilder;
+import com.tcg.util.PlayerBuilder;
+
 public class BasicGamePlayTest {
     @Test
     public void activePlayerShouldReceive1ManaSlot() {
-        Game game = createGame();
-        game.init();
-        game.startTurn();
-        Player player = game.getActivePlayer();
-        assertEquals(1, player.getCurrentManaSlot());
+        Player activePlayer = PlayerBuilder.anyPlayer();
+        Game game = GameBuilder.aGame().withManaRefilService(new ManaRefillService()).withActivePlayer(activePlayer)
+                .build();
+        game.run();
+        assertEquals(1, activePlayer.getCurrentManaSlot());
     }
 
     @Test
     public void activePlayerShouldRefillEmptyManaSlot() {
-        Game game = createGame();
-        game.init();
-        game.startTurn();
-        Player player = game.getActivePlayer();
-        assertEquals(1, player.getCurrentMana());
+        Player activePlayer = PlayerBuilder.anyPlayer();
+        Game game = GameBuilder.aGame().withManaRefilService(new ManaRefillService()).withActivePlayer(activePlayer)
+                .build();
+        game.run();
+        assertEquals(1, activePlayer.getCurrentMana());
     }
 
     @Test
     public void activePlayerShouldDrawACard() {
-        Game game = createGame();
-        game.init();
-        game.startTurn();
-        Player player = game.getActivePlayer();
-        assertEquals(4, player.getHandSize());
+        Player activePlayer = PlayerBuilder.anyPlayer();
+        Game game = GameBuilder.aGame().withManaRefilService(new ManaRefillService()).withActivePlayer(activePlayer)
+                .build();
+        game.run();
+        assertEquals(4, activePlayer.getHandSize());
     }
 
     @Test
     public void activePlayerShouldDrawACardFromDeck() {
-        Game game = createGame();
-        game.init();
-        game.startTurn();
-        Player player = game.getActivePlayer();
-        assertEquals(16, player.getDeckSize());
+        Player activePlayer = PlayerBuilder.anyPlayer();
+        Game game = GameBuilder.aGame().withManaRefilService(new ManaRefillService()).withActivePlayer(activePlayer)
+                .build();
+        game.run();
+        assertEquals(16, activePlayer.getDeckSize());
     }
 }

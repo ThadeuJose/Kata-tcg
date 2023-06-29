@@ -26,8 +26,7 @@ public class StartGameTest {
 
     @Test
     public void activePlayerShouldStartWith3CardsInHand() {
-        TestPlayerChooser playerChooser = new TestPlayerChooser();
-        Match match = MatchFactory.createMatch(anyPlayer(), anyPlayer(), playerChooser);
+        Match match = MatchFactory.createMatch(anyPlayer(), anyPlayer(), new TestPlayerChooser());
         Player player = match.getActivePlayer();
         int handSize = 3;
         assertEquals(handSize, player.getHandSize());
@@ -35,8 +34,7 @@ public class StartGameTest {
 
     @Test
     public void nonActivePlayerShouldStartWith4CardsInHand() {
-        TestPlayerChooser playerChooser = new TestPlayerChooser();
-        Match match = MatchFactory.createMatch(anyPlayer(), anyPlayer(), playerChooser);
+        Match match = MatchFactory.createMatch(anyPlayer(), anyPlayer(), new TestPlayerChooser());
         Player player = match.getNonActivePlayer();
         int handSize = 4;
         assertEquals(handSize, player.getHandSize());
