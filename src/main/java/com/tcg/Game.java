@@ -113,7 +113,7 @@ public class Game {
             while (needPlayerInput()) {
                 PlayerBoardstate playerBoardstate = BoardStateMapper.mapPlayerBoardstatefromMatch(match);
                 OpponentBoardstate opponentBoardstate = BoardStateMapper.mapOpponentBoardstatefromMatch(match);
-                action(match.getActivePlayer().play(opponentBoardstate, playerBoardstate));
+                actionSystem.action(match.getActivePlayer().play(opponentBoardstate, playerBoardstate));
             }
 
             // TODO Refactor should end loop after deal damage
@@ -127,10 +127,6 @@ public class Game {
         } else {
             printSystem.print("Player 1 quit");
         }
-    }
-
-    public void endGame() {
-        stateMachine.update(EventEnum.QUIT_COMMAND);
     }
 
     private boolean isRunning() {
