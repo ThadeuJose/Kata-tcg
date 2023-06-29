@@ -18,9 +18,6 @@ import com.tcg.system.VictorySystem;
 
 @Component
 public class Game {
-    private static final int MAX_HAND_ACTIVE_PLAYER = 3;
-    private static final int MAX_HAND_NON_ACTIVE_PLAYER = 4;
-
     Match match;
 
     PrintSystem printSystem;
@@ -48,14 +45,6 @@ public class Game {
         if (Objects.nonNull(printSystem)) {
             printSystem.print("Start the game");
         }
-
-        // for (int i = 0; i < MAX_HAND_ACTIVE_PLAYER; i++) {
-        // match.getActivePlayer().draw();
-        // }
-        // for (int i = 0; i < MAX_HAND_NON_ACTIVE_PLAYER; i++) {
-        // match.getNonActivePlayer().draw();
-        // }
-
     }
 
     public void startTurn() {
