@@ -1,12 +1,12 @@
-package com.tcg.model;
+package com.tcg.model.match;
 
 import com.tcg.Player;
 
-public class Match {
+public class Players {
     private Player activePlayer;
     private Player nonActivePlayer;
 
-    public Match(Player activePlayer, Player nonActivePlayer) {
+    public Players(Player activePlayer, Player nonActivePlayer) {
         this.activePlayer = activePlayer;
         this.nonActivePlayer = nonActivePlayer;
     }
@@ -17,12 +17,6 @@ public class Match {
 
     public Player getNonActivePlayer() {
         return nonActivePlayer;
-    }
-
-    public void changeActivePlayer() {
-        Player temp = activePlayer;
-        activePlayer = nonActivePlayer;
-        nonActivePlayer = temp;
     }
 
 }

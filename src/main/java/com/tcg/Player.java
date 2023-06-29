@@ -66,6 +66,12 @@ public class Player implements Target, Combatant {
         }
     }
 
+    public void draw(int amount) {
+        for (int i = 0; i < amount; i++) {
+            draw();
+        }
+    }
+
     public void addEmptySlot() {
         if (manaSlot < 10) {
             manaSlot++;
