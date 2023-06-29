@@ -7,6 +7,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.tcg.model.minion.MinionFactory;
+
 public class PlayCustomCardTest {
 
     Card card;
@@ -19,7 +21,7 @@ public class PlayCustomCardTest {
         card = new Card.Builder(1)
                 .setDamage(3)
                 .setHealing(0)
-                .setMinion(new Minion.Builder().setPower(3).setHealth(3).build())
+                .setMinion(MinionFactory.createMinion(3, 3))
                 .setCardDraw(3)
                 .build();
 

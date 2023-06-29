@@ -1,5 +1,7 @@
 package com.tcg;
 
+import com.tcg.model.minion.MinionFactory;
+
 public class Card {
     private int manaCost;
     private int damageValue;
@@ -109,7 +111,7 @@ public class Card {
             this.manaCost = manaCost;
             this.damageValue = manaCost;
             this.healingValue = manaCost;
-            this.minion = new Minion(manaCost);
+            this.minion = MinionFactory.createMinion(manaCost, Math.max(1, manaCost));
             this.quantityOfCardsToDraw = manaCost;
         }
 

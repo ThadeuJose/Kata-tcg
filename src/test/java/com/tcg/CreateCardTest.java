@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import com.tcg.model.minion.MinionFactory;
+
 public class CreateCardTest {
 
     @Test
@@ -11,7 +13,7 @@ public class CreateCardTest {
         Card actual = new Card.Builder(2)
                 .setDamage(3)
                 .setHealing(2)
-                .setMinion(new Minion.Builder().setPower(3).setHealth(2).build())
+                .setMinion(MinionFactory.createMinion(3, 2))
                 .setCardDraw(1)
                 .build();
         Minion minion = new Minion(3, 2);
@@ -48,7 +50,7 @@ public class CreateCardTest {
         Card card = new Card.Builder(2)
                 .setDamage(3)
                 .setHealing(2)
-                .setMinion(new Minion.Builder().setPower(3).setHealth(2).build())
+                .setMinion(MinionFactory.createMinion(3, 2))
                 .setCardDraw(1)
                 .build();
         String expected = "Cost 2 - Damage 3 Healing 2 Minion 3/2 Card Draw 1";

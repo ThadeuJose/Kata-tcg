@@ -6,6 +6,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import com.tcg.model.minion.MinionFactory;
+
 public class CreateMinionTest {
     @Test
     public void shouldCreateValidMinionOfManaCost0Card() {
@@ -23,20 +25,6 @@ public class CreateMinionTest {
         assertEquals(5, minion.getHealth());
     }
 
-    @Test
-    public void shouldCreateDefaultMinion() {
-        Minion minion = Minion.buildDefaultMinion(5);
-        assertEquals(5, minion.getPower());
-        assertEquals(5, minion.getHealth());
-    }
-
-    @Test
-    public void shouldCreateDefaultMinionWith0Status() {
-        Minion minion = Minion.buildDefaultMinion(0);
-        assertEquals(0, minion.getPower());
-        assertEquals(1, minion.getHealth());
-    }
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -44,14 +32,14 @@ public class CreateMinionTest {
     public void shouldntCreateMinionWithNegativePower() {
         thrown.expect(IllegalStateException.class);
         thrown.expectMessage("Minion shouldn't have less then 0 power");
-        new Minion.Builder().setPower(-1).build();
+        MinionFactory.createMinion(-1, 0);
     }
 
     @Test
     public void shouldntCreateMinionWith0orlessHealth() {
         thrown.expect(IllegalStateException.class);
         thrown.expectMessage("Minion shouldn't have less then 1 health");
-        new Minion.Builder().setHealth(0).build();
+        MinionFactory.createMinion(0, 0);
     }
 
 }
